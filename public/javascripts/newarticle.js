@@ -1,6 +1,4 @@
 ﻿$(function () {
-    $("#side-menu>li:eq(2)").addClass("active").find("ul").addClass("in").find("li:eq(0)").addClass("active");
-
     $("#Title").focus();
 
     refreshCate();
