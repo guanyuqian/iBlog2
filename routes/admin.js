@@ -185,6 +185,7 @@ router.post('/getArticles', function (req, res, next) {
     });
 });
 
+
 //新的文章页面
 router.get('/newArticle', function (req, res, next) {
     tool.getConfig(path.join(__dirname, '../config/settings.json'), function (err, settings) {
@@ -538,4 +539,21 @@ router.post('/saveSettings', function (req, res, next) {
     res.end();
 });
 
+
+/**
+ * 新增游记页面
+ */
+router.get('/love/newTravels', function (req, res, next) {
+    tool.getConfig(path.join(__dirname, '../config/settings.json'), function (err, settings) {
+        if (err) {
+            next(err);
+        } else {
+            res.render('admin/love/newTravels', {
+                uniqueId: shortid.generate(),
+                config: settings,
+                title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.new_travels")
+            });
+        }
+    });
+});
 module.exports = router;

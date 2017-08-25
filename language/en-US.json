@@ -25,7 +25,9 @@
 		"cache_management": "Cache",
 		"exception_management": "Site Log",
 		"settings": "Settings",
-		"btn_logout": "Logout"
+		"btn_logout": "Logout",
+		"love_trace_management": "Love Space",
+		"new_travels": "New Travels"
 	},
 	"auth": {
 		"title": "Admin Login",
@@ -166,6 +168,26 @@
 			"back": "Back",
 			"publish": "Publish",
 			"save_draft": "Save Draft"
+		},
+		"newTravels": {
+			"new": "New Travels",
+			"title": "Title",
+			"enter_title": "Enter Title",
+			"category": "Category",
+			"enter_alias": "Enter Alias",
+			"auto_generate": "Auto Generate Summary",
+			"summary": "Summary",
+			"enter_summary": "Enter Summary",
+			"source": "Source",
+			"tag": "Tags",
+			"enter_to_add": "Enter To Add",
+			"article": "Article",
+			"enter_url": "Enter Url",
+			"update": "Update",
+			"back": "Back",
+			"publish": "Publish",
+			"save_draft": "Save Draft",
+			"Travels": "admin.newTravels.Travels"
 		},
 		"settings": {
 			"setting": "Settings",
