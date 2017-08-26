@@ -1,0 +1,44 @@
+@{this.layout = null}
+<div class="col-md-12">
+    <div class="col-md-4">
+        <label for="addScenicsName">名称</label>
+        <input type="text" class="form-control addScenicsName" id="addScenicsName" name='addScenicsName' placeholder="请输入名称">
+    </div>
+    <div class="col-md-4">
+        <label for="addScenicsDate">时间</label>
+        <div class="input-group">
+            <input type="text" class="form-control form_datetime addScenicsDate" id="addScenicsDate" name='addScenicsDate'
+                   name="addScenicsDate" placeholder="">
+            <span class="input-group-addon icon-remove" id="basic-addon2"><i class="fa fa-calendar"></i></span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <label for="addScenicsType">类型</label>
+        <select class="selectpicker form-control addScenicsType" id="addScenicsType" name='addScenicsType' >
+            <option>游玩</option>
+            <option>吃喝</option>
+            <option>下榻</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label for="addScenicsDate">操作</label>
+        <div class="'row" >
+            <button type="button " class="btn  btn-primary" id="addScenicTabBtn" style="display: none">
+                <span class="fa fa-plus"></span>
+                添加
+            </button>
+        </div>
+        <div class="'row">
+            <button type="button " class="btn  updateScenicTabBtn  btn-success" id="updateScenicTabBtn">
+                <span class="fa fa-floppy-o"></span>
+                保存
+            </button>
+            <button type="button " class="btn  cancelScenicTabBtn  btn-warning" id="cancelScenicTabBtn">
+                <span class="fa fa-undo"></span>
+                取消
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="/javascripts/scenicInf.js"></script>

@@ -1,8 +1,11 @@
 @{this.layout = './shared/layoutAdmin'}
 
+<link href="/libs/bTabs/b.tabs.css" rel="stylesheet"/>
 <link href="/libs/fuelux/dist/css/fuelux.min.css" rel="stylesheet"/>
 <link href="/libs/sweetalert/dist/sweetalert.css" rel="stylesheet"/>
 <link href="/libs/form.validation/dist/css/formValidation.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/libs/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
+
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-8">
         <h2>@__("admin.newTravels.new")</h2>
@@ -18,16 +21,23 @@
                             <div class="col-md-9">
                                 <div class="form-group">
                                     <label for="Title">@__("admin.newTravels.title")</label>
-                                    <input id="Title" type="text" name="Title" placeholder='@__("admin.newTravels.enter_title")' class="form-control"/>
+                                    <input id="Title" type="text" name="Title"
+                                           placeholder='@__("admin.newTravels.enter_title")' class="form-control"/>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="CategoryId" style="display:block;">@__("admin.newTravels.category")</label>
-                                    <div id="Categorylist" data-resize="auto" data-initialize="selectlist" class="btn-group selectlist">
-                                        <button data-toggle="dropdown" type="button" class="btn btn-white dropdown-toggle"><span class="selected-label"></span><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+                                    <label for="CategoryId"
+                                           style="display:block;">@__("admin.newTravels.category")</label>
+                                    <div id="Categorylist" data-resize="auto" data-initialize="selectlist"
+                                         class="btn-group selectlist">
+                                        <button data-toggle="dropdown" type="button"
+                                                class="btn btn-white dropdown-toggle"><span
+                                                class="selected-label"></span><span class="caret"></span><span
+                                                class="sr-only">Toggle Dropdown</span></button>
                                         <ul role="menu" class="dropdown-menu"></ul>
-                                        <input id="CategoryId" type="text" name="CategoryId" readonly="readonly" aria-hidden="true" class="hidden hidden-field"/>
+                                        <input id="CategoryId" type="text" name="CategoryId" readonly="readonly"
+                                               aria-hidden="true" class="hidden hidden-field"/>
                                     </div>
                                 </div>
                             </div>
@@ -36,7 +46,8 @@
                             <div class="col-md-9">
                                 <div class="form-group">
                                     <label for="Alias">Alias</label>
-                                    <input id="Alias" type="text" name="Alias" placeholder='@__("admin.newTravels.enter_alias")' class="form-control"/>
+                                    <input id="Alias" type="text" name="Alias"
+                                           placeholder='@__("admin.newTravels.enter_alias")' class="form-control"/>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -49,18 +60,48 @@
                         </div>
                         <div class="form-group">
                             <label for="Summary">@__("admin.newTravels.summary")</label>
-                            <textarea id="Summary" name="Summary" style="min-width: 100%;max-width: 100%;" placeholder='@__("admin.newTravels.enter_summary")' class="form-control"></textarea>
+                            <textarea id="Summary" name="Summary" style="min-width: 100%;max-width: 100%;"
+                                      placeholder='@__("admin.newTravels.enter_summary")'
+                                      class="form-control"></textarea>
                         </div>
+                        <div class="row">
 
+                            <div class="col-md-12" id="mainFrameTabs" style="padding : 20px;">
+                                <div class="form-group">
+                                    <label for="bTabs_navTabsMainPage">景点</label>
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li role="presentation" class="active noclose">
+                                            <a href="#bTabs_navTabsMainPage" data-toggle="tab">新增</a>
+                                        </li>
+                                    </ul>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="bTabs_navTabsMainPage">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 " style="padding: 30px">
+                                        <div id="allmap" style="height: 300px ;width: 100%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div id="block-local">
                             <div class="form-group">
                                 <label for="pillbox-input">@__("admin.newTravels.tag")</label>
                                 <div id="myPillbox" data-initialize="pillbox" class="pillbox">
                                     <ul class="clearfix pill-group">
-                                        <li class="pillbox-input-wrap btn-group"><a class="pillbox-more">and<span class="pillbox-more-count"></span> more...</a>
-                                            <input id="pillbox-input" type="text" placeholder='@__("admin.newTravels.enter_to_add")' class="form-control dropdown-toggle pillbox-add-item"/>
-                                            <button type="button" class="dropdown-toggle sr-only"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
-                                            <ul role="menu" data-toggle="dropdown" data-flip="auto" class="suggest dropdown-menu"></ul>
+                                        <li class="pillbox-input-wrap btn-group"><a class="pillbox-more">and<span
+                                                class="pillbox-more-count"></span> more...</a>
+                                            <input id="pillbox-input" type="text"
+                                                   placeholder='@__("admin.newTravels.enter_to_add")'
+                                                   class="form-control dropdown-toggle pillbox-add-item"/>
+                                            <button type="button" class="dropdown-toggle sr-only"><span
+                                                    class="caret"></span><span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <ul role="menu" data-toggle="dropdown" data-flip="auto"
+                                                class="suggest dropdown-menu"></ul>
                                         </li>
                                     </ul>
                                 </div>
@@ -89,6 +130,10 @@
     </div>
 </div>
 <script type="text/javascript" src="/libs/jquery/dist/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/javascripts/util.js" charset="utf-8"></script>
+
+<script src="/libs/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="/libs/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript" src="/libs/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/libs/form.validation/dist/js/formValidation.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/libs/form.validation/dist/js/framework/bootstrap.min.js" charset="utf-8"></script>
@@ -103,8 +148,10 @@
 <script type="text/javascript" src="/libs/fuelux/dist/js/fuelux.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/libs/sweetalert/dist/sweetalert.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/libs/js-md5/js/md5.min.js" charset="utf-8"></script>
+<script type="text/javascript"
+        src="http://api.map.baidu.com/api?v=2.0&ak=A4749739227af1618f7b0d1b588c0e85"></script>
 <script>var translateKey = '@config.TranslateKey';</script>
+<script type="text/javascript" src="/libs/bTabs/b.tabs.js" charset="utf-8"></script>
 <script type="text/javascript" src="/javascripts/newTravels.js" charset="utf-8"></script>
-<script>
 
-</script>
+
