@@ -65,14 +65,13 @@
                                       class="form-control"></textarea>
                         </div>
                         <div class="row">
-
                             <div class="col-md-12" id="mainFrameTabs" style="padding : 20px;">
                                 <div class="form-group">
                                     <label for="bTabs_navTabsMainPage">景点</label>
                                     <!-- Nav tabs -->
-                                    <ul class="nav nav-tabs" role="tablist">
+                                    <ul class="nav nav-tabs" role="tablist" id="myTab">
                                         <li role="presentation" class="active noclose">
-                                            <a href="#bTabs_navTabsMainPage" data-toggle="tab">新增</a>
+                                            <a href="#bTabs_navTabsMainPage" data-toggle="tab">添加</a>
                                         </li>
                                     </ul>
                                     <!-- Tab panes -->
@@ -81,7 +80,18 @@
 
                                         </div>
                                     </div>
+
+                                    <div id="test_container" style="display: none">
+                                        选择检索类型:
+                                        <select id="selectType" name="">
+                                            <option value="1">LOCAL_SEARCH</option>
+                                            <option value="2">TRANSIT_ROUTE</option>
+                                            <option value="3">DRIVING_ROUTE</option>
+                                        </select>
+                                    </div>
                                     <div class="col-md-12 " style="padding: 30px">
+                                        <div id="searchBox" style="position: absolute; left:0px; top: 0px; padding: 35px ;z-index:10000"></div>
+
                                         <div id="allmap" style="height: 300px ;width: 100%"></div>
                                     </div>
                                 </div>
@@ -132,6 +142,10 @@
 <script type="text/javascript" src="/libs/jquery/dist/jquery.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/javascripts/util.js" charset="utf-8"></script>
 
+<script type="text/javascript"
+        src="http://api.map.baidu.com/api?v=2.0&ak=A4749739227af1618f7b0d1b588c0e85"></script>
+<script type="text/javascript" src="/javascripts/SearchControl.js"></script>
+<link rel="stylesheet" href="/stylesheets/SearchControl.css" />
 <script src="/libs/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
 <script src="/libs/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript" src="/libs/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
@@ -148,10 +162,13 @@
 <script type="text/javascript" src="/libs/fuelux/dist/js/fuelux.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/libs/sweetalert/dist/sweetalert.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/libs/js-md5/js/md5.min.js" charset="utf-8"></script>
-<script type="text/javascript"
-        src="http://api.map.baidu.com/api?v=2.0&ak=A4749739227af1618f7b0d1b588c0e85"></script>
+
 <script>var translateKey = '@config.TranslateKey';</script>
 <script type="text/javascript" src="/libs/bTabs/b.tabs.js" charset="utf-8"></script>
+
+
+
 <script type="text/javascript" src="/javascripts/newTravels.js" charset="utf-8"></script>
+<script type="text/javascript" src="/javascripts/map.js" charset="utf-8"></script>
 
 

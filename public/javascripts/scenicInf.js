@@ -10,6 +10,7 @@ $(function () {
 
     $(function () {
         $('.form_datetime').datetimepicker({
+
             minView: "month", //  选择时间时，最小可以选择到那层；默认是‘hour’也可用0表示
             language: 'zh-CN', // 语言
             format: 'yyyy-mm-dd', // 文本框时间格式，设置为0,最后时间格式为2017-03-23
@@ -33,6 +34,7 @@ $(function () {
 
         return [year, month, day].join('-');
     }
+
 });
 
 

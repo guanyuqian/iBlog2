@@ -1,6 +1,5 @@
 ﻿$(function () {
 
-
     $("#Title").focus();
 
     refreshCate();
@@ -218,7 +217,7 @@
         $(this).find("li[data-value=" + data.value + "]").addClass("active");
     });
     //添加删除回调函数 tab
-    deleteScenicCallback=deleteScenicList;
+    deleteScenicCallback = deleteScenicList;
     $.ajax({
         url: 'scenicInf?action=addScenic', //这里是静态页的地址
         type: "GET", //静态页用get方法，否则服务器会抛出405错误
@@ -230,9 +229,29 @@
             $("#bTabs_navTabsMainPage>div>div>div>#cancelScenicTabBtn").hide();
             //添加tab事件
             $("#addScenicTabBtn").on('click', addScenic);
-
         }
     });
+    /**
+     * tab 切换事件
+     */
+    $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+        setActiveMark(e.target.href.toString().split('#').pop());
+    });
+    //设置活跃点，选中
+    function setActiveMark(uuid) {
+        // e.target.href.split('#').last();
+        if(uuid=='bTabs_navTabsMainPage'){
+            myMap.newChooseMark();
+        }
+        for (var i in scenicList) {
+            scenicList[i].mark.setAnimation(null);
+            if (scenicList[i].uuid == uuid)
+                scenicList[i].mark.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+            myMap.noChooseMark();
+        }
+    };
+
+
     /**
      * scenicList 的push操作,如果存在uuid相同的话就更新，带重名判断
      * @param scenic 新增的scenic
@@ -241,13 +260,25 @@
         for (i in scenicList) {
             //再判断是否是更新
             if (scenic.uuid == scenicList[i].uuid) {
+                oldScenic=scenicList[i]
                 scenicList[i] = scenic;
+                if (scenic.mark != null) {//如果选择新的点，则更新地图
+                    myMap.deleteMark(oldScenic.mark);//删除旧点
+                    myMap.saveMark();//保存当前点进地图，添加新可选择点
+                    myMap.noChooseMark();
+
+                }else{//如果没有选择新的点，则不更新点
+                    scenicList[i].mark=oldScenic.mark;
+                }
+                setActiveMark(scenic.uuid);
                 alert('更新成功');//in english
                 return 'update';
             }
         }
         //不是更新就新增
         scenicList.push(scenic);
+        myMap.saveMark();//保存当前点进地图，添加新可选择点
+        myMap.newChooseMark();
         return 'add';
     }
 
@@ -260,17 +291,21 @@
         var playTime = $(".tab-pane.active>div>div>div>.addScenicsDate").first().val();
         var type = $(".tab-pane.active>div>div>.addScenicsType").first().val();
         var menuId = generateUUID();
-        var result = scenicListAddOrUpdate({
+        var newScenic = {
             uuid: menuId,
             title: title,
             playTime: playTime,
             type: type,
-            pointLon: 100,//经度
-            pointLat: 100//纬度
-        });
-        if (result == 'add') $('#mainFrameTabs').bTabsAdd(menuId, title, url, refreshScenic);
-    }
+            mark: myMap.chooseMark
+        };
+        var result = scenicListAddOrUpdate(newScenic);
+        if (result == 'add') {
+            $('#mainFrameTabs').bTabsAdd(menuId, title, url, refreshScenic);
 
+        }
+        // $('#myTab a:first').tab('show'); // 选择第一个标签
+
+    }
 
 
     /**
@@ -286,10 +321,9 @@
             title: title,
             playTime: playTime,
             type: type,
-            pointLon: 100,//经度
-            pointLat: 100//纬度
+            mark: myMap.chooseMark
         });
-        if (action == 'update') $("[href$=" + menuId + "]").first().html(title+'<button type="button" class="navTabsCloseBtn" title="关闭" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>');
+        if (action == 'update') $("[href$=" + menuId + "]").first().html(title + '<button type="button" class="navTabsCloseBtn" title="关闭" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>');
     }
 
 
@@ -300,6 +334,7 @@
         for (i in scenicList) {
             //再判断是否是更新
             if (id == scenicList[i].uuid) {
+                myMap.deleteMark(scenicList[i].mark);
                 scenicList.splice(i, 1);
             }
         }
@@ -317,7 +352,7 @@
             var title = scenicList[i].title;
             var playTime = scenicList[i].playTime;
             var type = scenicList[i].type;
-            var selector = '#'+uuid + '>div>div>';
+            var selector = '#' + uuid + '>div>div>';
             $(selector + '.addScenicsName').val(title);
             $(selector + 'div>.addScenicsDate').val(playTime);
             $(selector + '.addScenicsType').val(type);
@@ -344,14 +379,6 @@
             }
         });
     }
-
-
-    /**
-     *地图初始化
-     */
-        // 百度地图API功能
-    var map = new BMap.Map("allmap");  // 创建Map实例
-    map.centerAndZoom("上海", 15);      // 初始化地图,用城市名设置地图中心点
 
 
 });
