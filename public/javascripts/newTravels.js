@@ -4,6 +4,10 @@
 
     refreshCate();
 
+
+    /**
+     * ueditor 初始化
+     */
     var editor = UE.getEditor("editor", {
         allowDivTransToP: false,
         initialFrameHeight: 300,
@@ -61,7 +65,10 @@
             });
         }
     });
-
+    /**************/
+    /**
+     * form validation 初始化
+     */
     $("#postForm").on('init.field.fv', function (e, data) {
         var $parent = data.element.parents('.form-group'),
             $icon = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
@@ -207,11 +214,12 @@
             }
         });
     });
-
+    /******************************/
     /**
-     * tab初始化
+     * scenic tab初始化
      */
     var scenicList = [];
+    //切换逻辑
     $(".selectlist").on("changed.fu.selectlist", function (e, data) {
         $(this).find("li").removeClass("active");
         $(this).find("li[data-value=" + data.value + "]").addClass("active");
@@ -224,51 +232,65 @@
         success: function (data) {
             $("#bTabs_navTabsMainPage").html(data);
             $('#mainFrameTabs').bTabs();
-            $("#bTabs_navTabsMainPage>div>div>div>#addScenicTabBtn").show();
-            $("#bTabs_navTabsMainPage>div>div>div>#updateScenicTabBtn").hide();
-            $("#bTabs_navTabsMainPage>div>div>div>#cancelScenicTabBtn").hide();
+            $("#updateScenicTabBtn").hide();
+            $("#cancelScenicTabBtn").hide();
             //添加tab事件
             $("#addScenicTabBtn").on('click', addScenic);
+            $("#updateScenicTabBtn").on('click', updateScenic);
+            $("#cancelScenicTabBtn").on('click', refreshScenic);
         }
     });
-    /**
-     * tab 切换事件
-     */
+
+    //tab 切换事件
     $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
         setActiveMark(e.target.href.toString().split('#').pop());
     });
     //设置活跃点，选中
     function setActiveMark(uuid) {
         // e.target.href.split('#').last();
-        if(uuid=='bTabs_navTabsMainPage'){
+        if (uuid == 'bTabs_navTabsMainPage') {
             myMap.newChooseMark();
+            $("#addScenicTabBtn").show();
+            $("#buildContain").show();
+
+            $("#updateScenicTabBtn").hide();
+            $("#cancelScenicTabBtn").hide();
+        }
+        else {
+            $("#addScenicTabBtn").hide();
+            $("#updateScenicTabBtn").show();
+            $("#buildContain").hide();
+            $("#cancelScenicTabBtn").show();
         }
         for (var i in scenicList) {
             scenicList[i].mark.setAnimation(null);
-            if (scenicList[i].uuid == uuid)
+            if (scenicList[i].uuid == uuid) {
                 scenicList[i].mark.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                myMap.panTo(scenicList[i].mark);
+            }
             myMap.noChooseMark();
         }
     };
 
-
-    /**
-     * scenicList 的push操作,如果存在uuid相同的话就更新，带重名判断
-     * @param scenic 新增的scenic
-     */
+    // scenicList 的push操作,如果存在uuid相同的话就更新，带重名判断
+    //@param scenic 新增的scenic
     function scenicListAddOrUpdate(scenic) {
+        if (scenic.title == '') {
+            alert('景点名称不能为空');
+            return;
+        }
         for (i in scenicList) {
             //再判断是否是更新
             if (scenic.uuid == scenicList[i].uuid) {
-                oldScenic=scenicList[i]
+                oldScenic = scenicList[i]
                 scenicList[i] = scenic;
                 if (scenic.mark != null) {//如果选择新的点，则更新地图
                     myMap.deleteMark(oldScenic.mark);//删除旧点
                     myMap.saveMark();//保存当前点进地图，添加新可选择点
                     myMap.noChooseMark();
 
-                }else{//如果没有选择新的点，则不更新点
-                    scenicList[i].mark=oldScenic.mark;
+                } else {//如果没有选择新的点，则不更新点
+                    scenicList[i].mark = oldScenic.mark;
                 }
                 setActiveMark(scenic.uuid);
                 alert('更新成功');//in english
@@ -282,9 +304,8 @@
         return 'add';
     }
 
-    /**
-     * 增加景点
-     */
+
+    //增加景点
     function addScenic() {
         var title = $(".tab-pane.active>div>div>.addScenicsName").first().val();
         var url = 'scenicInf';
@@ -301,17 +322,16 @@
         var result = scenicListAddOrUpdate(newScenic);
         if (result == 'add') {
             $('#mainFrameTabs').bTabsAdd(menuId, title, url, refreshScenic);
-
+            console.log(scenicList);
         }
         // $('#myTab a:first').tab('show'); // 选择第一个标签
 
     }
 
 
-    /**
-     * 保存编辑景点
-     */
-    function updateScenic() {
+    //保存编辑景点
+    function updateScenic(e) {
+        console.log(e.target);
         var title = $(".tab-pane.active>div>div>.addScenicsName").first().val();
         var playTime = $(".tab-pane.active>div>div>div>.addScenicsDate").first().val();
         var type = $(".tab-pane.active>div>div>.addScenicsType").first().val();
@@ -323,30 +343,31 @@
             type: type,
             mark: myMap.chooseMark
         });
-        if (action == 'update') $("[href$=" + menuId + "]").first().html(title + '<button type="button" class="navTabsCloseBtn" title="关闭" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>');
+        if (action == 'update') {
+            console.log(scenicList);
+            $("[href$=" + menuId + "]").first().html(title + '<button type="button" class="navTabsCloseBtn" title="关闭" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>');
+        }
     }
 
 
-    /**
-     * 删除景点
-     */
+    //删除景点
     function deleteScenicList(id) {
         for (i in scenicList) {
             //再判断是否是更新
             if (id == scenicList[i].uuid) {
                 myMap.deleteMark(scenicList[i].mark);
+                console.log(scenicList);
                 scenicList.splice(i, 1);
             }
         }
     }
 
-    /**
-     * 重新填充Scenic数据
-     */
+
+    //重新填充Scenic数据
     function refreshScenic() {
         $("#bTabs_navTabsMainPage>div>div>.addScenicsName").val('');
-        $(".updateScenicTabBtn").on('click', updateScenic);
-        $(".cancelScenicTabBtn").on('click', refreshScenic);
+        //判断是否绑定了click事件
+
         for (var i in scenicList) {
             var uuid = scenicList[i].uuid;
             var title = scenicList[i].title;
@@ -358,7 +379,7 @@
             $(selector + '.addScenicsType').val(type);
         }
     }
-
+    /******************************/
     function refreshCate() {
         $.ajax({
             url: "/admin/getCategories",
@@ -379,6 +400,5 @@
             }
         });
     }
-
 
 });

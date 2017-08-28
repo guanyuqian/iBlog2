@@ -74,13 +74,34 @@
                                             <a href="#bTabs_navTabsMainPage" data-toggle="tab">添加</a>
                                         </li>
                                     </ul>
-                                    <!-- Tab panes -->
-                                    <div class="tab-content">
-                                        <div class="tab-pane active" id="bTabs_navTabsMainPage">
 
+                                    <!-- Tab panes -->
+                                    <div class="tab-content  col-md-9">
+                                        <div class="tab-pane active"  id="bTabs_navTabsMainPage" >
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="optBtn">操作</label>
+                                        <div class="'row" id="optBtn">
+                                            <button type="button " class="btn  btn-primary" id="addScenicTabBtn">
+                                                <span class="fa fa-plus"></span>
+                                                添加
+                                            </button>
+                                            <button type="button " class="btn  btn-success" id="buildContain">
+                                                <span class="fa fa-upload"></span>
+                                                正文
+                                            </button>
+                                            <button type="button " class="btn  updateScenicTabBtn  btn-basic" id="updateScenicTabBtn">
+                                                <span class="fa fa-floppy-o"></span>
+                                                保存
+                                            </button>
+                                            <button type="button " class="btn cancelScenicTabBtn  btn-warning" id="cancelScenicTabBtn">
+                                                <span class="fa fa-undo"></span>
+                                                取消
+                                            </button>
                                         </div>
                                     </div>
-
                                     <div id="test_container" style="display: none">
                                         选择检索类型:
                                         <select id="selectType" name="">

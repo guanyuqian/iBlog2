@@ -7,7 +7,8 @@ var myMap = {
     saveMark: null,//保存当前点进地图，添加新可选择点
     deleteMark: null,//删除景点的时候
     noChooseMark: null,//移除chooseMark
-    newChooseMark: null//移除chooseMark
+    newChooseMark: null,//移除chooseMark
+    panTo: null//移除chooseMark
 };
 
 
@@ -31,7 +32,7 @@ $(function () {
 // 创建地图对象并初始化
     var map = new BMap.Map("allmap");
     var point = new BMap.Point(116.404, 39.915);
-    map.centerAndZoom(point, 6);
+    map.centerAndZoom(point,4 );
     map.enableInertialDragging();
     map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
     map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
@@ -76,7 +77,9 @@ $(function () {
         map.removeOverlay(myMap.chooseMark);
         myMap.chooseMark = null;
     };
-
+    myMap.panTo = function (mark) {
+        map.panTo(mark.point);
+    };
     //创建检索控件
     var searchControl = new BMapLib.SearchControl({
         container: "searchBox" //存放控件的容器
