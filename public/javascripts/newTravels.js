@@ -1,9 +1,50 @@
-﻿$(function () {
+﻿const BAIDU_ICON_HOUSE = new BMap.Icon("/images/house.png", new BMap.Size(32, 32), {});
+const BAIDU_ICON_KITCHEN = new BMap.Icon("/images/kitchen.png", new BMap.Size(32, 32), {});
+const BAIDU_ICON_PHTOO = new BMap.Icon("/images/photo.png", new BMap.Size(32, 32), {
+    // offset: new BMap.Size(10, 25), // 指定定位位置
+    // imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
+});
+
+//MAP ICON 映射
+const ICONList =
+    {
+        '游玩': BAIDU_ICON_PHTOO,
+        '吃喝': BAIDU_ICON_KITCHEN,
+        '下榻': BAIDU_ICON_HOUSE
+    };
+
+$(function () {
 
     $("#Title").focus();
 
     refreshCate();
-
+    /**
+     * form 初始化
+     */
+    //初始選擇下拉列表
+    function refreshCate() {
+        $.ajax({
+            url: "/admin/getCategories",
+            type: "Post",
+            success: function (data) {
+                var selectId='Other';//愛之旅ID
+                $("#Categorylist ul").html("");
+                $.each(data, function (key, value) {
+                    if (!value.Link) {
+                        if(value.CateName=='爱之旅')selectId= value._id;
+                        $("#Categorylist ul").append("<li data-value=\"" + value._id + "\">"
+                            + "<a href=\"#\">" + value.CateName + "</a>"
+                            + "</li>");
+                    }
+                });
+                $("#Categorylist ul").append("<li data-value=\"other\"><a href=\"#\">未分类</a></li>");
+                 $("#Categorylist").selectlist("enable");
+                $("#Categorylist").selectlist("selectByValue", selectId);
+                $("#Categorylist li[data-value="+selectId+"]").addClass("active");
+            }
+        });
+    }
+    /******************************/
 
     /**
      * ueditor 初始化
@@ -65,6 +106,7 @@
             });
         }
     });
+
     /**************/
     /**
      * form validation 初始化
@@ -238,8 +280,17 @@
             $("#addScenicTabBtn").on('click', addScenic);
             $("#updateScenicTabBtn").on('click', updateScenic);
             $("#cancelScenicTabBtn").on('click', refreshScenic);
+            $("#buildContain").on('click', buildContainFromScenic);
         }
     });
+//根据景点生成标题
+    function buildContainFromScenic() {
+        var html = '';
+        for (var i in scenicList) {
+            html += ('<h1>' + scenicList[i].title + '</h1><p><br/></p>');
+        }
+        editor.execCommand('inserthtml', html);
+    }
 
     //tab 切换事件
     $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
@@ -286,21 +337,22 @@
                 scenicList[i] = scenic;
                 if (scenic.mark != null) {//如果选择新的点，则更新地图
                     myMap.deleteMark(oldScenic.mark);//删除旧点
-                    myMap.saveMark();//保存当前点进地图，添加新可选择点
+                    myMap.saveMark(ICONList[scenic.type]);//保存当前点进地图，添加新可选择点
                     myMap.noChooseMark();
-
                 } else {//如果没有选择新的点，则不更新点
                     scenicList[i].mark = oldScenic.mark;
                 }
                 setActiveMark(scenic.uuid);
-                alert('更新成功');//in english
+               // alert('更新成功');//in english
+                myMap.makeArrowLine(generatePointListByTime());
                 return 'update';
             }
         }
         //不是更新就新增
         scenicList.push(scenic);
-        myMap.saveMark();//保存当前点进地图，添加新可选择点
+        myMap.saveMark(ICONList[scenic.type]);//保存当前点进地图，添加新可选择点
         myMap.newChooseMark();
+        myMap.makeArrowLine(generatePointListByTime());
         return 'add';
     }
 
@@ -358,10 +410,24 @@
                 myMap.deleteMark(scenicList[i].mark);
                 console.log(scenicList);
                 scenicList.splice(i, 1);
+                myMap.makeArrowLine(generatePointListByTime());
             }
         }
     }
 
+    //根据时间生成scenic的mark.point排序
+
+    function generatePointListByTime() {
+        var pointList = [];
+
+        scenicList.sort(function (a, b) {
+            return a.playTime > b.playTime;
+        });
+        for (var i in scenicList) {
+            pointList.push(scenicList[i].mark.point);
+        }
+        return pointList;
+    }
 
     //重新填充Scenic数据
     function refreshScenic() {
@@ -379,26 +445,6 @@
             $(selector + '.addScenicsType').val(type);
         }
     }
-    /******************************/
-    function refreshCate() {
-        $.ajax({
-            url: "/admin/getCategories",
-            type: "Post",
-            success: function (data) {
-                $("#Categorylist ul").html("");
-                $.each(data, function (key, value) {
-                    if (!value.Link) {
-                        $("#Categorylist ul").append("<li data-value=\"" + value._id + "\">"
-                            + "<a href=\"#\">" + value.CateName + "</a>"
-                            + "</li>");
-                    }
-                });
-                $("#Categorylist ul").append("<li data-value=\"other\"><a href=\"#\">未分类</a></li>");
-                $("#Categorylist").selectlist("enable");
-                $("#Categorylist").selectlist("selectByValue", "other");
-                $("#Categorylist li[data-value=other]").addClass("active");
-            }
-        });
-    }
+
 
 });
