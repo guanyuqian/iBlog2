@@ -27,7 +27,8 @@
 		"settings": "系统设置",
 		"btn_logout": "退出登录",
 		"love_trace_management": "爱之印记",
-		"new_travels": "爱之旅行"
+		"new_travels": "新的旅行",
+		"travels_manage": "旅行管理"
 	},
 	"auth": {
 		"title": "后台登录",
@@ -44,7 +45,8 @@
 	"layout": {
 		"blog": "博客",
 		"message": "留言",
-		"about": "关于"
+		"about": "关于",
+		"love": "情记"
 	},
 	"footer": {
 		"admin_system": "后台管理"
@@ -167,28 +169,13 @@
 			"update": "更新",
 			"back": "返回",
 			"publish": "发布",
-			"save_draft": "保存草稿"
-		},
-		"newTravels": {
-			"new": "新的旅行",
-			"title": "标题",
-			"enter_title": "请输入标题",
-			"category": "分类",
-			"enter_alias": "请输入Alias",
-			"auto_generate": "根据标题自动生成",
-			"summary": "摘要",
-			"enter_summary": "请输入摘要",
-			"source": "来源",
-			"local": "本地",
-			"enter_to_add": "回车新增",
-			"enter_url": "请输入链接地址",
-			"update": "更新",
-			"back": "返回",
-			"publish": "发布",
 			"save_draft": "保存草稿",
-			"tag": "标签",
-			"article": "正文",
-			"url": "admin.newTravels.url"
+			"scenic": "地点",
+			"add": "添加",
+			"option": "操作",
+			"upload": "上载",
+			"save": "保存",
+			"cancel": "取消"
 		},
 		"settings": {
 			"setting": "系统设置",

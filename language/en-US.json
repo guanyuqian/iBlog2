@@ -27,7 +27,8 @@
 		"settings": "Settings",
 		"btn_logout": "Logout",
 		"love_trace_management": "Love Space",
-		"new_travels": "New Travels"
+		"new_travels": "New Travels",
+		"travels_manage":"Trafels Manage"
 	},
 	"auth": {
 		"title": "Admin Login",
@@ -44,7 +45,8 @@
 	"layout": {
 		"blog": "Blog",
 		"message": "Message",
-		"about": "About"
+		"about": "About",
+		"love": "Love"
 	},
 	"footer": {
 		"admin_system": "Admin System"
@@ -167,27 +169,15 @@
 			"update": "Update",
 			"back": "Back",
 			"publish": "Publish",
-			"save_draft": "Save Draft"
-		},
-		"newTravels": {
-			"new": "New Travels",
-			"title": "Title",
-			"enter_title": "Enter Title",
-			"category": "Category",
-			"enter_alias": "Enter Alias",
-			"auto_generate": "Auto Generate Summary",
-			"summary": "Summary",
-			"enter_summary": "Enter Summary",
-			"source": "Source",
-			"tag": "Tags",
-			"enter_to_add": "Enter To Add",
-			"article": "Article",
-			"enter_url": "Enter Url",
-			"update": "Update",
-			"back": "Back",
-			"publish": "Publish",
 			"save_draft": "Save Draft",
-			"Travels": "admin.newTravels.Travels"
+			"Travels": "Travels",
+			"url": "Url",
+			"scenic": "Scenic",
+			"add": "Add",
+			"option": "Option",
+			"upload": "Load",
+			"save": "Save",
+			"cancel": "Cancel"
 		},
 		"settings": {
 			"setting": "Settings",

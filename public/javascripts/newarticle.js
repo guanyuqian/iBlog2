@@ -1,8 +1,63 @@
-﻿$(function () {
+﻿const BAIDU_ICON_HOUSE = new BMap.Icon("/images/house.png", new BMap.Size(32, 32), {});
+const BAIDU_ICON_KITCHEN = new BMap.Icon("/images/kitchen.png", new BMap.Size(32, 32), {});
+const BAIDU_ICON_PHTOO = new BMap.Icon("/images/photo.png", new BMap.Size(32, 32), {
+    // offset: new BMap.Size(10, 25), // 指定定位位置
+    // imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
+});
+
+//MAP ICON 映射
+const ICONList =
+    {
+        '游玩': BAIDU_ICON_PHTOO,
+        '吃喝': BAIDU_ICON_KITCHEN,
+        '下榻': BAIDU_ICON_HOUSE
+    };
+
+$(function () {
+    $("#updateScenicTabBtn").hide();
+    $("#cancelScenicTabBtn").hide();
     $("#Title").focus();
 
     refreshCate();
+    /**
+     * form 初始化
+     */
+    //初始選擇下拉列表
+    function refreshCate() {
+        $.ajax({
+            url: "/admin/getCategories",
+            type: "Post",
+            success: function (data) {
+                $("#Categorylist ul").html("");
+                $.each(data, function (key, value) {
+                    if (!value.Link) {
+                        $("#Categorylist ul").append("<li data-value=\"" + value._id + "\">"
+                            + "<a href=\"#\">" + value.CateName + "</a>"
+                            + "</li>");
+                    }
+                });
+                $("#Categorylist ul").append("<li data-value=\"other\"><a href=\"#\">未分类</a></li>");
+                $("#Categorylist").selectlist("enable");
+               $("#Categorylist").selectlist("selectByValue", 'other');
+                articleSelectPreprocess();
+            }
+        });
+    }
+    //文章种类预处理，强制选择某种文章只能种类，根据后台过来的数据
+    function articleSelectPreprocess(){
+        var defaultCateID=$('#defaultCateID').val();
+        if(defaultCateID!=null&&defaultCateID!='') {
+            $('#Categorylist li[data-value='+defaultCateID+']').addClass("active");
+            $('select.CateName').prop('disabled', 'disabled');
+            $("#Categorylist").selectlist("selectByValue", defaultCateID);
+            $("#Categorylist").selectlist("disable");
+        }
+    }
+    /******************************/
 
+    /**
+     * ueditor 初始化
+     */
     var editor = UE.getEditor("editor", {
         allowDivTransToP: false,
         initialFrameHeight: 300,
@@ -61,6 +116,10 @@
         }
     });
 
+    /**************/
+    /**
+     * form validation 初始化
+     */
     $("#postForm").on('init.field.fv', function (e, data) {
         var $parent = data.element.parents('.form-group'),
             $icon = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
@@ -70,56 +129,56 @@
             }
         });
     }).formValidation({
-            framework: 'bootstrap',
-            icon: {
-                valid: 'fa fa-check',
-                invalid: 'fa fa-remove',
-                validating: 'fa fa-refresh'
+        framework: 'bootstrap',
+        icon: {
+            valid: 'fa fa-check',
+            invalid: 'fa fa-remove',
+            validating: 'fa fa-refresh'
+        },
+        err: {
+            container: 'tooltip'
+        },
+        fields: {
+            Title: {
+                validators: {
+                    notEmpty: {
+                        message: '标题不能为空'
+                    }
+                }
             },
-            err: {
-                container: 'tooltip'
+            Alias: {
+                validators: {
+                    notEmpty: {
+                        message: 'Alias不能为空'
+                    },
+                    remote: {
+                        url: '/admin/checkArticleAlias',
+                        type: 'POST',
+                        data: '{"uid":"' + $('#UniqueId').val() + '"}',
+                        delay: 1000,
+                        message: 'Alias不唯一'
+                    }
+                }
             },
-            fields: {
-                Title: {
-                    validators: {
-                        notEmpty: {
-                            message: '标题不能为空'
-                        }
+            Summary: {
+                validators: {
+                    notEmpty: {
+                        message: '摘要不能为空'
                     }
-                },
-                Alias: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Alias不能为空'
-                        },
-                        remote: {
-                            url: '/admin/checkArticleAlias',
-                            type: 'POST',
-                            data: '{"uid":"' + $('#UniqueId').val() + '"}',
-                            delay: 1000,
-                            message: 'Alias不唯一'
-                        }
-                    }
-                },
-                Summary: {
-                    validators: {
-                        notEmpty: {
-                            message: '摘要不能为空'
-                        }
-                    }
-                },
-                Url: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Url不能为空'
-                        },
-                        uri: {
-                            message: 'Url地址不正确'
-                        }
+                }
+            },
+            Url: {
+                validators: {
+                    notEmpty: {
+                        message: 'Url不能为空'
+                    },
+                    uri: {
+                        message: 'Url地址不正确'
                     }
                 }
             }
-        })
+        }
+    })
         .on('err.field.fv', function (e, data) {
             data.fv.disableSubmitButtons(false);
         })
@@ -129,6 +188,7 @@
         .on('success.form.fv', function (e) {
             e.preventDefault();
             $("#Labels").val(JSON.stringify($("#myPillbox").pillbox("items")));
+            $("#scenic").val(stringifyScenicList());
             $('#IsDraft').val('False');
             swal({
                     title: "确定要发布该文章吗？",
@@ -148,7 +208,7 @@
                     $.ajax({
                         url: $("#postForm")[0].action,
                         type: $("#postForm")[0].method,
-                        data: $("#postForm").serialize(),
+                        data:$("#postForm").serialize(),
                         success: function () {
                             swal({
                                 title: "发布成功！",
@@ -177,6 +237,7 @@
     $('#btnSave').on('click', function () {
         var $this = $(this);
         $("#Labels").val(JSON.stringify($("#myPillbox").pillbox("items")));
+        $("#scenic").val(stringifyScenicList());
         $('#IsDraft').val('True');
         $this.attr('disabled', 'disabled');
         $.ajax({
@@ -206,30 +267,212 @@
             }
         });
     });
-
+    /******************************/
+    /**
+     * scenic tab初始化
+     */
+    var scenicList = [];
+    //切换逻辑
     $(".selectlist").on("changed.fu.selectlist", function (e, data) {
         $(this).find("li").removeClass("active");
         $(this).find("li[data-value=" + data.value + "]").addClass("active");
     });
-});
-
-function refreshCate() {
+    //添加删除回调函数 tab
+    deleteScenicCallback = deleteScenicList;
     $.ajax({
-        url: "/admin/getCategories",
-        type: "Post",
+        url: 'scenicInf?action=addScenic', //这里是静态页的地址
+        type: "GET", //静态页用get方法，否则服务器会抛出405错误
         success: function (data) {
-            $("#Categorylist ul").html("");
-            $.each(data, function (key, value) {
-                if (!value.Link) {
-                    $("#Categorylist ul").append("<li data-value=\"" + value._id + "\">"
-                        + "<a href=\"#\">" + value.CateName + "</a>"
-                        + "</li>");
-                }
-            });
-            $("#Categorylist ul").append("<li data-value=\"other\"><a href=\"#\">未分类</a></li>");
-            $("#Categorylist").selectlist("enable");
-            $("#Categorylist").selectlist("selectByValue", "other");
-            $("#Categorylist li[data-value=other]").addClass("active");
+            $("#bTabs_navTabsMainPage").html(data);
+            $('#mainFrameTabs').bTabs();
+
+            //添加tab事件
+            $("#addScenicTabBtn").on('click', addScenic);
+            $("#updateScenicTabBtn").on('click', updateScenic);
+            $("#cancelScenicTabBtn").on('click', refreshScenic);
+            $("#buildContain").on('click', buildContainFromScenic);
         }
     });
-}
+//根据景点生成标题
+    function buildContainFromScenic(e) {
+        e.preventDefault();
+        var html = '';
+        for (var i in scenicList) {
+            html += ('<h2>' + scenicList[i].title + '</h2><p><br/></p>');
+        }
+        editor.execCommand('inserthtml', html);
+    }
+
+    //tab 切换事件
+    $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+        setActiveMark(e.target.href.toString().split('#').pop());
+    });
+    //设置活跃点，选中
+    function setActiveMark(uuid) {
+        // e.target.href.split('#').last();
+        if (uuid == 'bTabs_navTabsMainPage') {
+            myMap.newChooseMark();
+            $("#addScenicTabBtn").show();
+            $("#buildContain").show();
+
+            $("#updateScenicTabBtn").hide();
+            $("#cancelScenicTabBtn").hide();
+        }
+        else {
+            $("#addScenicTabBtn").hide();
+            $("#updateScenicTabBtn").show();
+            $("#buildContain").hide();
+            $("#cancelScenicTabBtn").show();
+        }
+        for (var i in scenicList) {
+            scenicList[i].mark.setAnimation(null);
+            if (scenicList[i].uuid == uuid) {
+                scenicList[i].mark.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                myMap.panTo(scenicList[i].mark);
+            }
+            myMap.noChooseMark();
+        }
+    };
+
+    // scenicList 的push操作,如果存在uuid相同的话就更新，带重名判断
+    //@param scenic 新增的scenic
+    function scenicListAddOrUpdate(scenic) {
+        if (scenic.title == '') {
+            alert('景点名称不能为空');
+            return;
+        }
+        for (i in scenicList) {
+            //再判断是否是更新
+            if (scenic.uuid == scenicList[i].uuid) {
+                oldScenic = scenicList[i]
+                scenicList[i] = scenic;
+                if (scenic.mark != null) {//如果选择新的点，则更新地图
+                    myMap.deleteMark(oldScenic.mark);//删除旧点
+                    myMap.saveMark(ICONList[scenic.type]);//保存当前点进地图，添加新可选择点
+                    myMap.noChooseMark();
+                } else {//如果没有选择新的点，则不更新点
+                    scenicList[i].mark = oldScenic.mark;
+                }
+                setActiveMark(scenic.uuid);
+                // alert('更新成功');//in english
+                // myMap.makeArrowLine(generatePointListByTime());
+                return 'update';
+            }
+        }
+        //不是更新就新增
+        scenicList.push(scenic);
+        myMap.saveMark(ICONList[scenic.type]);//保存当前点进地图，添加新可选择点
+        //  myMap.makeArrowLine(generatePointListByTime());
+        myMap.newChooseMark();
+        return 'add';
+    }
+
+
+    //增加景点
+    function addScenic(e) {
+        e.preventDefault();
+        var title = $(".tab-pane.active>div>div>.addScenicsName").first().val();
+        var url = 'scenicInf';
+        var playTime = $(".tab-pane.active>div>div>div>.addScenicsDate").first().val();
+        var type = $(".tab-pane.active>div>div>.addScenicsType").first().val();
+        var menuId = generateUUID();
+        var newScenic = {
+            uuid: menuId,
+            title: title,
+            playTime: playTime,
+            type: type,
+            mark: myMap.chooseMark
+        };
+        var result = scenicListAddOrUpdate(newScenic);
+        if (result == 'add') {
+            $('#mainFrameTabs').bTabsAdd(menuId, title, url, refreshScenic);
+            console.log(scenicList);
+        }
+        // $('#myTab a:first').tab('show'); // 选择第一个标签
+
+    }
+
+
+    //保存编辑景点
+    function updateScenic(e) {
+
+        e.preventDefault();
+        console.log(e.target);
+        var title = $(".tab-pane.active>div>div>.addScenicsName").first().val();
+        var playTime = $(".tab-pane.active>div>div>div>.addScenicsDate").first().val();
+        var type = $(".tab-pane.active>div>div>.addScenicsType").first().val();
+        var menuId = $(".tab-pane.active").first().attr("id");
+        var action = scenicListAddOrUpdate({
+            uuid: menuId,
+            title: title,
+            playTime: playTime,
+            type: type,
+            mark: myMap.chooseMark
+        });
+        if (action == 'update') {
+            console.log(scenicList);
+            $("[href$=" + menuId + "]").first().html(title + '<button type="button" class="navTabsCloseBtn" title="关闭" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>');
+        }
+    }
+
+
+    //删除景点
+    function deleteScenicList(id) {
+        for (i in scenicList) {
+            //再判断是否是更新
+            if (id == scenicList[i].uuid) {
+                myMap.deleteMark(scenicList[i].mark);
+                console.log(scenicList);
+                scenicList.splice(i, 1);
+                //  myMap.makeArrowLine(generatePointListByTime());
+            }
+        }
+    }
+
+    //根据时间生成scenic的mark.point排序
+
+    function generatePointListByTime() {
+        var pointList = [];
+        scenicList.sort(function (a, b) {
+            return a.playTime > b.playTime;
+        });
+        for (var i in scenicList) {
+            pointList.push(scenicList[i].mark.point);
+        }
+        return pointList;
+    }
+
+    //重新填充Scenic数据
+    function refreshScenic() {
+        $("#bTabs_navTabsMainPage>div>div>.addScenicsName").val('');
+        //判断是否绑定了click事件
+        // e.preventDefault();
+        for (var i in scenicList) {
+            var uuid = scenicList[i].uuid;
+            var title = scenicList[i].title;
+            var playTime = scenicList[i].playTime;
+            var type = scenicList[i].type;
+            var selector = '#' + uuid + '>div>div>';
+            $(selector + '.addScenicsName').val(title);
+            $(selector + 'div>.addScenicsDate').val(playTime);
+            $(selector + '.addScenicsType').val(type);
+        }
+    }
+    //   SON.stringify(scenicList)
+
+    //JSON 序列化scenicList
+    function stringifyScenicList() {
+        var newScenicList=[];
+        for (var i in scenicList){
+            newScenicList.push({
+                uuid: scenicList[i].uuid,//id
+                title:  scenicList[i].title,//景点名称
+                playTime: scenicList[i].playTime,//游玩时间
+                type:  scenicList[i].type,//类型，吃住玩
+                lng: scenicList[i].mark.point.lng,//经度
+                lat:  scenicList[i].mark.point.lat//纬度
+            })
+        }
+        return JSON.stringify(newScenicList);
+    }
+});

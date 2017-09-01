@@ -3,7 +3,6 @@
     selections = [];
 
 $(function () {
-
     if (selections.length == 0) {
         $remove.attr("disabled", "disabled");
     }
@@ -242,7 +241,17 @@ function undoArticle(id){
     });
 }
 
+/**
+ * 回调函数，实现对对特质文章的处理，强制选择某种文章
+ * @param res
+ * @returns {*}
+ */
 function responseHandler(res) {
+    var defaultCateID=$('#defaultCateID').val();
+    if(defaultCateID!=null&&defaultCateID!='') {
+        $("select option[value='" + defaultCateID + "']").attr("selected", "selected");
+        $('select.CateName').prop('disabled', 'disabled');
+    }
     $.each(res.rows, function (i, row) {
         row.state = $.inArray(row.UniqueId, selections) !== -1;
     });

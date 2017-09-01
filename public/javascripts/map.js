@@ -47,7 +47,7 @@ $(function () {
     map.centerAndZoom(point, 4);
     map.enableInertialDragging();
     map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
-    map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+    //map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
     map.disableDoubleClickZoom();
     map.setMapStyle({
         styleJson: [
@@ -145,6 +145,7 @@ $(function () {
             ICON = BAIDU_ICON_DEFAULT;
         }
         if (myMap.chooseMark != null) {
+            myMap.chooseMark.disableDragging();
             myMap.chooseMark.setIcon(ICON);
             myMap.chooseMark = null;
         }
@@ -172,8 +173,10 @@ $(function () {
         map.panTo(mark.point);
     };
     myMap.makeArrowLine = function (pointList) {
-        if (myMap.polyline!=null) map.removeOverlay(myMap.polyline);
-        if (myMap.lushu!=null) map.removeOverlay(myMap.lushu._marker);
+        if (myMap.polyline!=null)
+            map.removeOverlay(myMap.polyline);
+        if (myMap.lushu!=null)
+        map.removeOverlay(myMap.lushu._marker);
         if(pointList.length<2)return;
         myMap.polyline = new BMap.Polyline(pointList, {
             strokeColor: "SteelBlue",
@@ -191,11 +194,12 @@ $(function () {
         });
         map.addOverlay(myMap.polyline);          //增加折线
         myMap.lushu.start();
-        map.addOverlay(myMap.lushu);          //增加折线
+        //map.addOverlay(myMap.lushu);          //增加折线
     };
 
 
 //创建检索控件
+/*
     var searchControl = new BMapLib.SearchControl({
         container: "searchBox" //存放控件的容器
         , map: map  //关联地图对象
@@ -204,13 +208,15 @@ $(function () {
     document.getElementById("selectType").onchange = function () {
         searchControl.setType(this.value);
     };
+*/
 
 //地图上选点标记并且设为中心
     function addchooseMark(point, ICON) {
         if (myMap.addOrUpdateMark == 'update') map.removeOverlay(myMap.chooseMark);
         myMap.chooseMark = new BMap.Marker(point, {icon: BAIDU_ICON_FOCUS});
+        myMap.chooseMark.enableDragging();
         map.addOverlay(myMap.chooseMark);
-        map.panTo(point);
+        //map.panTo(point);
         return myMap.chooseMark;
     };
 

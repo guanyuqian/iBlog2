@@ -24,7 +24,16 @@ var postSchema = base.extend({
     //是否草稿
     IsDraft: {type: Boolean},
     //是否有效
-    IsActive: {type: Boolean, default: true}
+    IsActive: {type: Boolean, default: true},
+
+    scenicList: [{
+        uuid: String,//id
+        title: String,//景点名称
+        playTime: Date,//游玩时间
+        type: String,//类型，吃住玩
+        lng: Number,//经度
+        lat: Number//纬度
+    }]
 });
 
 exports.PostModel = mongoose.model('post', postSchema, 'post');

@@ -77,11 +77,13 @@ router.get('/articlemanage', function (req, res, next) {
         } else {
             res.render('admin/articlemanage', {
                 config: settings,
-                title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.article_management")
+                title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.article_management"),
+                defaultCateID:''
             });
         }
     });
 });
+
 
 //获取分类数据，包含所有和未分类，不走缓存
 router.post('/getCateFilter', function (req, res, next) {
@@ -195,7 +197,8 @@ router.get('/newArticle', function (req, res, next) {
             res.render('admin/newarticle', {
                 uniqueId: shortid.generate(),
                 config: settings,
-                title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.new_article")
+                title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.new_article"),
+                defaultCateID:''
             });
         }
     });
@@ -226,7 +229,8 @@ router.post('/saveArticle', function (req, res, next) {
         CategoryId: req.body.CategoryId,
         Labels: req.body.Labels,
         Url: req.body.Url,
-        IsDraft: req.body.IsDraft
+        IsDraft: req.body.IsDraft,
+        scenicList: req.body.scenic
     };
     post.save(params, function (err) {
         if (err) {
@@ -388,7 +392,7 @@ router.post('/saveAbout', function (req, res, next) {
         Profile: req.body.Profile,
         Wechat: req.body.Wechat,
         QrcodePath: req.body.QrcodePath,
-        Email: req.body.Email
+        Email: req.body.Email,
     });
     res.end();
 });
@@ -504,7 +508,7 @@ router.post('/getExceptions', function (req, res, next) {
 //系统设置页面
 router.get('/settings', function (req, res, next) {
     tool.getConfig(path.join(__dirname, '../config/settings.json'), function (err, settings) {
-        console.log(settings)
+        console.log(settings);
         if (err) {
             next(err);
         } else {
@@ -543,20 +547,26 @@ router.post('/saveSettings', function (req, res, next) {
 /**
  * 新增游记页面
  */
-router.get('/love/newTravels', function (req, res, next) {
+router.get('/newTravels', function (req, res, next) {
     tool.getConfig(path.join(__dirname, '../config/settings.json'), function (err, settings) {
         if (err) {
             next(err);
         } else {
-            res.render('admin/love/newTravels', {
+            res.render('admin/newarticle', {
                 uniqueId: shortid.generate(),
                 config: settings,
-                title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.new_travels")
+                title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.new_travels"),
+                defaultCateID:'爱之旅'
             });
         }
     });
 });
-router.get('/love/scenicInf', function (req, res, next) {
+
+/**
+ * 获取游记的tab页面
+ *
+ */
+router.get('/scenicInf', function (req, res, next) {
     tool.getConfig(path.join(__dirname, '../config/settings.json'), function (err, settings) {
         if (err) {
             next(err);
@@ -565,6 +575,24 @@ router.get('/love/scenicInf', function (req, res, next) {
                 uniqueId: shortid.generate(),
                 config: settings,
                 title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.new_travels")
+            });
+        }
+    });
+});
+
+/**
+ * 新增游记管理页面
+ */
+//文章管理页面
+router.get('/travelsManage', function (req, res, next) {
+    tool.getConfig(path.join(__dirname, '../config/settings.json'), function (err, settings) {
+        if (err) {
+            next(err);
+        } else {
+            res.render('admin/articlemanage', {
+                config: settings,
+                title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.article_management"),
+                defaultCateID:'爱之旅'
             });
         }
     });

@@ -7,6 +7,7 @@ var contentBegin = new Date();
 var pageCount;
 var tooltip_timeout = 1500;
 $(function () {
+
     $(".my-nav-pills li:eq(0)").addClass("active").siblings().removeClass("active");
     $("#load-list").show();
     $("#PageIndex").val(1);
