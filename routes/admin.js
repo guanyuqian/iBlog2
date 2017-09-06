@@ -78,7 +78,7 @@ router.get('/articlemanage', function (req, res, next) {
             res.render('admin/articlemanage', {
                 config: settings,
                 title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.article_management"),
-                defaultCateID:''
+                defaultCateID: ''
             });
         }
     });
@@ -95,9 +95,7 @@ router.post('/getCateFilter', function (req, res, next) {
         }
     });
 });
-
-//获取文章列表数据
-router.post('/getArticles', function (req, res, next) {
+function getArticlesOrTravels(req, res, next, CateName) {
     var filter,
         params = {
             pageIndex: req.body.pageNumber,
@@ -112,6 +110,7 @@ router.post('/getArticles', function (req, res, next) {
         params.uniqueId = filter.UniqueId;
         params.title = filter.Title;
     }
+    if (CateName != '') params.cateId = CateName;
     async.parallel([
         //获取文章列表
         function (cb) {
@@ -185,6 +184,14 @@ router.post('/getArticles', function (req, res, next) {
             });
         }
     });
+}
+//获取文章列表数据
+router.post('/getArticles', function (req, res, next) {
+    getArticlesOrTravels(req, res, next,'');
+});
+//获取旅游列表数据
+router.post('/getTravels', function (req, res, next) {
+    getArticlesOrTravels(req, res, next,'Travels');
 });
 
 
@@ -198,7 +205,7 @@ router.get('/newArticle', function (req, res, next) {
                 uniqueId: shortid.generate(),
                 config: settings,
                 title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.new_article"),
-                defaultCateID:''
+                defaultCateID: ''
             });
         }
     });
@@ -243,6 +250,15 @@ router.post('/saveArticle', function (req, res, next) {
 
 //修改文章
 router.get('/editArticle/:id', function (req, res, next) {
+    editArticleOrTravels(req, res, next, "");
+});
+//修改游记，即不能改文章类型
+router.get('/editTravels/:id', function (req, res, next) {
+    editArticleOrTravels(req, res, next, "Travels");
+});
+//编辑文章或者旅游的重定向，由editArticleOrTravels决定默认内容，空则是文章，可选类型，否则选择editArticleOrTravels
+//考虑到权限问题
+function editArticleOrTravels(req, res, next, defaultCateID) {
     var id = req.params.id;
     if (!id) {
         res.redirect('/admin/articlemanage');
@@ -281,11 +297,14 @@ router.get('/editArticle/:id', function (req, res, next) {
             res.render('admin/editarticle', {
                 config: settings,
                 post: article,
-                title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.edit_article")
+                title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.edit_article"),
+                defaultCateID: defaultCateID
+
             });
         }
     });
-});
+}
+
 
 //删除文章
 router.post('/deleteArticles', function (req, res, next) {
@@ -556,7 +575,7 @@ router.get('/newTravels', function (req, res, next) {
                 uniqueId: shortid.generate(),
                 config: settings,
                 title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.new_travels"),
-                defaultCateID:'爱之旅'
+                defaultCateID: 'Travels'
             });
         }
     });
@@ -592,7 +611,7 @@ router.get('/travelsManage', function (req, res, next) {
             res.render('admin/articlemanage', {
                 config: settings,
                 title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.article_management"),
-                defaultCateID:'爱之旅'
+                defaultCateID: 'Travels'
             });
         }
     });

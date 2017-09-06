@@ -1,14 +1,14 @@
 ﻿var $table = $("#articles"),
     $remove = $("#remove"),
     selections = [];
-
+var defaultCateID = $('#defaultCateID').val();
 $(function () {
     if (selections.length == 0) {
         $remove.attr("disabled", "disabled");
     }
-
+    var url = defaultCateID == '' ? '/admin/getArticles' : '/admin/get' + defaultCateID;
     $table.bootstrapTable({
-        url: "/admin/getArticles",
+        url: url,
         method: "post",
         pagination: true,
         paginationFirstText: "<i class=\"fa fa-angle-double-left\"></i>",
@@ -150,11 +150,12 @@ $(function () {
                 }
             },
             formatter: function (value, row) {
+                var href = defaultCateID == '' ? "/admin/editarticle/" : "/admin/edit" + defaultCateID + '/';
                 if (row.IsActive) {
-                    return "<a class=\"edit btn btn-white\" title=\"编辑\" href=\"/admin/editarticle/" + row.UniqueId + "\"><i class=\"fa fa-pencil\"></i></a> "
+                    return "<a class=\"edit btn btn-white\" title=\"编辑\" href='" + href + row.UniqueId + "\'><i class=\"fa fa-pencil\"></i></a> "
                         + "<button type=\"button\" class=\"remove btn btn-white\" title=\"删除\"><i class=\"fa fa-trash-o\"></i></button>";
                 } else {
-                    return "<a class=\"edit btn btn-white\" title=\"编辑\" href=\"/admin/editarticle/" + row.UniqueId + "\"><i class=\"fa fa-pencil\"></i></a> "
+                    return "<a class=\"edit btn btn-white\" title=\"编辑\" href='" + href + row.UniqueId + "\'><i class=\"fa fa-pencil\"></i></a> "
                         + "<button type=\"button\" class=\"undo btn btn-white\" title=\"恢复\"><i class=\"fa fa-undo\"></i></button>";
                 }
             }
@@ -223,7 +224,7 @@ function deleteArticle(ids) {
     });
 }
 
-function undoArticle(id){
+function undoArticle(id) {
     $.ajax({
         url: "/admin/undoArticle",
         type: "post",
@@ -247,9 +248,11 @@ function undoArticle(id){
  * @returns {*}
  */
 function responseHandler(res) {
-    var defaultCateID=$('#defaultCateID').val();
-    if(defaultCateID!=null&&defaultCateID!='') {
-        $("select option[value='" + defaultCateID + "']").attr("selected", "selected");
+    console.log($('#defaultCateID').val());
+    if (defaultCateID != null && defaultCateID != '') {
+        $("select.CateName").val(defaultCateID);
+        // $("select option[value='" + defaultCateID + "']").attr("selected", "selected");
+        console.log($('.CateName .form-control'));
         $('select.CateName').prop('disabled', 'disabled');
     }
     $.each(res.rows, function (i, row) {

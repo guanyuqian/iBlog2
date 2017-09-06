@@ -8,7 +8,6 @@ var bodyParser = require('body-parser');
 var route = require('./routes/index');
 var blog = require('./routes/blog');
 var misc = require('./routes/misc');
-var love = require('./routes/love');
 var auth = require('./routes/auth');
 var admin = require('./routes/admin');
 var locale = require('./routes/locale');
@@ -53,7 +52,7 @@ app.use(passport.session());
 app.use('/', route);
 app.use('/', locale);
 app.use('/', misc);
-app.use('/', love);
+
 app.use('/', auth);
 app.use('/blog', blog);
 app.use('/admin', require('connect-ensure-login').ensureLoggedIn('/login'), admin);

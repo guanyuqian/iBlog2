@@ -295,7 +295,6 @@ exports.getById = function (id, callback) {
  * @param callback 回调函数
  */
 exports.save = function (params, callback) {
-    var myscenicList=JSON.parse(params.scenicList);
     var _id = params.UniqueId,
         entity = new postModel({
             Title: params.Title,
@@ -309,9 +308,8 @@ exports.save = function (params, callback) {
             IsDraft: params.IsDraft === 'True',
             IsActive: true,
             ModifyTime: new Date(),
-           // scenicList:myscenicList
+            scenicList:params.scenicList
         });
-    entity._doc.scenicList=myscenicList;
     postModel.findById(_id, function (err, article) {
         if (err) {
             return callback(err);

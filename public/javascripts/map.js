@@ -1,18 +1,31 @@
 /**
  * Created by the_s on 2017/8/27.
  */
+const BAIDU_ICON_HOUSE = new BMap.Icon("/images/house.png", new BMap.Size(32, 32), {});
+const BAIDU_ICON_KITCHEN = new BMap.Icon("/images/kitchen.png", new BMap.Size(32, 32), {});
+const BAIDU_ICON_PHTOO = new BMap.Icon("/images/photo.png", new BMap.Size(32, 32), {
+    // offset: new BMap.Size(10, 25), // 指定定位位置
+    // imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
+});
+
+//MAP ICON 映射
+const ICONList =
+    {
+        '游玩': BAIDU_ICON_PHTOO,
+        '吃喝': BAIDU_ICON_KITCHEN,
+        '下榻': BAIDU_ICON_HOUSE
+    };
 var myMap = {
     chooseMark: null,
     polyline:null ,//所有覆盖线
     lushu: null,//路书
-    addOrUpdateMark: 'update',//add 点击可以添加新的点，update 点击换chooseMar
     saveMark: null,//保存当前点进地图，添加新可选择点
     deleteMark: null,//删除景点的时候
     noChooseMark: null,//移除chooseMark
     newChooseMark: null,//移除chooseMark
     panTo: null,//移除chooseMark
-    makeArrowLine: null//传入两个点，绘制出指向其的线
-
+    makeArrowLine: null,//传入两个点，绘制出指向其的线
+    loadScenicList:null//传入ScenicList，载入景点
 };
 
 /**
@@ -44,7 +57,7 @@ $(function () {
 // 创建地图对象并初始化
     var map = new BMap.Map("allmap");
     var point = new BMap.Point(116.404, 39.915);
-    map.centerAndZoom(point, 4);
+    map.centerAndZoom('上海', 4);
     map.enableInertialDragging();
     map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
     //map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
@@ -131,15 +144,7 @@ $(function () {
      * @type {BMap.Geolocation}
      */
         //加载mark
-    var geolocation = new BMap.Geolocation();
-    geolocation.getCurrentPosition(function (r) {
-        if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-            addchooseMark(r.point);
-        }
-        else {
-            addchooseMark('上海');
-        }
-    }, {enableHighAccuracy: true});
+
     myMap.saveMark = function (ICON) {//保存当前点，添加新可选择点
         if (ICON == null || typeof ICON == undefined) {
             ICON = BAIDU_ICON_DEFAULT;
@@ -151,20 +156,18 @@ $(function () {
         }
     };
     myMap.newChooseMark = function () {
-
-        geolocation.getCurrentPosition(function (r) {
-            if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-                addchooseMark(r.point);
-            }
-            else {
-                addchooseMark('上海');
-            }
-        }, {enableHighAccuracy: true});
+        map.panTo(new BMap.Point(116.404, 39.915));
+        map.setZoom(4);
+        addchooseMark(new BMap.Point(116.404, 39.915));
     };
     myMap.deleteMark = function (mark) {
         map.removeOverlay(mark);
     };
-
+    myMap.loadScenicList=function(scenicList){
+        for(var i in scenicList) {
+            map.addOverlay(scenicList[i].mark);
+        }
+    };
     myMap.noChooseMark = function () {
         map.removeOverlay(myMap.chooseMark);
         myMap.chooseMark = null;
@@ -211,8 +214,8 @@ $(function () {
 */
 
 //地图上选点标记并且设为中心
-    function addchooseMark(point, ICON) {
-        if (myMap.addOrUpdateMark == 'update') map.removeOverlay(myMap.chooseMark);
+    function addchooseMark(point) {
+        map.removeOverlay(myMap.chooseMark);
         myMap.chooseMark = new BMap.Marker(point, {icon: BAIDU_ICON_FOCUS});
         myMap.chooseMark.enableDragging();
         map.addOverlay(myMap.chooseMark);
@@ -227,6 +230,6 @@ $(function () {
     }
 
     map.addEventListener('click', clickHandler);
-
+    addchooseMark('上海');
 })
 ;

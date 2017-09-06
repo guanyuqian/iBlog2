@@ -1,17 +1,4 @@
-﻿const BAIDU_ICON_HOUSE = new BMap.Icon("/images/house.png", new BMap.Size(32, 32), {});
-const BAIDU_ICON_KITCHEN = new BMap.Icon("/images/kitchen.png", new BMap.Size(32, 32), {});
-const BAIDU_ICON_PHTOO = new BMap.Icon("/images/photo.png", new BMap.Size(32, 32), {
-    // offset: new BMap.Size(10, 25), // 指定定位位置
-    // imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
-});
-
-//MAP ICON 映射
-const ICONList =
-    {
-        '游玩': BAIDU_ICON_PHTOO,
-        '吃喝': BAIDU_ICON_KITCHEN,
-        '下榻': BAIDU_ICON_HOUSE
-    };
+﻿
 
 $(function () {
     $("#updateScenicTabBtn").hide();
@@ -84,7 +71,7 @@ $(function () {
         if (query) {
             var that = this;
             $(that).addClass("disabled");
-            appid = '20151219000008011';
+            appid = '20170905000080828';
             key = translateKey;
             salt = (new Date).getTime();
             from = 'zh';
@@ -283,6 +270,7 @@ $(function () {
         url: 'scenicInf?action=addScenic', //这里是静态页的地址
         type: "GET", //静态页用get方法，否则服务器会抛出405错误
         success: function (data) {
+            myMap.newChooseMark();
             $("#bTabs_navTabsMainPage").html(data);
             $('#mainFrameTabs').bTabs();
 
@@ -311,18 +299,21 @@ $(function () {
     function setActiveMark(uuid) {
         // e.target.href.split('#').last();
         if (uuid == 'bTabs_navTabsMainPage') {
+
             myMap.newChooseMark();
             $("#addScenicTabBtn").show();
             $("#buildContain").show();
 
             $("#updateScenicTabBtn").hide();
             $("#cancelScenicTabBtn").hide();
+
         }
         else {
             $("#addScenicTabBtn").hide();
             $("#updateScenicTabBtn").show();
             $("#buildContain").hide();
             $("#cancelScenicTabBtn").show();
+            myMap.noChooseMark();
         }
         for (var i in scenicList) {
             scenicList[i].mark.setAnimation(null);
@@ -330,7 +321,6 @@ $(function () {
                 scenicList[i].mark.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
                 myMap.panTo(scenicList[i].mark);
             }
-            myMap.noChooseMark();
         }
     };
 
@@ -351,6 +341,7 @@ $(function () {
                     myMap.saveMark(ICONList[scenic.type]);//保存当前点进地图，添加新可选择点
                     myMap.noChooseMark();
                 } else {//如果没有选择新的点，则不更新点
+                    oldScenic.mark.setIcon(ICONList[scenic.type]);
                     scenicList[i].mark = oldScenic.mark;
                 }
                 setActiveMark(scenic.uuid);
