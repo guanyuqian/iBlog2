@@ -7,7 +7,9 @@ const BAIDU_ICON_PHTOO = new BMap.Icon("/images/photo.png", new BMap.Size(32, 32
     // offset: new BMap.Size(10, 25), // 指定定位位置
     // imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
 });
-
+const polyLineFocusColor='#FCB941';
+const polyLineDefaultColor='#2C82C9';
+const lushuDefaultColor='#2CC990';
 //MAP ICON 映射
 const ICONList =
     {
@@ -26,8 +28,9 @@ var myMap = {
     panTo: null,//移除chooseMark
     makeArrowLine: null,//传入两个点，绘制出指向其的线
     loadScenicList: null,//传入ScenicList，载入景点
-    enableClickAddChooseMark: true//可点击建立新点还是查看点
-}
+    enableClickAddChooseMark: true,//可点击建立新点还是查看点
+    enableClickSetMarkListAnimation: false//可点击travelList的对应点跳动
+};
 
 /**
  * my baidu map API
@@ -46,7 +49,7 @@ var FOOT_SVG = new BMap.Symbol('M563.4 623.8c0.8-13.8 16.6-9 16.6-9l124 25.2 256
     strokeWeight: 0.1,
     // anchor: new BMap.Size(500, 250),
     rotation: 90,
-    fillColor: 'rgba(65,131,142,1)',
+    fillColor: lushuDefaultColor,
     fillOpacity: 0.8
 });
 $(function () {
@@ -165,6 +168,8 @@ $(function () {
     myMap.loadScenicList = function (scenicList) {
         for (var i in scenicList) {
             map.addOverlay(scenicList[i].mark);
+            if (myMap.enableClickSetMarkListAnimation)
+                scenicList[i].mark.addEventListener("click", setMarkClickAnimation);
         }
     };
     myMap.noChooseMark = function () {
@@ -174,26 +179,26 @@ $(function () {
     myMap.panTo = function (mark) {
         map.panTo(mark.point);
     };
-    myMap.makeArrowLine = function (pointList) {
+
+    //点击设置travel的路书和polyline
+    myMap.makeArrowLine = function (travel,pointList) {
         if (pointList.length < 2)return;
-        myMap.polyline = new BMap.Polyline(pointList, {
-            strokeColor: "SteelBlue",
+        travel.polyline = new BMap.Polyline(pointList, {
+            strokeColor: polyLineDefaultColor,
             strokeStyle: 'dashed',
             strokeWeight: 3,
             strokeOpacity: 0.9
         });
-        myMap.lushu = new BMapLib.LuShu(map, pointList, {
+        travel.lushu = new BMapLib.LuShu(map, pointList, {
             defaultContent: "",
-
             autoView: true, //是否开启自动视野调整，如果开启那么路书在运动过程中会根据视野自动调整
             icon: FOOT_SVG,
             enableRotation: true, //是否设置marker随着道路的走向进行旋转
             speed: 100000,
             landmarkPois: []
         });
-        map.addOverlay(myMap.polyline);          //增加折线
-        myMap.lushu.start();
-        //map.addOverlay(myMap.lushu);          //增加折线
+        map.addOverlay(travel.polyline);          //增加折线
+        travel.lushu.start();
     };
 
 
@@ -209,7 +214,7 @@ $(function () {
      };
      */
 
-//地图上选点标记并且设为中心
+    //地图上选点标记并且设为中心
     function addchooseMark(point) {
         map.removeOverlay(myMap.chooseMark);
         myMap.chooseMark = new BMap.Marker(point, {icon: BAIDU_ICON_FOCUS});
@@ -219,13 +224,55 @@ $(function () {
         return myMap.chooseMark;
     };
 
-//地图点击标记选取
+    //地图点击标记选取
     function clickHandler(e) {
         if (myMap.enableClickAddChooseMark)
             addchooseMark(e.point);
-        else{
 
-        }
+    }
+
+    /**
+     * in love/index.html
+     */
+    //点击动画，点跳动，线变色
+    function setMarkClickAnimation(e){
+        console.log(e.point);
+        var mark = e.target;
+        var point = e.point;
+        map.setZoom(6);
+        setAnimationToTravelList(mark);
+    }
+    //设置点点击对应所有点跳动
+    function setAnimationToTravelList(mark) {
+        travelList.forEach(function (travel, index, arr) {
+            var Animation = null;
+            var polyLineColor=polyLineDefaultColor;
+            if (markInScenicList(mark, travel.scenicList)) {
+                Animation = BMAP_ANIMATION_BOUNCE;
+                polyLineColor=polyLineFocusColor;
+                travel.lushu.stop();
+                travel.lushu.start();
+            }
+            travel.polyline.setStrokeColor(polyLineColor);
+            allScenicMarkSetAnimation(travel.scenicList, Animation);
+        });
+    }
+
+    //点集设置动画
+    function allScenicMarkSetAnimation(scenics, Animation) {
+        scenics.forEach(function (scenic, index2, arr2) {
+            scenic.mark.setAnimation(Animation);
+        });
+    }
+
+    //判断点在ScenicList里面
+    function markInScenicList(mark, scenics) {
+        var result=false;
+        scenics.forEach(function (scenic, index2, arr2) {
+            if (mark == scenic.mark)
+                result=true;
+        });
+        return result;
     }
 
     map.addEventListener('click', clickHandler);

@@ -28,7 +28,7 @@ $(function () {
     //地图初始化
     myMap.noChooseMark();
     myMap.enableClickAddChooseMark = false;//不可点选新点
-
+    myMap. enableClickSetMarkListAnimation=true;
 
     //预处理游记
     function PretreatmentTravels(travels) {
@@ -41,7 +41,7 @@ $(function () {
                 travels[i].scenicList = JSON.parse(travels[i].scenicList);
                 travels[i].beginTime = getMaxOrMinPlayTime('max',travels[i].scenicList);
                 travels[i].endTime = getMaxOrMinPlayTime('min',travels[i].scenicList);
-                loadScenicList2Map(travels[i].scenicList);
+                loadScenicList2Map(travels[i]);
             }
         }
     }
@@ -62,7 +62,8 @@ $(function () {
     loadTimeline();
 });
 //把点加载到map上
-function loadScenicList2Map(scenicList) {
+function loadScenicList2Map(travel) {
+    scenicList=travel.scenicList;
     var pointList=[];
     for(var i in scenicList){
         var point =new BMap.Point(scenicList[i].lng, scenicList[i].lat);
@@ -70,7 +71,7 @@ function loadScenicList2Map(scenicList) {
         scenicList[i].mark= new BMap.Marker(point, {icon: ICONList[scenicList[i].type]});
     }
     myMap.loadScenicList(scenicList);
-    myMap.makeArrowLine(pointList);
+    myMap.makeArrowLine(travel,pointList);
 }
 
 function loadTimeline() {
