@@ -254,7 +254,9 @@ router.get('/:category/:article', function (req, res, next) {
                 ViewCount: article.ViewCount,
                 LabelList: labelList,
                 Summary: article.Summary,
-                Content: article.Content
+                Content: article.Content,
+                Alias:article.Alias,
+                scenicList: article.scenicList
             };
             res.render('blog/article', {
                 post: post,

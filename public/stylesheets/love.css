@@ -86,7 +86,6 @@ and (min-width: 1824px) {
     overflow-x: hidden;
     overflow-y: scroll;
 }
-
 .parent {
     height: 100%;
     width: 100%;
@@ -100,8 +99,5 @@ body {
     display: none;
 }
 
-.baidu-maps label {
-    max-width: none;
-}
 
 /* Styles */

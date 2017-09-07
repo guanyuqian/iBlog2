@@ -3,6 +3,7 @@
  */
 var travelList = [];
 $(function () {
+    $(".my-nav-pills li:eq(1)").addClass("active").siblings().removeClass("active");
 
     $.ajax({
         url: 'timeline', //这里是静态页的地址
@@ -10,22 +11,25 @@ $(function () {
         success: function (data) {
             $("#timeline").html(data);
             //获取旅游列表
-            $.ajax({
-                url: 'getTravels', //这里是静态页的地址
-                type: "GET", //静态页用get方法，否则服务器会抛出405错误
-                success: function (data) {
-                    travelList = data.travels;
-                    try {
-                        PretreatmentTravels(travelList);
-                    } catch (e) {
-                    }
-                    loadTimeline(travelList);
-                    timelineFocusReflectMap();
-                }
-            });
+            GetTravels();
         }
     });
 
+    function GetTravels(){
+        $.ajax({
+            url: 'getTravels', //这里是静态页的地址
+            type: "GET", //静态页用get方法，否则服务器会抛出405错误
+            success: function (data) {
+                travelList = data.travels;
+                try {
+                    PretreatmentTravels(travelList);
+                } catch (e) {
+                }
+                loadTimeline(travelList);
+                timelineFocusReflectMap();
+            }
+        });
+    }
     //地图初始化
     myMap.noChooseMark();
     myMap.enableClickAddChooseMark = false;//不可点选新点
@@ -34,7 +38,6 @@ $(function () {
     //预处理游记
     function PretreatmentTravels(travels) {
         for (var i in travels) {
-
             if (typeof travels[i].scenicList == "undefined" || travels[i].scenicList.length == 0) {
                 travels[i].beginTime = 'XXXX';
                 travels[i].endTime = 'XXXX';

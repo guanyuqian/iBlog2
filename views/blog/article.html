@@ -1,10 +1,14 @@
 <link href="/stylesheets/animate-custom.css" rel="stylesheet"/>
 <link href="/stylesheets/railscasts.css" rel="stylesheet"/>
 <link href="/libs/lightbox2/dist/css/lightbox.min.css" rel="stylesheet"/>
+<link href="/stylesheets/map.css" rel="stylesheet"/>
+<input hidden id="scenicList" value="@post.scenicList"/>
+<input hidden id="Alias" value="@post.Alias"/>
 <div class="detail-container">
     <div class="container">
         <div class="row">
-            <article class="col-sm-12 col-xs-12 detail-wrap post-content animated fadeIn @(config.ExpandMenu === 'true' ? 'col-md-9' : 'col-md-12')">
+            <article
+                    class="col-sm-12 col-xs-12 detail-wrap post-content animated fadeIn @(config.ExpandMenu === 'true' ? 'col-md-9' : 'col-md-12')">
                 <button title='@__("blog.article.table_of_content")' class="btn btn-white btn-menu">
                     <i class="fa fa-align-justify"></i>
                 </button>
@@ -20,9 +24,9 @@
                         </span></div>
                     <div class="text-muted pull-right">
                         @{
-                            post.LabelList.forEach(function(label) {
-                                <span class="post-label" title="@label">@label</span>
-                            });
+                        post.LabelList.forEach(function(label) {
+                        <span class="post-label" title="@label">@label</span>
+                        });
                         }
                     </div>
                     <div class="clearfix"></div>
@@ -32,7 +36,10 @@
                         <i class="fa fa-clock-o"></i> @post.CreateTimeStr</span>
                     <h1>@post.Title</h1>
                 </header>
-                <div id="main-context">
+                <div id="map-container" class="baidu-maps col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div id="allmap" style="height: 300px ;width: 100% ; top: 10px"></div>
+                </div>
+                <div id="main-context" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 30px"  >
                     <blockquote>
                         <h2>@__("blog.article.brief")</h2>
                         <span>：@post.Summary</span>
@@ -40,48 +47,49 @@
                     @this.raw(post.Content)
                 </div>
                 @if(config.ShowComments === 'true') {
-                    <hr class="hr-article">
-                    <div id="SOHUCS" sid="@post.UniqueId"></div>
-                    <script>
-                        (function () {
-                            var appid = '@config.ChangyanId';
-                            var conf = '@config.ChangyanConf';
-                            var width = window.innerWidth || document.documentElement.clientWidth;
-                            if (width < 960) {
-                                window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
-                            } else {
-                                var loadJs = function (d, a) {
-                                    var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
-                                    var b = document.createElement("script");
-                                    b.setAttribute("type", "text/javascript");
-                                    b.setAttribute("charset", "UTF-8");
-                                    b.setAttribute("src", d);
-                                    if (typeof a === "function") {
-                                        if (window.attachEvent) {
-                                            b.onreadystatechange = function () {
-                                                var e = b.readyState;
-                                                if (e === "loaded" || e === "complete") {
-                                                    b.onreadystatechange = null;
-                                                    a()
-                                                }
+                <hr class="hr-article">
+                <div id="SOHUCS" sid="@post.UniqueId"></div>
+                <script>
+                    (function () {
+                        var appid = '@config.ChangyanId';
+                        var conf = '@config.ChangyanConf';
+                        var width = window.innerWidth || document.documentElement.clientWidth;
+                        if (width < 960) {
+                            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+                        } else {
+                            var loadJs = function (d, a) {
+                                var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
+                                var b = document.createElement("script");
+                                b.setAttribute("type", "text/javascript");
+                                b.setAttribute("charset", "UTF-8");
+                                b.setAttribute("src", d);
+                                if (typeof a === "function") {
+                                    if (window.attachEvent) {
+                                        b.onreadystatechange = function () {
+                                            var e = b.readyState;
+                                            if (e === "loaded" || e === "complete") {
+                                                b.onreadystatechange = null;
+                                                a()
                                             }
-                                        } else {
-                                            b.onload = a
                                         }
+                                    } else {
+                                        b.onload = a
                                     }
-                                    c.appendChild(b)
-                                };
-                                loadJs("http://changyan.sohu.com/upload/changyan.js", function () {
-                                    window.changyan.api.config({
-                                        appid: appid, conf: conf
-                                    })
-                                });
-                            }
-                        })();
-                    </script>
+                                }
+                                c.appendChild(b)
+                            };
+                            loadJs("http://changyan.sohu.com/upload/changyan.js", function () {
+                                window.changyan.api.config({
+                                    appid: appid, conf: conf
+                                })
+                            });
+                        }
+                    })();
+                </script>
                 }
             </article>
-            <div id="control-wrap" class="col-md-3 hidden-sm hidden-xs" style='@(config.ExpandMenu === "true" ? "display: block;" : "display: none;")'>
+            <div id="control-wrap" class="col-md-3 hidden-sm hidden-xs"
+                 style='@(config.ExpandMenu === "true" ? "display: block;" : "display: none;")'>
                 <a class="close-menu" title='@__("blog.article.hide")'>
                     <i class="fa fa-times"></i>
                 </a>
@@ -96,6 +104,10 @@
 <script type="text/javascript" src="/libs/lightbox2/dist/js/lightbox.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/libs/scrollNav/dist/jquery.scrollNav.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/javascripts/highlight.pack.js" charset="utf-8"></script>
+<script type="text/javascript"
+        src="http://api.map.baidu.com/api?v=2.0&ak=A4749739227af1618f7b0d1b588c0e85"></script>
+<script type="text/javascript" src="/libs/baidu-map/lushu.js" charset="utf-8"></script>
+<script type="text/javascript" src="/javascripts/map.js" charset="utf-8"></script>
 <script type="text/javascript" src="/javascripts/article.js" charset="utf-8"></script>
 <script>
     var expandMenu = '@config.ExpandMenu';

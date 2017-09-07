@@ -1,5 +1,5 @@
 $(function () {
-    $(".my-nav-pills li:contains('关于')").addClass("active").siblings().removeClass("active");
+    $(".my-nav-pills li:eq(3)").addClass("active").siblings().removeClass("active");
 
     $("#job-title").cycleText();
 

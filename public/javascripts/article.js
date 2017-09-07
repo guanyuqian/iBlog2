@@ -1,4 +1,6 @@
-﻿$(function () {
+﻿var travelList = [];
+
+$(function () {
     $(".my-nav-pills li:eq(0)").addClass("active").siblings().removeClass("active");
 
     //如果目录默认为收起状态，则重新计算显示目录按钮的位置
@@ -104,4 +106,28 @@
     $(window).on("resize", function () {
         $.fn.scrollNav("resetPos");
     });
+
+    /**
+     * map加載
+     */
+    myMap.noChooseMark();
+    myMap.enableClickAddChooseMark = false;//不可点选新点
+    myMap.enableClickSetMarkListAnimation = true;
+    GetTravels();
+    function GetTravels() {
+        var  scenicList=JSON.parse( $('#scenicList').val());
+        var Alias=$('#Alias').val();
+         travelList=[{scenicList:scenicList,Alias: Alias}];
+        console.log(travelList);
+        PretreatmentTravels(travelList);
+    }
+    //预处理游记
+    function PretreatmentTravels(travels) {
+        for (var i in travels) {
+            if (typeof travels[i].scenicList == "undefined" || travels[i].scenicList.length == 0) {
+            } else {
+                loadScenicList2Map(travels[i]);
+            }
+        }
+    }
 });
