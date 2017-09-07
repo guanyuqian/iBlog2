@@ -46,7 +46,8 @@ var myMap = {
     makeArrowLine: null,//传入两个点，绘制出指向其的线
     loadScenicList: null,//传入ScenicList，载入景点
     enableClickAddChooseMark: true,//可点击建立新点还是查看点
-    enableClickSetMarkListAnimation: false//可点击travelList的对应点跳动
+    enableClickSetMarkListAnimation: false,//可点击travelList的对应点跳动
+    setAnimationToTravelListByTravel:null
 };
 
 /**
@@ -281,7 +282,7 @@ $(function () {
         map.addOverlay(myMap.chooseMark);
         //map.panTo(point);
         return myMap.chooseMark;
-    };
+    }
 
     //地图点击标记选取
     function clickHandler(e) {
@@ -296,13 +297,19 @@ $(function () {
         var mark = e.target;
         var point = e.point;
         map.setZoom(6);
-        setAnimationToTravelList(mark);
+        setAnimationToTravelListByMark(mark);
     }
 
     //设置点点击对应所有点跳动,路书启动，polyline变色，标签出现
-    function setAnimationToTravelList(mark) {
+    function setAnimationToTravelListByMark(mark) {
         travelList.forEach(function (travel, index, arr) {
-            if (markInScenicList(mark, travel.scenicList)) {
+            var isFocus=markInScenicList(mark, travel.scenicList);
+            myMap.setAnimationToTravelListByTravel(travel,isFocus);
+        });
+    }
+    //设置点点击对应所有点跳动,路书启动，polyline变色，标签出现
+     myMap.setAnimationToTravelListByTravel=function(travel,focus) {
+            if (focus) {
                 travel.polyline.setStrokeColor(polyLineFocusColor);
                 allScenicMarkSetAnimation(travel.scenicList, BMAP_ANIMATION_BOUNCE, true);
                 travel.lushu.stop();
@@ -311,9 +318,7 @@ $(function () {
                 travel.polyline.setStrokeColor(polyLineDefaultColor);
                 allScenicMarkSetAnimation(travel.scenicList, null, false);
             }
-        });
     }
-
     //点集设置动画
     function allScenicMarkSetAnimation(scenics, Animation, lableShow) {
         scenics.forEach(function (scenic, index2, arr2) {

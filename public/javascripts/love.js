@@ -19,7 +19,17 @@ $(function () {
                         PretreatmentTravels(travelList);
                     } catch (e) {
                     }
-                    loadTimeline()
+                    loadTimeline();
+                    $("input[name='tl-group']").change(function (e) {
+                        for (var i in travelList) {
+                            var travel= travelList[i];
+                            if (e.target.id == travel.UniqueId) {
+                                myMap.setAnimationToTravelListByTravel(travel,true);
+                            }else{
+                                myMap.setAnimationToTravelListByTravel(travel,false);
+                            }
+                        }
+                    });
                 }
             });
         }
@@ -28,26 +38,26 @@ $(function () {
     //地图初始化
     myMap.noChooseMark();
     myMap.enableClickAddChooseMark = false;//不可点选新点
-    myMap. enableClickSetMarkListAnimation=true;
+    myMap.enableClickSetMarkListAnimation = true;
 
     //预处理游记
     function PretreatmentTravels(travels) {
         for (var i in travels) {
 
-            if (typeof travels[i].scenicList == "undefined" ||travels[i].scenicList.length == 0) {
+            if (typeof travels[i].scenicList == "undefined" || travels[i].scenicList.length == 0) {
                 travels[i].beginTime = 'XXXX';
                 travels[i].endTime = 'XXXX';
             } else {
                 travels[i].scenicList = JSON.parse(travels[i].scenicList);
-                travels[i].beginTime = getMaxOrMinPlayTime('max',travels[i].scenicList);
-                travels[i].endTime = getMaxOrMinPlayTime('min',travels[i].scenicList);
+                travels[i].beginTime = getMaxOrMinPlayTime('max', travels[i].scenicList);
+                travels[i].endTime = getMaxOrMinPlayTime('min', travels[i].scenicList);
                 loadScenicList2Map(travels[i]);
             }
         }
     }
 
     //获取最大或者最小时间
-    getMaxOrMinPlayTime = function (maxOrMin,scenicList) {
+    getMaxOrMinPlayTime = function (maxOrMin, scenicList) {
         var result = scenicList[0];
         scenicList.forEach(function (ele, index, arr) {
             if (maxOrMin == 'max' && ele.playTime < result.playTime) {
@@ -65,10 +75,10 @@ $(function () {
 
 function loadTimeline() {
     $('#timeline-container').html("");
-
+    console.log(travelList);
     for (var i in travelList) {
         var timelineLi = ['<li class="event">',
-            '    <input type="radio" name="tl-group" checked/>',
+            '    <input type="radio" name="tl-group" id="' + travelList[i].UniqueId + '"checked/>',
             '    <label>',
             '    </label>',
             '    <div class="thumb user-4">',
@@ -96,4 +106,5 @@ function loadTimeline() {
             '</li>'].join("");
         $('#timeline-container').append(timelineLi);
     }
+
 }
