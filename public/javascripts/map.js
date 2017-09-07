@@ -11,12 +11,21 @@ const polyLineFocusColor = '#FCB941';
 const polyLineDefaultColor = '#2C82C9';
 const lushuDefaultColor = '#1abc9c';
 const lushuFocusColor = '#2980b9';
-const labelStyle = {
+const labelDefaultStyle = {
     color: '#2c3e50',
     fontSize: "13px",
     fontWeight: "bold",
     backgroundColor: '#ecf0f1',
-    borderColor: '#95a5a6'
+    borderColor: '#95a5a6',
+    cursor:'pointer'
+};
+const labelFocusStyle = {
+    color: '#34495e',
+    fontSize: "14px",
+    fontWeight: "bold",
+    backgroundColor: '#ecf0f1',
+    borderColor: '#7f8c8d',
+    cursor:'pointer'
 };
 //MAP ICON 映射
 const ICONList =
@@ -80,8 +89,22 @@ function loadScenicList2Map(travel) {
         pointList.push(point);
         scenicList[i].mark = new BMap.Marker(point, {icon: ICONList[scenicList[i].type]});
         var label = new BMap.Label(scenicList[i].title, {offset: new BMap.Size(35, -10)});
-        label.setStyle(labelStyle);
+        label.setStyle(labelDefaultStyle);
         scenicList[i].mark.setLabel(label);
+        var url='/blog/loveTravel/' + travel.Alias  ;
+        label.addEventListener("click",function(){
+            window.open(url);
+        });
+        label.addEventListener("mouseover",
+            function(e){
+                e.target.setStyle(labelFocusStyle);
+            });
+        label.addEventListener("mouseout",
+            function(e){
+                e.target.setStyle(
+                    labelDefaultStyle
+                );
+            });
         label.hide();
     }
     myMap.loadScenicList(scenicList);
