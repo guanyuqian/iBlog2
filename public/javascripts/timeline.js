@@ -10,13 +10,29 @@ $(function () {
 
 });
 
+function checkTimelineByUniqueId(index, val, UniqueId) {
+    var radio = $('input[name=tl-group]').get(index);
+    radio.checked = val;
+    if (val) {
+        var container = $('#timeline');
+        var inner = $('#' + UniqueId);
+        console.log(inner);
+        console.log(inner.offset());
+        // Or you can animate the scrolling:
+        container.animate({
+            scrollTop: inner.offset().top - container.offset().top + container.scrollTop()-100
+        });
+    }
+}
 
 //加载时间轴
 function loadTimeline(travelList) {
     $('#timeline-container').html("");
+    var firstCheck = 'checked';
     for (var i in travelList) {
-        var timelineLi = ['<li class="event">',
-            '    <input type="radio" name="tl-group" id="' + travelList[i].UniqueId + '"checked/>',
+        if (i != 0) firstCheck = '';
+        var timelineLi = ['<li class="event" id="' + travelList[i].UniqueId + '">',
+            '    <input type="radio" name="tl-group" value="' + travelList[i].UniqueId + '"' + firstCheck + '/>',
             '    <label>',
             '    </label>',
             '    <div class="thumb user-4">',
@@ -44,6 +60,5 @@ function loadTimeline(travelList) {
             '</li>'].join("");
         $('#timeline-container').append(timelineLi);
     }
-
 }
 

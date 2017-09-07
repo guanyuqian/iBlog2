@@ -64,7 +64,8 @@ $(function () {
 
 //时间轴点击映射到地图
     function timelineFocusReflectMap() {
-        $("input[name='tl-group']").change(function (e) {
+        $("input[name='tl-group']").click(function (e) {
+
             for (var i in travelList) {
                 var travel = travelList[i];
                 if (e.target.id == travel.UniqueId) {

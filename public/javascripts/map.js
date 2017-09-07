@@ -295,6 +295,7 @@ $(function () {
     //点击动画，点跳动，线变色
     function setMarkClickAnimation(e) {
         var mark = e.target;
+
         map.setZoom(6);
         setAnimationToTravelListByMark(mark);
     }
@@ -304,6 +305,8 @@ $(function () {
         travelList.forEach(function (travel, index, arr) {
             var isFocus=markInScenicList(mark, travel.scenicList);
             myMap.setAnimationToTravelListByTravel(travel,isFocus);
+            checkTimelineByUniqueId(index,isFocus,travel.UniqueId);
+
         });
     }
     //设置点点击对应所有点跳动,路书启动，polyline变色，标签出现
@@ -317,7 +320,7 @@ $(function () {
                 travel.polyline.setStrokeColor(polyLineDefaultColor);
                 allScenicMarkSetAnimation(travel.scenicList, null, false);
             }
-    }
+    };
     //点集设置动画
     function allScenicMarkSetAnimation(scenics, Animation, lableShow) {
         scenics.forEach(function (scenic, index2, arr2) {
