@@ -19,17 +19,8 @@ $(function () {
                         PretreatmentTravels(travelList);
                     } catch (e) {
                     }
-                    loadTimeline();
-                    $("input[name='tl-group']").change(function (e) {
-                        for (var i in travelList) {
-                            var travel= travelList[i];
-                            if (e.target.id == travel.UniqueId) {
-                                myMap.setAnimationToTravelListByTravel(travel,true);
-                            }else{
-                                myMap.setAnimationToTravelListByTravel(travel,false);
-                            }
-                        }
-                    });
+                    loadTimeline(travelList);
+                    timelineFocusReflectMap();
                 }
             });
         }
@@ -69,42 +60,20 @@ $(function () {
         });
         return result.playTime;
     };
-    loadTimeline();
+
+
+//时间轴点击映射到地图
+    function timelineFocusReflectMap() {
+        $("input[name='tl-group']").change(function (e) {
+            for (var i in travelList) {
+                var travel = travelList[i];
+                if (e.target.id == travel.UniqueId) {
+                    myMap.setAnimationToTravelListByTravel(travel, true);
+                } else {
+                    myMap.setAnimationToTravelListByTravel(travel, false);
+                }
+            }
+        });
+    }
 });
 
-
-function loadTimeline() {
-    $('#timeline-container').html("");
-    console.log(travelList);
-    for (var i in travelList) {
-        var timelineLi = ['<li class="event">',
-            '    <input type="radio" name="tl-group" id="' + travelList[i].UniqueId + '"checked/>',
-            '    <label>',
-            '    </label>',
-            '    <div class="thumb user-4">',
-            '   <span> <i class="fa fa-hourglass-start"></i>',
-            travelList[i].beginTime,
-            '</span>',
-            '   <span class="below"> <i class="fa fa-hourglass-end"></i>',
-            travelList[i].endTime,
-            '</span>',
-            '    </div>',
-            '    <div class="content-perspective">',
-            '        <div class="content">',
-            '            <div class="content-inner">',
-            '                <h3>',
-            travelList[i].Title,
-            '                </h3>',
-            '                <p>',
-            '                  <a href=\"/blog/loveTravel/' + travelList[i].Alias + '\" target=\"_blank\">',
-            travelList[i].Summary,
-            '                   </a>',
-            '                </p>',
-            '            </div>',
-            '        </div>',
-            '    </div>',
-            '</li>'].join("");
-        $('#timeline-container').append(timelineLi);
-    }
-
-}

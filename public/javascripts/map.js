@@ -295,7 +295,6 @@ $(function () {
     //点击动画，点跳动，线变色
     function setMarkClickAnimation(e) {
         var mark = e.target;
-        var point = e.point;
         map.setZoom(6);
         setAnimationToTravelListByMark(mark);
     }
