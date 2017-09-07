@@ -1,0 +1,101 @@
+/* 智能手机 (纵向 和 横向) ----------- */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+    /* Styles */
+}
+
+/* 智能手机 (横向) ----------- */
+@media only screen
+and (min-width : 321px) {
+    #timeline,#allmap{
+        height: 100%;
+        width: 50%;
+        float:left;
+    }
+}
+
+/* 智能手机 (纵向) ----------- */
+@media only screen
+and (max-width : 500px) {
+    /* Styles */
+    #timeline,#allmap{
+        height: 50%;
+        width: 100%;
+        float:left;
+    }
+}
+
+/* iPad 系列 (纵向 和 横向) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px) {
+    #timeline,#allmap{
+        height: 100%;
+        width: 50%;
+        float:left;
+    }
+}
+
+/* iPad 系列 (横向) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) {
+
+}
+
+/* iPad 系列 (纵向) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) {
+}
+
+/* 台式机 和 笔记本 ----------- */
+@media only screen
+and (min-width : 1224px) {
+    #timeline,#allmap{
+        height: 100%;
+        width: 50%;
+        float:left;
+    }
+}
+
+/* 大屏幕 ----------- */
+@media only screen
+and (min-width : 1824px) {
+    #timeline,#allmap{
+        height: 100%;
+        width: 50%;
+        float:left;
+    }
+}
+
+/* iPhone 4 ----------- */
+@media
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+
+}
+#allmap{
+    padding-top: 70px;
+}
+#timeline{
+    padding-top: 70px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.parent {
+    height: 100%;
+    width: 100%;
+}
+body{
+    overflow:hidden !important;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Styles */
