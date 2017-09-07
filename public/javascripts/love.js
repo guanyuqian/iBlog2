@@ -61,18 +61,7 @@ $(function () {
     };
     loadTimeline();
 });
-//把点加载到map上
-function loadScenicList2Map(travel) {
-    scenicList=travel.scenicList;
-    var pointList=[];
-    for(var i in scenicList){
-        var point =new BMap.Point(scenicList[i].lng, scenicList[i].lat);
-        pointList.push(point);
-        scenicList[i].mark= new BMap.Marker(point, {icon: ICONList[scenicList[i].type]});
-    }
-    myMap.loadScenicList(scenicList);
-    myMap.makeArrowLine(travel,pointList);
-}
+
 
 function loadTimeline() {
     $('#timeline-container').html("");

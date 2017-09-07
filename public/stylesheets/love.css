@@ -1,87 +1,87 @@
 /* 智能手机 (纵向 和 横向) ----------- */
 @media only screen
-and (min-device-width : 320px)
-and (max-device-width : 480px) {
+and (min-device-width: 320px)
+and (max-device-width: 480px) {
     /* Styles */
 }
 
 /* 智能手机 (横向) ----------- */
 @media only screen
-and (min-width : 321px) {
-    #timeline,#allmap{
+and (min-width: 321px) {
+    #timeline, #allmap {
         height: 100%;
         width: 50%;
-        float:left;
+        float: left;
     }
 }
 
 /* 智能手机 (纵向) ----------- */
 @media only screen
-and (max-width : 500px) {
+and (max-width: 500px) {
     /* Styles */
-    #timeline,#allmap{
+    #timeline, #allmap {
         height: 50%;
         width: 100%;
-        float:left;
+        float: left;
     }
 }
 
 /* iPad 系列 (纵向 和 横向) ----------- */
 @media only screen
-and (min-device-width : 768px)
-and (max-device-width : 1024px) {
-    #timeline,#allmap{
+and (min-device-width: 768px)
+and (max-device-width: 1024px) {
+    #timeline, #allmap {
         height: 100%;
         width: 50%;
-        float:left;
+        float: left;
     }
 }
 
 /* iPad 系列 (横向) ----------- */
 @media only screen
-and (min-device-width : 768px)
-and (max-device-width : 1024px)
-and (orientation : landscape) {
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (orientation: landscape) {
 
 }
 
 /* iPad 系列 (纵向) ----------- */
 @media only screen
-and (min-device-width : 768px)
-and (max-device-width : 1024px)
-and (orientation : portrait) {
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (orientation: portrait) {
 }
 
 /* 台式机 和 笔记本 ----------- */
 @media only screen
-and (min-width : 1224px) {
-    #timeline,#allmap{
+and (min-width: 1224px) {
+    #timeline, #allmap {
         height: 100%;
         width: 50%;
-        float:left;
+        float: left;
     }
 }
 
 /* 大屏幕 ----------- */
 @media only screen
-and (min-width : 1824px) {
-    #timeline,#allmap{
+and (min-width: 1824px) {
+    #timeline, #allmap {
         height: 100%;
         width: 50%;
-        float:left;
+        float: left;
     }
 }
 
 /* iPhone 4 ----------- */
-@media
-only screen and (-webkit-min-device-pixel-ratio : 1.5),
-only screen and (min-device-pixel-ratio : 1.5) {
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
 
 }
-#allmap{
+
+#allmap {
     padding-top: 70px;
 }
-#timeline{
+
+#timeline {
     padding-top: 70px;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -91,11 +91,17 @@ only screen and (min-device-pixel-ratio : 1.5) {
     height: 100%;
     width: 100%;
 }
-body{
-    overflow:hidden !important;
+
+body {
+    overflow: hidden !important;
 }
+
 ::-webkit-scrollbar {
     display: none;
+}
+
+.baidu-maps label {
+    max-width: none;
 }
 
 /* Styles */

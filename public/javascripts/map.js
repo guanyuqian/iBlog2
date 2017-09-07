@@ -7,9 +7,17 @@ const BAIDU_ICON_PHTOO = new BMap.Icon("/images/photo.png", new BMap.Size(32, 32
     // offset: new BMap.Size(10, 25), // 指定定位位置
     // imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
 });
-const polyLineFocusColor='#FCB941';
-const polyLineDefaultColor='#2C82C9';
-const lushuDefaultColor='#2CC990';
+const polyLineFocusColor = '#FCB941';
+const polyLineDefaultColor = '#2C82C9';
+const lushuDefaultColor = '#1abc9c';
+const lushuFocusColor = '#2980b9';
+const labelStyle = {
+    color: '#2c3e50',
+    fontSize: "13px",
+    fontWeight: "bold",
+    backgroundColor: '#ecf0f1',
+    borderColor: '#95a5a6'
+};
 //MAP ICON 映射
 const ICONList =
     {
@@ -44,7 +52,7 @@ const BAIDU_ICON_FOCUS = new BMap.Icon("http://api.map.baidu.com/img/markers.png
     offset: new BMap.Size(10, 25), // 指定定位位置
     imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
 });
-var FOOT_SVG = new BMap.Symbol('M563.4 623.8c0.8-13.8 16.6-9 16.6-9l124 25.2 256 97.4c0-48-7.6-53-18.8-61.4L576 414c0 0-9.8-120-9.8-225.8 0-49-23.6-156.2-54.2-156.2s-54.2 108.8-54.2 156.2c0 100.4-9.8 225.8-9.8 225.8L82.8 676c-14.2 10-18.8 15.4-18.8 61.4L320 640l123.8-25.2c0 0 15.8-4.8 16.6 9 0.8 13.8-2.4 138.2 11.8 204.2 1.8 8.8-5 9.4-9.6 14.8l-103.8 65.6c-3.4 3.8-5 14.6-5 14.6l-2 37 136-32 24 64 24-64 136 32-2-37c0.2 0-1.4-10.8-4.8-14.6l-103.8-65.6c-4.6-5.4-11.4-6-9.6-14.8C565.4 762 562.6 637.6 563.4 623.8z', {
+var DEFAULT_FOOT_SVG = new BMap.Symbol('M563.4 623.8c0.8-13.8 16.6-9 16.6-9l124 25.2 256 97.4c0-48-7.6-53-18.8-61.4L576 414c0 0-9.8-120-9.8-225.8 0-49-23.6-156.2-54.2-156.2s-54.2 108.8-54.2 156.2c0 100.4-9.8 225.8-9.8 225.8L82.8 676c-14.2 10-18.8 15.4-18.8 61.4L320 640l123.8-25.2c0 0 15.8-4.8 16.6 9 0.8 13.8-2.4 138.2 11.8 204.2 1.8 8.8-5 9.4-9.6 14.8l-103.8 65.6c-3.4 3.8-5 14.6-5 14.6l-2 37 136-32 24 64 24-64 136 32-2-37c0.2 0-1.4-10.8-4.8-14.6l-103.8-65.6c-4.6-5.4-11.4-6-9.6-14.8C565.4 762 562.6 637.6 563.4 623.8z', {
     scale: 0.02,
     strokeWeight: 0.1,
     // anchor: new BMap.Size(500, 250),
@@ -52,6 +60,34 @@ var FOOT_SVG = new BMap.Symbol('M563.4 623.8c0.8-13.8 16.6-9 16.6-9l124 25.2 256
     fillColor: lushuDefaultColor,
     fillOpacity: 0.8
 });
+var FOCUS_FOOT_SVG = new BMap.Symbol('M563.4 623.8c0.8-13.8 16.6-9 16.6-9l124 25.2 256 97.4c0-48-7.6-53-18.8-61.4L576 414c0 0-9.8-120-9.8-225.8 0-49-23.6-156.2-54.2-156.2s-54.2 108.8-54.2 156.2c0 100.4-9.8 225.8-9.8 225.8L82.8 676c-14.2 10-18.8 15.4-18.8 61.4L320 640l123.8-25.2c0 0 15.8-4.8 16.6 9 0.8 13.8-2.4 138.2 11.8 204.2 1.8 8.8-5 9.4-9.6 14.8l-103.8 65.6c-3.4 3.8-5 14.6-5 14.6l-2 37 136-32 24 64 24-64 136 32-2-37c0.2 0-1.4-10.8-4.8-14.6l-103.8-65.6c-4.6-5.4-11.4-6-9.6-14.8C565.4 762 562.6 637.6 563.4 623.8z', {
+    scale: 0.02,
+    strokeWeight: 0.1,
+    // anchor: new BMap.Size(500, 250),
+    rotation: 90,
+    fillColor: lushuFocusColor,
+    fillOpacity: 0.8
+});
+/**
+ * in love/index.html
+ */
+//把点加载到map上
+function loadScenicList2Map(travel) {
+    scenicList = travel.scenicList;
+    var pointList = [];
+    for (var i in scenicList) {
+        var point = new BMap.Point(scenicList[i].lng, scenicList[i].lat);
+        pointList.push(point);
+        scenicList[i].mark = new BMap.Marker(point, {icon: ICONList[scenicList[i].type]});
+        var label = new BMap.Label(scenicList[i].title, {offset: new BMap.Size(35, -10)});
+        label.setStyle(labelStyle);
+        scenicList[i].mark.setLabel(label);
+        label.hide();
+    }
+    myMap.loadScenicList(scenicList);
+    myMap.makeArrowLine(travel, pointList);
+}
+
 $(function () {
     /**
      *地图初始化
@@ -181,7 +217,7 @@ $(function () {
     };
 
     //点击设置travel的路书和polyline
-    myMap.makeArrowLine = function (travel,pointList) {
+    myMap.makeArrowLine = function (travel, pointList) {
         if (pointList.length < 2)return;
         travel.polyline = new BMap.Polyline(pointList, {
             strokeColor: polyLineDefaultColor,
@@ -192,7 +228,7 @@ $(function () {
         travel.lushu = new BMapLib.LuShu(map, pointList, {
             defaultContent: "",
             autoView: true, //是否开启自动视野调整，如果开启那么路书在运动过程中会根据视野自动调整
-            icon: FOOT_SVG,
+            icon: DEFAULT_FOOT_SVG,
             enableRotation: true, //是否设置marker随着道路的走向进行旋转
             speed: 100000,
             landmarkPois: []
@@ -231,46 +267,47 @@ $(function () {
 
     }
 
-    /**
-     * in love/index.html
-     */
+
     //点击动画，点跳动，线变色
-    function setMarkClickAnimation(e){
-        console.log(e.point);
+    function setMarkClickAnimation(e) {
         var mark = e.target;
         var point = e.point;
         map.setZoom(6);
         setAnimationToTravelList(mark);
     }
-    //设置点点击对应所有点跳动
+
+    //设置点点击对应所有点跳动,路书启动，polyline变色，标签出现
     function setAnimationToTravelList(mark) {
         travelList.forEach(function (travel, index, arr) {
-            var Animation = null;
-            var polyLineColor=polyLineDefaultColor;
             if (markInScenicList(mark, travel.scenicList)) {
-                Animation = BMAP_ANIMATION_BOUNCE;
-                polyLineColor=polyLineFocusColor;
+                travel.polyline.setStrokeColor(polyLineFocusColor);
+                allScenicMarkSetAnimation(travel.scenicList, BMAP_ANIMATION_BOUNCE, true);
                 travel.lushu.stop();
                 travel.lushu.start();
+            }else{
+                travel.polyline.setStrokeColor(polyLineDefaultColor);
+                allScenicMarkSetAnimation(travel.scenicList, null, false);
             }
-            travel.polyline.setStrokeColor(polyLineColor);
-            allScenicMarkSetAnimation(travel.scenicList, Animation);
         });
     }
 
     //点集设置动画
-    function allScenicMarkSetAnimation(scenics, Animation) {
+    function allScenicMarkSetAnimation(scenics, Animation, lableShow) {
         scenics.forEach(function (scenic, index2, arr2) {
             scenic.mark.setAnimation(Animation);
+            if (lableShow)
+                scenic.mark.getLabel().show();
+            else
+                scenic.mark.getLabel().hide();
         });
     }
 
     //判断点在ScenicList里面
     function markInScenicList(mark, scenics) {
-        var result=false;
+        var result = false;
         scenics.forEach(function (scenic, index2, arr2) {
             if (mark == scenic.mark)
-                result=true;
+                result = true;
         });
         return result;
     }
