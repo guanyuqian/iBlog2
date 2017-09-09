@@ -1,4 +1,47 @@
-﻿var home_loading_timeout = 2000;
+﻿
+var str ='((()()()()()()(((())))()))';
+var list={};
+var res=deal(str);
+console.log(res);
+function deal(str){
+    if(str.length==2)return 1;
+    var end=1;
+    var result=0;
+    for (var i=1;i<str.length;i++)
+    {
+        if(str[i]=='('){
+            end++;
+
+        }
+        else{
+            var str1=str.split("");
+            str1.splice(i, 1);
+            str1.splice(0, 1);
+            str1=str1.join('');
+            if(list[str1]  === undefined) {
+                result+=deal(str1);
+                list[str1] = result;
+            }
+        else{
+                result= list[str1];
+            }
+            end--;
+        }
+        if(end==0){
+            return result;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+var home_loading_timeout = 2000;
 var isLoading = false;
 var timeout = 1000;
 var contentTimeout = 1500;

@@ -237,7 +237,9 @@ router.post('/saveArticle', function (req, res, next) {
         Labels: req.body.Labels,
         Url: req.body.Url,
         IsDraft: req.body.IsDraft,
-        scenicList: req.body.scenic
+        scenicList: req.body.scenic,
+        imageCropSrc: req.body.imageCropSrc
+
     };
     post.save(params, function (err) {
         if (err) {
@@ -600,6 +602,7 @@ router.get('/scenicInf', function (req, res, next) {
     });
 });
 
+
 /**
  * 新增游记管理页面
  */
@@ -616,5 +619,26 @@ router.get('/travelsManage', function (req, res, next) {
             });
         }
     });
+
 });
+
+
+
+/**
+ * 裁剪上传图片dialog
+ */
+router.get('/imageCropUpload', function (req, res, next) {
+    tool.getConfig(path.join(__dirname, '../config/settings.json'), function (err, settings) {
+        if (err) {
+            next(err);
+        } else {
+            res.render('admin/imageCropUpload', {
+                config: settings,
+                title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.new_travels")
+            });
+        }
+    });
+});
+
 module.exports = router;
+

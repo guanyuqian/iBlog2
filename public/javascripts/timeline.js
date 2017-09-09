@@ -20,7 +20,7 @@ function checkTimelineByUniqueId(index, val, UniqueId) {
         console.log(inner.offset());
         // Or you can animate the scrolling:
         container.animate({
-            scrollTop: inner.offset().top - container.offset().top + container.scrollTop()-100
+            scrollTop: inner.offset().top - container.offset().top + container.scrollTop()-80
         });
     }
 }
@@ -32,7 +32,7 @@ function loadTimeline(travelList) {
     for (var i in travelList) {
         if (i != 0) firstCheck = '';
         var timelineLi = ['<li class="event" id="' + travelList[i].UniqueId + '">',
-            '    <input type="radio" name="tl-group" value="' + travelList[i].UniqueId + '"' + firstCheck + '/>',
+            '    <input type="radio" name="tl-group" id="' + travelList[i].UniqueId + '"' + firstCheck + '/>',
             '    <label>',
             '    </label>',
             '    <div class="thumb user-4">',

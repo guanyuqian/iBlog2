@@ -291,7 +291,7 @@ $.ajax({
         //添加tab事件
         $("#addScenicTabBtn").on('click', addScenic);
         $("#updateScenicTabBtn").on('click', updateScenic);
-        $("#cancelScenicTabBtn").on('click', refreshScenic);
+        $("#cancelScenicTabBtn").on('click', cancelScenic);
         $("#buildContain").on('click', buildContainFromScenic);
        loadScenicList2MapAndTab();
 
@@ -353,7 +353,8 @@ function setActiveMark(uuid) {
 //@param scenic 新增的scenic
 function scenicListAddOrUpdate(scenic) {
     if (scenic.title == '') {
-        alert('景点名称不能为空');
+
+        swal("景点名称不能为空");
         return;
     }
     for (i in scenicList) {
@@ -383,7 +384,10 @@ function scenicListAddOrUpdate(scenic) {
     return 'add';
 }
 
-
+function cancelScenic(e){
+    e.preventDefault();
+    refreshScenic();
+}
 //增加景点
 function addScenic(e) {
     e.preventDefault();
@@ -460,6 +464,7 @@ function generatePointListByTime() {
 
 //重新填充Scenic数据
 function refreshScenic() {
+
     $("#bTabs_navTabsMainPage>div>div>.addScenicsName").val('');
     //判断是否绑定了click事件
     // e.preventDefault();

@@ -308,7 +308,8 @@ exports.save = function (params, callback) {
             IsDraft: params.IsDraft === 'True',
             IsActive: true,
             ModifyTime: new Date(),
-            scenicList:params.scenicList
+            scenicList:params.scenicList,
+            imageCropSrc: params.imageCropSrc
         });
     postModel.findById(_id, function (err, article) {
         if (err) {

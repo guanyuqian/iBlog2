@@ -130,7 +130,7 @@ $(function () {
                 "featureType": "land",
                 "elementType": "all",
                 "stylers": {
-                    "color": "#ffffff",
+                    "color": "#fff",
                     "lightness": 51,
                     "saturation": -31
                 }
@@ -139,7 +139,7 @@ $(function () {
                 "featureType": "water",
                 "elementType": "all",
                 "stylers": {
-                    "color": "#99CCFF",
+                    "color": "#50B9D7",
                     "lightness": 50
                 }
             },

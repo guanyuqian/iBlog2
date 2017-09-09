@@ -1,6 +1,4 @@
-﻿
-
-$(function () {
+﻿$(function () {
     $("#updateScenicTabBtn").hide();
     $("#cancelScenicTabBtn").hide();
     $("#Title").focus();
@@ -25,21 +23,23 @@ $(function () {
                 });
                 $("#Categorylist ul").append("<li data-value=\"other\"><a href=\"#\">未分类</a></li>");
                 $("#Categorylist").selectlist("enable");
-               $("#Categorylist").selectlist("selectByValue", 'other');
+                $("#Categorylist").selectlist("selectByValue", 'other');
                 articleSelectPreprocess();
             }
         });
     }
+
     //文章种类预处理，强制选择某种文章只能种类，根据后台过来的数据
-    function articleSelectPreprocess(){
-        var defaultCateID=$('#defaultCateID').val();
-        if(defaultCateID!=null&&defaultCateID!='') {
-            $('#Categorylist li[data-value='+defaultCateID+']').addClass("active");
+    function articleSelectPreprocess() {
+        var defaultCateID = $('#defaultCateID').val();
+        if (defaultCateID != null && defaultCateID != '') {
+            $('#Categorylist li[data-value=' + defaultCateID + ']').addClass("active");
             $('select.CateName').prop('disabled', 'disabled');
             $("#Categorylist").selectlist("selectByValue", defaultCateID);
             $("#Categorylist").selectlist("disable");
         }
     }
+
     /******************************/
 
     /**
@@ -173,7 +173,8 @@ $(function () {
             data.fv.disableSubmitButtons(false);
         })
         .on('success.form.fv', function (e) {
-            e.preventDefault();
+            if (typeof e.preventDefault != undefined)
+                e.preventDefault();
             $("#Labels").val(JSON.stringify($("#myPillbox").pillbox("items")));
             $("#scenic").val(stringifyScenicList());
             $('#IsDraft').val('False');
@@ -192,10 +193,12 @@ $(function () {
                 function () {
                     $(".sweet-alert .confirm").text("发布中...");
                     $(".sweet-alert .confirm").attr("disabled", "disabled");
+                    $('#imageCropSrc').val($('#avatar-view').attr('src'));
+
                     $.ajax({
                         url: $("#postForm")[0].action,
                         type: $("#postForm")[0].method,
-                        data:$("#postForm").serialize(),
+                        data: $("#postForm").serialize(),
                         success: function () {
                             swal({
                                 title: "发布成功！",
@@ -226,6 +229,7 @@ $(function () {
         $("#Labels").val(JSON.stringify($("#myPillbox").pillbox("items")));
         $("#scenic").val(stringifyScenicList());
         $('#IsDraft').val('True');
+        $('#imageCropSrc').val($('#avatar-view').attr('src'));
         $this.attr('disabled', 'disabled');
         $.ajax({
             url: $("#postForm")[0].action,
@@ -254,6 +258,12 @@ $(function () {
             }
         });
     });
+    /**
+     * 图片裁剪上传页面
+     */
+
+    $("#imageCropUpload").load('imageCropUpload');
+
     /******************************/
     /**
      * scenic tab初始化
@@ -266,24 +276,22 @@ $(function () {
     });
     //添加删除回调函数 tab
     deleteScenicCallback = deleteScenicList;
-    $.ajax({
-        url: 'scenicInf?action=addScenic', //这里是静态页的地址
-        type: "GET", //静态页用get方法，否则服务器会抛出405错误
-        success: function (data) {
-            myMap.newChooseMark();
-            $("#bTabs_navTabsMainPage").html(data);
-            $('#mainFrameTabs').bTabs();
 
-            //添加tab事件
-            $("#addScenicTabBtn").on('click', addScenic);
-            $("#updateScenicTabBtn").on('click', updateScenic);
-            $("#cancelScenicTabBtn").on('click', refreshScenic);
-            $("#buildContain").on('click', buildContainFromScenic);
-        }
-    });
+    $("#bTabs_navTabsMainPage").load('scenicInf');
+    $('#mainFrameTabs').bTabs();
+
+    //添加tab事件
+    $("#addScenicTabBtn").on('click', addScenic);
+    $("#updateScenicTabBtn").on('click', updateScenic);
+    $("#cancelScenicTabBtn").on('click', cancelScenic);
+    $("#buildContain").on('click', buildContainFromScenic);
+
+
 //根据景点生成标题
     function buildContainFromScenic(e) {
-        e.preventDefault();
+        if (typeof e.preventDefault != undefined)
+
+            e.preventDefault();
         var html = '';
         for (var i in scenicList) {
             html += ('<h2>' + scenicList[i].title + '</h2><p><br/></p>');
@@ -328,7 +336,8 @@ $(function () {
     //@param scenic 新增的scenic
     function scenicListAddOrUpdate(scenic) {
         if (scenic.title == '') {
-            alert('景点名称不能为空');
+            swal("景点名称不能为空");
+
             return;
         }
         for (i in scenicList) {
@@ -358,10 +367,17 @@ $(function () {
         return 'add';
     }
 
+    function cancelScenic(e) {
+        if (typeof e.preventDefault != undefined)
+            e.preventDefault();
+        refreshScenic();
+    }
 
     //增加景点
     function addScenic(e) {
-        e.preventDefault();
+        if (typeof e.preventDefault != undefined)
+
+            e.preventDefault();
         var title = $(".tab-pane.active>div>div>.addScenicsName").first().val();
         var url = 'scenicInf';
         var playTime = $(".tab-pane.active>div>div>div>.addScenicsDate").first().val();
@@ -386,8 +402,9 @@ $(function () {
 
     //保存编辑景点
     function updateScenic(e) {
+        if (typeof e.preventDefault != undefined)
 
-        e.preventDefault();
+            e.preventDefault();
         console.log(e.target);
         var title = $(".tab-pane.active>div>div>.addScenicsName").first().val();
         var playTime = $(".tab-pane.active>div>div>div>.addScenicsDate").first().val();
@@ -434,7 +451,8 @@ $(function () {
     }
 
     //重新填充Scenic数据
-    function refreshScenic() {
+    function refreshScenic(e) {
+
         $("#bTabs_navTabsMainPage>div>div>.addScenicsName").val('');
         //判断是否绑定了click事件
         // e.preventDefault();
@@ -449,21 +467,24 @@ $(function () {
             $(selector + '.addScenicsType').val(type);
         }
     }
+
     //   SON.stringify(scenicList)
 
     //JSON 序列化scenicList
     function stringifyScenicList() {
-        var newScenicList=[];
-        for (var i in scenicList){
+        var newScenicList = [];
+        for (var i in scenicList) {
             newScenicList.push({
                 uuid: scenicList[i].uuid,//id
-                title:  scenicList[i].title,//景点名称
+                title: scenicList[i].title,//景点名称
                 playTime: scenicList[i].playTime,//游玩时间
-                type:  scenicList[i].type,//类型，吃住玩
+                type: scenicList[i].type,//类型，吃住玩
                 lng: scenicList[i].mark.point.lng,//经度
-                lat:  scenicList[i].mark.point.lat//纬度
+                lat: scenicList[i].mark.point.lat//纬度
             })
         }
         return JSON.stringify(newScenicList);
     }
+
+
 });

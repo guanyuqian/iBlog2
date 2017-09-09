@@ -25,8 +25,10 @@ $(function () {
                     PretreatmentTravels(travelList);
                 } catch (e) {
                 }
+
                 loadTimeline(travelList);
                 timelineFocusReflectMap();
+
             }
         });
     }
@@ -67,13 +69,17 @@ $(function () {
 
 //时间轴点击映射到地图
     function timelineFocusReflectMap() {
+        myMap.setAnimationToTravelListByTravel( travelList[0], true);
         $("input[name='tl-group']").click(function (e) {
-
+            console.log(travelList);
             for (var i in travelList) {
                 var travel = travelList[i];
+
                 if (e.target.id == travel.UniqueId) {
+                    console.log(true);
                     myMap.setAnimationToTravelListByTravel(travel, true);
                 } else {
+                    console.log(false);
                     myMap.setAnimationToTravelListByTravel(travel, false);
                 }
             }

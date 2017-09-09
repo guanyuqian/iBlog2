@@ -26,7 +26,10 @@ var postSchema = base.extend({
     //是否有效
     IsActive: {type: Boolean, default: true},
 
-    scenicList: {type: String}
+    //相关地点
+    scenicList: {type: String},
+    //封面
+    imageCropSrc:{type:String,default:'images/defaultTravels.png'}
 });
 
 exports.PostModel = mongoose.model('post', postSchema, 'post');

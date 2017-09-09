@@ -1,13 +1,21 @@
 /* 智能手机 (纵向 和 横向) ----------- */
 @media only screen
 and (min-device-width: 320px)
-and (max-device-width: 480px) {
-    /* Styles */
+and (max-device-width: 760px) {
+    /* Styles 手机端不会显示menu在此页面*/
+    .navbar.navbar-default.navbar-fixed-top{
+    display: none!important;
+    }
+    #timeline, #allmap { padding-top: 0px !important;}
 }
 
 /* 智能手机 (横向) ----------- */
 @media only screen
 and (min-width: 321px) {
+
+    #timeline {
+        border-left: 1px solid #518f8e;
+    }
     #timeline, #allmap {
         height: 100%;
         width: 50%;
@@ -19,6 +27,11 @@ and (min-width: 321px) {
 @media only screen
 and (max-width: 500px) {
     /* Styles */
+    #timeline {
+        border-top: 1px solid #518f8e;
+        border-left: 0px solid #518f8e;
+
+    }
     #timeline, #allmap {
         height: 50%;
         width: 100%;
@@ -30,6 +43,10 @@ and (max-width: 500px) {
 @media only screen
 and (min-device-width: 768px)
 and (max-device-width: 1024px) {
+    #timeline {
+        border-left: 1px solid #518f8e;
+        border-top: 0px solid #518f8e;
+    }
     #timeline, #allmap {
         height: 100%;
         width: 50%;
@@ -55,6 +72,10 @@ and (orientation: portrait) {
 /* 台式机 和 笔记本 ----------- */
 @media only screen
 and (min-width: 1224px) {
+    #timeline {
+        border-left: 1px solid #518f8e;
+        border-top: 0px solid #518f8e;
+    }
     #timeline, #allmap {
         height: 100%;
         width: 50%;
@@ -98,6 +119,5 @@ body {
 ::-webkit-scrollbar {
     display: none;
 }
-
 
 /* Styles */

@@ -7,6 +7,7 @@
 <link href="/libs/form.validation/dist/css/formValidation.min.css" rel="stylesheet"/>
 <link rel="stylesheet" href="/libs/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
 
+
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-8">
         <h2>@__("admin.newarticle.new")</h2>
@@ -19,14 +20,20 @@
                 <div class="ibox-content">
                     <form id="postForm" action="/admin/saveArticle" method="post">
                         <div class="row">
-                            <div class="col-md-9">
+
+                            <div class="col-md-2">
+                                <label for="imageCropUpload">封面</label>
+                                <div id="imageCropUpload" class=""></div>
+
+                            </div>
+                            <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="Title">@__("admin.newarticle.title")</label>
                                     <input id="Title" type="text" name="Title"
                                            placeholder='@__("admin.newarticle.enter_title")' class="form-control"/>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="CategoryId"
                                            style="display:block;">@__("admin.newarticle.category")</label>
@@ -42,28 +49,36 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="Alias">Alias</label>
                                     <input id="Alias" type="text" name="Alias"
                                            placeholder='@__("admin.newarticle.enter_alias")' class="form-control"/>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <button type="button" class="btn btn-sm btn-white btn-alias">
                                         <i class="fa fa-flash"></i> @__("admin.newarticle.auto_generate")
                                     </button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="Summary">@__("admin.newarticle.summary")</label>
-                            <textarea id="Summary" name="Summary" style="min-width: 100%;max-width: 100%;"
-                                      placeholder='@__("admin.newarticle.enter_summary")'
-                                      class="form-control"></textarea>
+
+                            <div class="form-group col-md-8 ">
+                                <label for="Summary">@__("admin.newarticle.summary")</label>
+                                <textarea id="Summary" name="Summary" style="min-width: 100%;max-width: 100%;"
+                                          placeholder='@__("admin.newarticle.enter_summary")'
+                                          class="form-control"></textarea>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label style="display:block;">@__("admin.newarticle.source")</label>
+                                <label id="soruceLocal" data-initialize="radio" class="radio-custom radio-inline">
+                                    <input data-toggle="#block-local" name="Source" type="radio" value="0" checked="checked" class="sr-only"/> @__("admin.newarticle.local")
+                                </label>
+                                <label id="soruceLink" data-initialize="radio" class="radio-custom radio-inline">
+                                    <input data-toggle="#block-link" name="Source" type="radio" value="1" class="sr-only"/> @__("admin.newarticle.url")
+                                </label>
+                            </div>
                         </div>
                         <div class="row">
                             <input id="scenic" type="hidden" name="scenic"/>
@@ -116,7 +131,9 @@
                                 </div>
                             </div>
                         </div>
+
                         <div id="block-local">
+
                             <div class="form-group">
                                 <label for="pillbox-input">@__("admin.newarticle.tag")</label>
                                 <div id="myPillbox" data-initialize="pillbox" class="pillbox">
@@ -162,7 +179,6 @@
 <script type="text/javascript" src="/javascripts/util.js" charset="utf-8"></script>
 
 
-
 <link rel="stylesheet" href="/stylesheets/SearchControl.css"/>
 <script src="/libs/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
 <script src="/libs/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
@@ -188,8 +204,4 @@
 <script>var translateKey = '@config.TranslateKey';</script>
 <script type="text/javascript" src="/libs/bTabs/b.tabs.js" charset="utf-8"></script>
 <script type="text/javascript" src="/javascripts/newarticle.js" charset="utf-8"></script>
-
-
 <script type="text/javascript" src="/javascripts/map.js" charset="utf-8"></script>
-
-
