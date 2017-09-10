@@ -75,6 +75,7 @@ function getArticlesOrTravels(req, res, next, CateName) {
                     Summary: item.Summary,
                     ViewCount: item.ViewCount,
                     Source: item.Source,
+                    imageCropSrc: item.imageCropSrc,
                     Url: item.Url,
                     IsDraft: item.IsDraft,
                     scenicList: item.scenicList,

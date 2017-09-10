@@ -31,11 +31,12 @@ function loadTimeline(travelList) {
     var firstCheck = 'checked';
     for (var i in travelList) {
         if (i != 0) firstCheck = '';
+        var src=travelList[i].imageCropSrc;
         var timelineLi = ['<li class="event" id="' + travelList[i].UniqueId + '">',
             '    <input type="radio" name="tl-group" id="' + travelList[i].UniqueId + '"' + firstCheck + '/>',
             '    <label>',
             '    </label>',
-            '    <div class="thumb user-4">',
+            '    <div class="thumb" style="background-size:100%; background-image: url('+src+')">',
             '   <span> <i class="fa fa-hourglass-start"></i>',
             travelList[i].beginTime,
             '</span>',

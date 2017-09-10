@@ -139,7 +139,8 @@
 			"update": "更新",
 			"back": "返回",
 			"publish": "发布",
-			"save_draft": "保存草稿"
+			"save_draft": "保存草稿",
+			"cover": "封面"
 		},
 		"exception": {
 			"exception_manage": "异常管理"
@@ -175,7 +176,8 @@
 			"option": "操作",
 			"upload": "上载",
 			"save": "保存",
-			"cancel": "取消"
+			"cancel": "取消",
+			"cover": "封面"
 		},
 		"settings": {
 			"setting": "系统设置",

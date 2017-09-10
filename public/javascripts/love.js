@@ -39,6 +39,7 @@ $(function () {
 
     //预处理游记
     function PretreatmentTravels(travels) {
+        console.log(travels);
         for (var i in travels) {
             if (typeof travels[i].scenicList == "undefined" || travels[i].scenicList.length == 0) {
                 travels[i].beginTime = 'XXXX';

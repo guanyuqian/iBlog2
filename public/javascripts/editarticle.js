@@ -1,6 +1,9 @@
-﻿var editor ;
-    $(function () {
-
+﻿var editor;
+$(function () {
+    $("#imageCropUpload").load('/admin/imageCropUpload', function () {
+        if ($("#originalImageCropSrc").val() != "")
+            $("#avatar-view").attr('src', $("#originalImageCropSrc").val());
+    });
     $("#side-menu>li:eq(2)").addClass("active").find("ul").addClass("in").find("li:eq(2)").addClass("active");
 
     refreshCate();
@@ -12,7 +15,7 @@
     }
     $("#myPillbox").pillbox("addItems", 0, JSON.parse($('#Labels').val()));
 
-     editor = UE.getEditor("editor", {
+    editor = UE.getEditor("editor", {
         allowDivTransToP: false,
         initialFrameHeight: 300,
         textarea: "Content"
@@ -78,56 +81,56 @@
             }
         });
     }).formValidation({
-            framework: 'bootstrap',
-            icon: {
-                valid: 'fa fa-check',
-                invalid: 'fa fa-remove',
-                validating: 'fa fa-refresh'
+        framework: 'bootstrap',
+        icon: {
+            valid: 'fa fa-check',
+            invalid: 'fa fa-remove',
+            validating: 'fa fa-refresh'
+        },
+        err: {
+            container: 'tooltip'
+        },
+        fields: {
+            Title: {
+                validators: {
+                    notEmpty: {
+                        message: '标题不能为空'
+                    }
+                }
             },
-            err: {
-                container: 'tooltip'
+            Alias: {
+                validators: {
+                    notEmpty: {
+                        message: 'Alias不能为空'
+                    },
+                    remote: {
+                        url: '/admin/checkArticleAlias',
+                        type: 'POST',
+                        data: '{"uid":"' + $('#UniqueId').val() + '"}',
+                        delay: 1000,
+                        message: 'Alias不唯一'
+                    }
+                }
             },
-            fields: {
-                Title: {
-                    validators: {
-                        notEmpty: {
-                            message: '标题不能为空'
-                        }
+            Summary: {
+                validators: {
+                    notEmpty: {
+                        message: '摘要不能为空'
                     }
-                },
-                Alias: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Alias不能为空'
-                        },
-                        remote: {
-                            url: '/admin/checkArticleAlias',
-                            type: 'POST',
-                            data: '{"uid":"' + $('#UniqueId').val() + '"}',
-                            delay: 1000,
-                            message: 'Alias不唯一'
-                        }
-                    }
-                },
-                Summary: {
-                    validators: {
-                        notEmpty: {
-                            message: '摘要不能为空'
-                        }
-                    }
-                },
-                Url: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Url不能为空'
-                        },
-                        uri: {
-                            message: 'Url地址不正确'
-                        }
+                }
+            },
+            Url: {
+                validators: {
+                    notEmpty: {
+                        message: 'Url不能为空'
+                    },
+                    uri: {
+                        message: 'Url地址不正确'
                     }
                 }
             }
-        })
+        }
+    })
         .on('err.field.fv', function (e, data) {
             data.fv.disableSubmitButtons(false);
         })
@@ -155,10 +158,12 @@
                 function () {
                     $(".sweet-alert .confirm").text(isPublish ? '发布中...' : '提交中...');
                     $(".sweet-alert .confirm").attr("disabled", "disabled");
+                    $('#imageCropSrc').val($('#avatar-view').attr('src'));
                     $.ajax({
                         url: $("#postForm")[0].action,
                         type: $("#postForm")[0].method,
                         data: $("#postForm").serialize(),
+
                         success: function () {
                             if (isPublish) {
                                 swal({
@@ -198,6 +203,7 @@
         $("#Labels").val(JSON.stringify($("#myPillbox").pillbox("items")));
         $("#scenic").val(stringifyScenicList());
         $('#IsDraft').val('True');
+        $('#imageCropSrc').val($('#avatar-view').attr('src'));
         $this.attr('disabled', 'disabled');
         $.ajax({
             url: $("#postForm")[0].action,
@@ -253,10 +259,10 @@ function refreshCate() {
     });
 }
 //文章种类预处理，强制选择某种文章只能种类，根据后台过来的数据
-function articleSelectPreprocess(){
-    var defaultCateID=$('#defaultCateID').val();
-    if(defaultCateID!=null&&defaultCateID!='') {
-        $('#Categorylist li[data-value='+defaultCateID+']').addClass("active");
+function articleSelectPreprocess() {
+    var defaultCateID = $('#defaultCateID').val();
+    if (defaultCateID != null && defaultCateID != '') {
+        $('#Categorylist li[data-value=' + defaultCateID + ']').addClass("active");
         $('select.CateName').prop('disabled', 'disabled');
         $("#Categorylist").selectlist("selectByValue", defaultCateID);
         $("#Categorylist").selectlist("disable");
@@ -293,7 +299,7 @@ $.ajax({
         $("#updateScenicTabBtn").on('click', updateScenic);
         $("#cancelScenicTabBtn").on('click', cancelScenic);
         $("#buildContain").on('click', buildContainFromScenic);
-       loadScenicList2MapAndTab();
+        loadScenicList2MapAndTab();
 
     }
 });
@@ -308,11 +314,11 @@ function buildContainFromScenic(e) {
 }
 function loadScenicList2MapAndTab() {
     //地圖load
-    scenicList=JSON.parse( $('#scenicList').val());
-    for(var i in scenicList){
-        var point =new BMap.Point(scenicList[i].lng, scenicList[i].lat);
-        scenicList[i].mark= new BMap.Marker(point, {icon: ICONList[scenicList[i].type]});
-        $('#mainFrameTabs').bTabsAdd(scenicList[i].uuid, scenicList[i].title,'/admin/scenicInf', refreshScenic);
+    scenicList = JSON.parse($('#scenicList').val());
+    for (var i in scenicList) {
+        var point = new BMap.Point(scenicList[i].lng, scenicList[i].lat);
+        scenicList[i].mark = new BMap.Marker(point, {icon: ICONList[scenicList[i].type]});
+        $('#mainFrameTabs').bTabsAdd(scenicList[i].uuid, scenicList[i].title, '/admin/scenicInf', refreshScenic);
     }
     myMap.loadScenicList(scenicList);
 }
@@ -384,7 +390,7 @@ function scenicListAddOrUpdate(scenic) {
     return 'add';
 }
 
-function cancelScenic(e){
+function cancelScenic(e) {
     e.preventDefault();
     refreshScenic();
 }
@@ -406,10 +412,9 @@ function addScenic(e) {
     var result = scenicListAddOrUpdate(newScenic);
     if (result == 'add') {
         $('#mainFrameTabs').bTabsAdd(menuId, title, url, refreshScenic);
-        console.log(scenicList);
+        //console.log(scenicList);
     }
     // $('#myTab a:first').tab('show'); // 选择第一个标签
-
 }
 
 
@@ -417,7 +422,6 @@ function addScenic(e) {
 function updateScenic(e) {
 
     e.preventDefault();
-    console.log(e.target);
     var title = $(".tab-pane.active>div>div>.addScenicsName").first().val();
     var playTime = $(".tab-pane.active>div>div>div>.addScenicsDate").first().val();
     var type = $(".tab-pane.active>div>div>.addScenicsType").first().val();
@@ -430,7 +434,7 @@ function updateScenic(e) {
         mark: myMap.chooseMark
     });
     if (action == 'update') {
-        console.log(scenicList);
+      //  console.log(scenicList);
         $("[href$=" + menuId + "]").first().html(title + '<button type="button" class="navTabsCloseBtn" title="关闭" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>');
     }
 }
@@ -442,7 +446,7 @@ function deleteScenicList(id) {
         //再判断是否是更新
         if (id == scenicList[i].uuid) {
             myMap.deleteMark(scenicList[i].mark);
-            console.log(scenicList);
+         //   console.log(scenicList);
             scenicList.splice(i, 1);
             //  myMap.makeArrowLine(generatePointListByTime());
         }
@@ -483,15 +487,15 @@ function refreshScenic() {
 
 //JSON 序列化scenicList
 function stringifyScenicList() {
-    var newScenicList=[];
-    for (var i in scenicList){
+    var newScenicList = [];
+    for (var i in scenicList) {
         newScenicList.push({
             uuid: scenicList[i].uuid,//id
-            title:  scenicList[i].title,//景点名称
+            title: scenicList[i].title,//景点名称
             playTime: scenicList[i].playTime,//游玩时间
-            type:  scenicList[i].type,//类型，吃住玩
+            type: scenicList[i].type,//类型，吃住玩
             lng: scenicList[i].mark.point.lng,//经度
-            lat:  scenicList[i].mark.point.lat//纬度
+            lat: scenicList[i].mark.point.lat//纬度
         })
     }
     return JSON.stringify(newScenicList);

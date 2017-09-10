@@ -22,9 +22,8 @@
                         <div class="row">
 
                             <div class="col-md-2">
-                                <label for="imageCropUpload">封面</label>
+                                <label for="imageCropUpload">@__("admin.newarticle.cover")</label>
                                 <div id="imageCropUpload" class=""></div>
-
                             </div>
                             <div class="col-md-8">
                                 <div class="form-group">
@@ -158,7 +157,13 @@
                                 <script id="editor" type="text/plain"></script>
                             </div>
                         </div>
-
+                        <div id="block-link">
+                            <div class="form-group">
+                                <label for="Url">Url</label>
+                                <input id="Url" type="text" name="Url" placeholder='@__("admin.editarticle.enter_url")'
+                                       class="form-control" value=""/>
+                            </div>
+                        </div>
                         <div>
                             <button id="btnPublish" type="submit" class="btn btn-danger">
                                 <i class="fa fa-send"></i> @__("admin.newarticle.publish")

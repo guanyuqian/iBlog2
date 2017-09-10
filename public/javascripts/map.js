@@ -345,5 +345,5 @@ $(function () {
     }
 
     map.addEventListener('click', clickHandler);
-    addchooseMark('上海');
+    myMap.newChooseMark();
 });

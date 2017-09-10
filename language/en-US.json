@@ -139,7 +139,8 @@
 			"update": "Update",
 			"back": "Back",
 			"publish": "Publish",
-			"save_draft": "Save Draft"
+			"save_draft": "Save Draft",
+			"cover": "Cover"
 		},
 		"exception": {
 			"exception_manage": "Exception Manage"
@@ -171,13 +172,13 @@
 			"publish": "Publish",
 			"save_draft": "Save Draft",
 			"Travels": "Travels",
-			"url": "Url",
 			"scenic": "Scenic",
 			"add": "Add",
 			"option": "Option",
 			"upload": "Load",
 			"save": "Save",
-			"cancel": "Cancel"
+			"cancel": "Cancel",
+			"cover": "Cover"
 		},
 		"settings": {
 			"setting": "Settings",
