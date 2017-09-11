@@ -12,7 +12,7 @@ var travels={
 };
 category.save([travels], function (err) {
     if (err) {
-        next(err);
+        console.log('err')
     } else {
         console.log('travels patched')
     }
