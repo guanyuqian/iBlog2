@@ -1,5 +1,5 @@
 ﻿$(function () {
-    $("#side-menu>li:eq(8)").addClass("active");
+    //$("#side-menu>li:eq(8)").addClass("active");
 
     var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
     elems.forEach(function (el) {

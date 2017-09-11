@@ -1,7 +1,7 @@
 ﻿var $table = $("#exceptions");
 
 $(function () {
-    $("#side-menu>li:eq(7)").addClass("active");
+   // $("#side-menu>li:eq(7)").addClass("active");
 
     $table.bootstrapTable({
         url: "/admin/getExceptions",

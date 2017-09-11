@@ -11,6 +11,7 @@ var tool = require('../utility/tool');
 var moment = require('moment');
 var shortid = require('shortid');
 var redisClient = require('../utility/redisClient');
+var datapatch = require('../dataPatch');
 
 //上传配置
 upload.configure({

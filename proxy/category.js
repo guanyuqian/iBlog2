@@ -133,6 +133,7 @@ exports.save = function (array, callback) {
         toUpdate = [],
         updateQuery = [],
         cateNew;
+    console.log(array);
     if (array.length > 0) {
         array.forEach(function (item) {
             jsonArray.push({
