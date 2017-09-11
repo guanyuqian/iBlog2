@@ -31,15 +31,29 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <header class="text-center post-title">
+
+                <header class="text-center post-title ">
+                    <div class="form-group avatar-view" title="" data-original-title="Change the avatar"
+                         style="border: 5px solid rgba(65,131,142,1) !important;
+                                border-radius: 50% !important;
+                                display: block;!important;
+                                MARGIN-RIGHT: auto; MARGIN-LEFT: auto;
+                                height: 150px;!important;
+                                width: 150px;!important;
+                                box-shadow: 0 0 5px rgba(0,0,0,.15);!important;
+                                cursor: pointer;!important;
+                                overflow: hidden;!important;">
+                        <img src="@post.imageCropSrc" alt="Avatar" id="avatar-view" style="width:100%"/>
+                    </div>
                     <span title='@__("blog.article.post_date")' class="text-muted">
                         <i class="fa fa-clock-o"></i> @post.CreateTimeStr</span>
                     <h1>@post.Title</h1>
                 </header>
+
                 <div id="map-container" class="baidu-maps col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div id="allmap" style="height: 300px ;width: 100% ; top: 10px"></div>
                 </div>
-                <div id="main-context" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 30px"  >
+                <div id="main-context" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 30px">
                     <blockquote>
                         <h2>@__("blog.article.brief")</h2>
                         <span>：@post.Summary</span>

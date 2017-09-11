@@ -31,6 +31,8 @@ function loadTimeline(travelList) {
     var firstCheck = 'checked';
     for (var i in travelList) {
         if (i != 0) firstCheck = '';
+        var linkSpan=travelList[i].Url!=""?'<i class="fa fa-link"></i>':"";
+        var url=travelList[i].Url!=""?travelList[i].Url:'/blog/loveTravel/' + travelList[i].Alias ;
         var src=travelList[i].imageCropSrc;
         var timelineLi = ['<li class="event" id="' + travelList[i].UniqueId + '">',
             '    <input type="radio" name="tl-group" id="' + travelList[i].UniqueId + '"' + firstCheck + '/>',
@@ -48,10 +50,11 @@ function loadTimeline(travelList) {
             '        <div class="content">',
             '            <div class="content-inner">',
             '                <h3>',
+            linkSpan,
             travelList[i].Title,
             '                </h3>',
             '                <p>',
-            '                  <a href=\"/blog/loveTravel/' + travelList[i].Alias + '\" target=\"_blank\">',
+            '                  <a href=\"'+url+'\" target=\"_blank\">',
             travelList[i].Summary,
             '                   </a>',
             '                </p>',

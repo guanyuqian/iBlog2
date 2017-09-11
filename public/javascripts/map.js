@@ -313,14 +313,23 @@ $(function () {
     }
     //设置点点击对应所有点跳动,路书启动，polyline变色，标签出现
      myMap.setAnimationToTravelListByTravel=function(travel,focus) {
+         if(travel.scenicList.length==0)return;
             if (focus) {
-                travel.polyline.setStrokeColor(polyLineFocusColor);
                 allScenicMarkSetAnimation(travel.scenicList, BMAP_ANIMATION_BOUNCE, true);
+                if(travel.scenicList.length==1){
+                    map.panTo(travel.scenicList[0].mark);
+                    return;
+                }
+                travel.polyline.setStrokeColor(polyLineFocusColor);
                 travel.lushu.stop();
                 travel.lushu.start();
             }else{
-                travel.polyline.setStrokeColor(polyLineDefaultColor);
                 allScenicMarkSetAnimation(travel.scenicList, null, false);
+                if(travel.scenicList.length==1){
+                    map.panTo(travel.scenicList[0].mark);
+                    return;
+                }
+                travel.polyline.setStrokeColor(polyLineDefaultColor);
             }
     };
     //点集设置动画

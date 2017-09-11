@@ -255,6 +255,7 @@ router.get('/:category/:article', function (req, res, next) {
                 LabelList: labelList,
                 Summary: article.Summary,
                 Content: article.Content,
+                imageCropSrc: article.imageCropSrc,
                 Alias:article.Alias,
                 scenicList: article.scenicList
             };
