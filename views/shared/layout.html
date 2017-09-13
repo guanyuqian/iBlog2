@@ -12,25 +12,25 @@
     <link href="/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/stylesheets/share.css" rel="stylesheet">
     <link href="/stylesheets/animate-custom.css" rel="stylesheet">
-    <title></title>
+    <title>@title</title>
 </head>
 <body class="fuelux">
 @if(model.isRoot) {
-    <link href="/stylesheets/home-loading.css" rel="stylesheet"/>
-    <div id="home-loading" class="home-loading">
-        <div id="loading-con" style="display:none;" class="loading-con">
-            <div class="loading-circle"></div>
-            <script>
-                var home_loading_begin = new Date();
-                document.body.style.overflow = "hidden";
-                function imgLoad() {
-                    document.getElementById("home-loading").style.background = "#f3f3f4";
-                    document.getElementById("loading-con").style.display = "block";
-                }
-            </script>
-            <img id="loadingImg" alt="loading" src="@config.LogoPath" onload="imgLoad();"/>
-        </div>
+<link href="/stylesheets/home-loading.css" rel="stylesheet"/>
+<div id="home-loading" class="home-loading">
+    <div id="loading-con" style="display:none;" class="loading-con">
+        <div class="loading-circle"></div>
+        <script>
+            var home_loading_begin = new Date();
+            document.body.style.overflow = "hidden";
+            function imgLoad() {
+                document.getElementById("home-loading").style.background = "#f3f3f4";
+                document.getElementById("loading-con").style.display = "block";
+            }
+        </script>
+        <img id="loadingImg" alt="loading" src="@config.LogoPath" onload="imgLoad();"/>
     </div>
+</div>
 }
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
@@ -58,11 +58,11 @@
                     </a>
                 </li>
                 @if(config.ShowGuestbook === 'true') {
-                    <li>
-                        <a href="/guestbook">
-                            <i class="fa fa-edit fa-fw"></i> @__("layout.message")
-                        </a>
-                    </li>
+                <li>
+                    <a href="/guestbook">
+                        <i class="fa fa-edit fa-fw"></i> @__("layout.message")
+                    </a>
+                </li>
                 }
                 <li>
                     <a href="/about">
@@ -80,16 +80,16 @@
 </div>
 @this.renderBody()
 @if(config.EnableStatistics === 'true') {
-    //百度统计代码
-    <script>
-        var _hmt = _hmt || [];
-        (function () {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?@config.StatisticsId";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
+//百度统计代码
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?59f6d3b63594bffcfb8e2d86b8e1afad";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
 }
 </body>
 </html>

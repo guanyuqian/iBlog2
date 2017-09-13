@@ -321,6 +321,7 @@ blockquote {
 }
 
 .blog-item p {
+    word-wrap: break-word;
     margin-top: 20px;
 }
 

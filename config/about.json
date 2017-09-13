@@ -1,10 +1,10 @@
 {
-  "FirstLine": "第一行文本",
-  "SecondLine": "第二行文本",
-  "PhotoPath": "/images/zhr.jpg",
-  "ThirdLine": "第三行文本",
-  "Profile": "个人简介",
-  "Wechat": "微信号",
-  "QrcodePath": "",
-  "Email": "Email地址"
+  "FirstLine": "关于作者",
+  "SecondLine": "🐻黑熊先生❤松鼠小姐🐭",
+  "PhotoPath": "/images/logo (1).jpg",
+  "ThirdLine": "我只是想让大家都幸福啊！",
+  "Profile": "      本人擅长Ai、Fw、Br、Ae、Pr、Id、Ps等软件的安装与卸载，精通CSS、JavaScript、PHP、C、C++、C#、Java、Ruby、Perl、Lisp、Python、Objective-C、ActionScript等单词的拼写，熟悉Windows、Linux、MacOS、IOS、Android等系统的开关机，求一份月薪上万的工作！\r\n有意者请联系😄",
+  "Wechat": "guan1528978211",
+  "QrcodePath": "/images/wechat.jpg",
+  "Email": "the_sam@foxmail.com"
 }

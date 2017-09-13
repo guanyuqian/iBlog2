@@ -92,9 +92,8 @@ function loadScenicList2Map(travel) {
         var label = new BMap.Label(scenicList[i].title, {offset: new BMap.Size(35, -10)});
         label.setStyle(labelDefaultStyle);
         scenicList[i].mark.setLabel(label);
-        var url='/blog/loveTravel/' + travel.Alias  ;
         label.addEventListener("click",function(){
-            window.open(url);
+            window.open(travel.Url);
         });
         label.addEventListener("mouseover",
             function(e){

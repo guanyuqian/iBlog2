@@ -1,7 +1,7 @@
 {
   "DbPath": "mongodb://localhost/iBlog2",
   "Redis": {
-    "Active": true,
+    "Active": false,
     "Host": "127.0.0.1",
     "Port": 6379
   }
