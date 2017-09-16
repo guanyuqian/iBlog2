@@ -41,8 +41,7 @@ $(function () {
     function PretreatmentTravels(travels) {
         console.log(travels);
         for (var i in travels) {
-            if(travelList[i].Url=="")
-                travelList[i].Url='/blog/loveTravel/' + travelList[i].Alias ;
+
             if (typeof travels[i].scenicList == "undefined" || travels[i].scenicList.length == 0) {
                 travels[i].beginTime = 'XXXX';
                 travels[i].endTime = 'XXXX';

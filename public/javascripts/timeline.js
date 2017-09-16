@@ -31,7 +31,13 @@ function loadTimeline(travelList) {
     var firstCheck = 'checked';
     for (var i in travelList) {
         if (i != 0) firstCheck = '';
-        var linkSpan=travelList[i].Url!=""?'<i class="fa fa-link"></i>':"";
+        var linkSpan;
+        if(travelList[i].Url=="") {
+            travelList[i].Url = '/blog/loveTravel/' + travelList[i].Alias;
+
+        }else{
+            linkSpan='<i class="fa fa-link"></i>';
+        }
         var src=travelList[i].imageCropSrc;
         var timelineLi = ['<li class="event" id="' + travelList[i].UniqueId + '">',
             '    <input type="radio" name="tl-group" id="' + travelList[i].UniqueId + '"' + firstCheck + '/>',

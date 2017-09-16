@@ -1,7 +1,7 @@
 /* 智能手机 (纵向 和 横向) ----------- */
 @media only screen
-and (min-device-width: 320px)
-and (max-device-width: 760px) {
+
+and (max-device-width: 500px) {
     /* Styles 手机端不会显示menu在此页面*/
     .navbar.navbar-default.navbar-fixed-top{
     display: none!important;
