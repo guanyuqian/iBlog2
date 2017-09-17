@@ -48,9 +48,11 @@ $(function () {
                     travels[i].endTime = 'XXXX';
                 } else {
                     travels[i].scenicList = JSON.parse(travels[i].scenicList);
-                    travels[i].beginTime = getMaxOrMinPlayTime('max', travels[i].scenicList);
-                    travels[i].endTime = getMaxOrMinPlayTime('min', travels[i].scenicList);
-                    loadScenicList2Map(travels[i]);
+                    if(travels[i].scenicList.length>0) {
+                        travels[i].beginTime = getMaxOrMinPlayTime('max', travels[i].scenicList);
+                        travels[i].endTime = getMaxOrMinPlayTime('min', travels[i].scenicList);
+                        loadScenicList2Map(travels[i]);
+                    }
                 }
             }
         }

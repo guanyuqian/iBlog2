@@ -302,7 +302,6 @@ function editArticleOrTravels(req, res, next, defaultCateID) {
                 post: article,
                 title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.edit_article"),
                 defaultCateID: defaultCateID
-
             });
         }
     });
