@@ -30,8 +30,8 @@
     }
 
     //文章种类预处理，强制选择某种文章只能种类，根据后台过来的数据
+    var defaultCateID = $('#defaultCateID').val();
     function articleSelectPreprocess() {
-        var defaultCateID = $('#defaultCateID').val();
         if (defaultCateID != null && defaultCateID != '') {
             $('#Categorylist li[data-value=' + defaultCateID + ']').addClass("active");
             $('select.CateName').prop('disabled', 'disabled');
@@ -206,7 +206,12 @@
                                 showConfirmButton: false,
                                 timer: 2000
                             }, function () {
-                                window.location.href = "/admin/articlemanage";
+                                if(defaultCateID=='Travels'){
+                                    window.location.href = "/admin/travelsManage";
+
+                                }else {
+                                    window.location.href = "/admin/articlemanage";
+                                }
                             });
                         },
                         error: function () {
