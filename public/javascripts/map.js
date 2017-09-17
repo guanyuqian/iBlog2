@@ -1,12 +1,14 @@
 /**
  * Created by the_s on 2017/8/27.
  */
-const BAIDU_ICON_HOUSE = new BMap.Icon("/images/system/house.png", new BMap.Size(50, 50), {});
-const BAIDU_ICON_KITCHEN = new BMap.Icon("/images/system/kitchen.png", new BMap.Size(50, 50), {});
-const BAIDU_ICON_PHTOO = new BMap.Icon("/images/system/photo.png", new BMap.Size(50, 50), {
-    // offset: new BMap.Size(10, 25), // 指定定位位置
-    // imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
-});
+const BAIDU_ICON_HOUSE = new BMap.Icon("/images/system/house.png", new BMap.Size(50, 50),
+    {anchor: new BMap.Size(25, 45)});
+const BAIDU_ICON_KITCHEN = new BMap.Icon("/images/system/kitchen.png", new BMap.Size(50, 50),
+    {anchor: new BMap.Size(25, 45)});
+const BAIDU_ICON_PHTOO = new BMap.Icon("/images/system/photo.png", new BMap.Size(50, 50),
+    {anchor: new BMap.Size(25, 45)});
+const BAIDU_ICON_PLAY = new BMap.Icon("/images/system/play.png", new BMap.Size(50, 50),
+    {anchor: new BMap.Size(25, 45)});
 const polyLineFocusColor = '#FCB941';
 const polyLineDefaultColor = '#2C82C9';
 const lushuDefaultColor = '#1abc9c';
@@ -17,7 +19,7 @@ const labelDefaultStyle = {
     fontWeight: "bold",
     backgroundColor: '#ecf0f1',
     borderColor: '#95a5a6',
-    cursor:'pointer'
+    cursor: 'pointer'
 };
 const labelFocusStyle = {
     color: '#34495e',
@@ -25,14 +27,15 @@ const labelFocusStyle = {
     fontWeight: "bold",
     backgroundColor: '#ecf0f1',
     borderColor: '#7f8c8d',
-    cursor:'pointer'
+    cursor: 'pointer'
 };
 //MAP ICON 映射
 const ICONList =
     {
-        '游玩': BAIDU_ICON_PHTOO,
+        '游玩': BAIDU_ICON_PLAY,
         '吃喝': BAIDU_ICON_KITCHEN,
-        '下榻': BAIDU_ICON_HOUSE
+        '下榻': BAIDU_ICON_HOUSE,
+        '出片': BAIDU_ICON_PHTOO
     };
 var myMap = {
     chooseMark: null,
@@ -47,7 +50,7 @@ var myMap = {
     loadScenicList: null,//传入ScenicList，载入景点
     enableClickAddChooseMark: true,//可点击建立新点还是查看点
     enableClickSetMarkListAnimation: false,//可点击travelList的对应点跳动
-    setAnimationToTravelListByTravel:null
+    setAnimationToTravelListByTravel: null
 };
 
 /**
@@ -92,15 +95,15 @@ function loadScenicList2Map(travel) {
         var label = new BMap.Label(scenicList[i].title, {offset: new BMap.Size(35, -10)});
         label.setStyle(labelDefaultStyle);
         scenicList[i].mark.setLabel(label);
-        label.addEventListener("click",function(){
+        label.addEventListener("click", function () {
             window.open(travel.Url);
         });
         label.addEventListener("mouseover",
-            function(e){
+            function (e) {
                 e.target.setStyle(labelFocusStyle);
             });
         label.addEventListener("mouseout",
-            function(e){
+            function (e) {
                 e.target.setStyle(
                     labelDefaultStyle
                 );
@@ -301,35 +304,36 @@ $(function () {
     //设置点点击对应所有点跳动,路书启动，polyline变色，标签出现
     function setAnimationToTravelListByMark(mark) {
         travelList.forEach(function (travel, index, arr) {
-            var isFocus=markInScenicList(mark, travel.scenicList);
-            myMap.setAnimationToTravelListByTravel(travel,isFocus);
+            var isFocus = markInScenicList(mark, travel.scenicList);
+            myMap.setAnimationToTravelListByTravel(travel, isFocus);
             try {
                 checkTimelineByUniqueId(index, isFocus, travel.UniqueId);
-            }catch (e){
+            } catch (e) {
                 console.log("checkTimelineByUniqueId don't execute")
             }
         });
     }
+
     //设置点点击对应所有点跳动,路书启动，polyline变色，标签出现
-     myMap.setAnimationToTravelListByTravel=function(travel,focus) {
-         if(travel.scenicList.length==0)return;
-            if (focus) {
-                allScenicMarkSetAnimation(travel.scenicList, BMAP_ANIMATION_BOUNCE, true);
-                if(travel.scenicList.length==1){
-                    map.panTo(travel.scenicList[0].mark);
-                    return;
-                }
-                travel.polyline.setStrokeColor(polyLineFocusColor);
-                travel.lushu.stop();
-                travel.lushu.start();
-            }else{
-                allScenicMarkSetAnimation(travel.scenicList, null, false);
-                if(travel.scenicList.length==1){
-                    map.panTo(travel.scenicList[0].mark);
-                    return;
-                }
-                travel.polyline.setStrokeColor(polyLineDefaultColor);
+    myMap.setAnimationToTravelListByTravel = function (travel, focus) {
+        if (travel.scenicList.length == 0)return;
+        if (focus) {
+            allScenicMarkSetAnimation(travel.scenicList, BMAP_ANIMATION_BOUNCE, true);
+            if (travel.scenicList.length == 1) {
+                map.panTo(travel.scenicList[0].mark);
+                return;
             }
+            travel.polyline.setStrokeColor(polyLineFocusColor);
+            travel.lushu.stop();
+            travel.lushu.start();
+        } else {
+            allScenicMarkSetAnimation(travel.scenicList, null, false);
+            if (travel.scenicList.length == 1) {
+                map.panTo(travel.scenicList[0].mark);
+                return;
+            }
+            travel.polyline.setStrokeColor(polyLineDefaultColor);
+        }
     };
     //点集设置动画
     function allScenicMarkSetAnimation(scenics, Animation, lableShow) {
