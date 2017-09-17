@@ -15,23 +15,23 @@ $(function () {
         }
     });
 
-    function GetTravels(){
+    function GetTravels() {
         $.ajax({
             url: 'getTravels', //这里是静态页的地址
             type: "GET", //静态页用get方法，否则服务器会抛出405错误
             success: function (data) {
                 travelList = data.travels;
                 try {
-                    PretreatmentTravels(travelList);
+                    travelList = PretreatmentTravels(travelList);
                 } catch (e) {
                 }
-
                 loadTimeline(travelList);
                 timelineFocusReflectMap();
 
             }
         });
     }
+
     //地图初始化
     myMap.noChooseMark();
     myMap.enableClickAddChooseMark = false;//不可点选新点
@@ -39,19 +39,22 @@ $(function () {
 
     //预处理游记
     function PretreatmentTravels(travels) {
-        console.log(travels);
+        var result = [];
         for (var i in travels) {
-
-            if (typeof travels[i].scenicList == "undefined" || travels[i].scenicList.length == 0) {
-                travels[i].beginTime = 'XXXX';
-                travels[i].endTime = 'XXXX';
-            } else {
-                travels[i].scenicList = JSON.parse(travels[i].scenicList);
-                travels[i].beginTime = getMaxOrMinPlayTime('max', travels[i].scenicList);
-                travels[i].endTime = getMaxOrMinPlayTime('min', travels[i].scenicList);
-                loadScenicList2Map(travels[i]);
+            if (travels[i].IsActive && travels[i].IsDraft == false) {
+                result.push(travels[i]);
+                if (typeof travels[i].scenicList == "undefined" || travels[i].scenicList.length == 0) {
+                    travels[i].beginTime = 'XXXX';
+                    travels[i].endTime = 'XXXX';
+                } else {
+                    travels[i].scenicList = JSON.parse(travels[i].scenicList);
+                    travels[i].beginTime = getMaxOrMinPlayTime('max', travels[i].scenicList);
+                    travels[i].endTime = getMaxOrMinPlayTime('min', travels[i].scenicList);
+                    loadScenicList2Map(travels[i]);
+                }
             }
         }
+        return result;
     }
 
     //获取最大或者最小时间
@@ -71,7 +74,7 @@ $(function () {
 
 //时间轴点击映射到地图
     function timelineFocusReflectMap() {
-        myMap.setAnimationToTravelListByTravel( travelList[0], true);
+        myMap.setAnimationToTravelListByTravel(travelList[0], true);
         $("input[name='tl-group']").click(function (e) {
             console.log(travelList);
             for (var i in travelList) {
