@@ -12,15 +12,19 @@ passport.use(new Strategy(
         passwordField: 'Password'//页面上的密码字段的name属性值
     },
     function (username, password, cb) {
-        var account = require('../config/account');
+        var accounts = require('../config/account');
+        var validate=false;
         //自己判断用户是否有效
-        if (username === account.UserName && password === account.Password) {
-            //验证通过
-            return cb(null, account);
-        } else {
-            //验证失败
-            return cb(null, false);
-        }
+        accounts.forEach(function(account) {
+            if (username === account.UserName && password === account.Password) {
+                //验证通过
+                validate=true;
+                return cb(null, account);
+            }
+        });
+        //验证失败
+        if(!validate)
+        return cb(null, false);
     }));
 
 passport.serializeUser(function (user, cb) {
@@ -28,12 +32,17 @@ passport.serializeUser(function (user, cb) {
 });
 
 passport.deserializeUser(function (id, cb) {
-    var account = require('../config/account');
-    if (account.Id === id) {
-        return cb(null, account);
-    } else {
+    var accounts = require('../config/account');
+    //自己判断用户是否有效
+    var validate=false;
+    accounts.forEach(function(account) {
+        if (account.Id === id) {
+            validate=true;
+            return cb(null, account);
+        }
+    });
+    if(!validate)
         return cb(err);
-    }
 });
 
 //后台登录页面
@@ -58,7 +67,8 @@ router.post('/login', function (req, res, next) {
         } else if (!user) {
             logger.errLogger(req, new Error(res.__("auth.wrong_info")));
             res.json({
-                valid: false
+                valid: false,
+                message:'用户名或密码错误'
             });
         } else {
             //登录操作
