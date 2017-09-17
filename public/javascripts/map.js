@@ -1,9 +1,9 @@
 /**
  * Created by the_s on 2017/8/27.
  */
-const BAIDU_ICON_HOUSE = new BMap.Icon("/images/house.png", new BMap.Size(32, 32), {});
-const BAIDU_ICON_KITCHEN = new BMap.Icon("/images/kitchen.png", new BMap.Size(32, 32), {});
-const BAIDU_ICON_PHTOO = new BMap.Icon("/images/photo.png", new BMap.Size(32, 32), {
+const BAIDU_ICON_HOUSE = new BMap.Icon("/images/system/house.png", new BMap.Size(32, 32), {});
+const BAIDU_ICON_KITCHEN = new BMap.Icon("/images/system/kitchen.png", new BMap.Size(32, 32), {});
+const BAIDU_ICON_PHTOO = new BMap.Icon("/images/system/photo.png", new BMap.Size(32, 32), {
     // offset: new BMap.Size(10, 25), // 指定定位位置
     // imageOffset: new BMap.Size(0, 0 - 10 * 25) // 设置图片偏移
 });

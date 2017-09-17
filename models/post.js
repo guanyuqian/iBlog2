@@ -29,7 +29,7 @@ var postSchema = base.extend({
     //相关地点
     scenicList: {type: String},
     //封面
-    imageCropSrc:{type:String,default:'images/defaultTravels.png'}
+    imageCropSrc:{type:String,default:'images/  system/defaultTravels.png'}
 });
 
 exports.PostModel = mongoose.model('post', postSchema, 'post');

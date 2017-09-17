@@ -6,7 +6,7 @@ var travels = {
     "uniqueid": "Travels",
     "alias": "Travels",
     "catename": "Travels",
-    "img": "/images/travel planning.png",
+    "img": "/images/travels.png",
     "link": ''
 };
 

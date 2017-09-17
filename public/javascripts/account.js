@@ -16,9 +16,9 @@
         slide_links: 'blank',    // Individual links for each slide (Options: false, 'num', 'name', 'blank')
         thumbnail_navigation: 0,			// Thumbnail navigation
         slides: [    // Slideshow Images
-            {image: "/images/s1.jpg"},
-            {image: "/images/s2.jpg"},
-            {image: "/images/s3.jpg"}
+            {image: "/images/system/s1.jpg"},
+            {image: "/images/system/s2.jpg"},
+            {image: "/images/system/s3.jpg"}
         ],
         progress_bar: 1			// Timer for each slide
     });
