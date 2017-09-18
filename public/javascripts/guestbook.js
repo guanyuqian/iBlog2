@@ -1,3 +1,3 @@
 $(function () {
-    $(".my-nav-pills li:contains('留言')").addClass("active").siblings().removeClass("active");
+    $(".my-nav-pills li:eq(3)").addClass("active").siblings().removeClass("active");
 });

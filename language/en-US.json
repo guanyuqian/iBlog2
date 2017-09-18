@@ -41,13 +41,15 @@
 	"misc": {
 		"msg": "Message",
 		"about": "About",
-		"love": "Travels"
+		"love": "Travels",
+		"gallery":"gallery"
 	},
 	"layout": {
 		"blog": "Blog",
 		"message": "Message",
 		"about": "About",
-		"love": "Love"
+		"love": "Love",
+		"gallery":"gallery"
 	},
 	"footer": {
 		"admin_system": "Admin System"

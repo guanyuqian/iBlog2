@@ -1,31 +1,7 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
 $(function () {
 
 
-
-
-
-
-
-
-
-
-
-
-
-    $(".my-nav-pills li:eq(3)").addClass("active").siblings().removeClass("active");
+    $(".my-nav-pills li:eq(4)").addClass("active").siblings().removeClass("active");
 
     $("#job-title").cycleText();
 

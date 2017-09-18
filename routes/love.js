@@ -19,7 +19,7 @@ router.get('/love', function (req, res, next) {
             next(err);
         } else {
             res.render('love/index', {
-                title: settings['SiteName'] + ' - ' + res.__("misc.msg"),
+                title: settings['SiteName'] + ' - ' + res.__("misc.love"),
                 config: settings
             });
         }

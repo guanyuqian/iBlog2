@@ -41,13 +41,15 @@
 	"misc": {
 		"msg": "留言",
 		"about": "关于",
-		"love": "游记"
+		"love": "游记",
+		"gallery": "相册"
 	},
 	"layout": {
 		"blog": "博客",
 		"message": "留言",
 		"about": "关于",
-		"love": "游记"
+		"love": "游记",
+		"gallery": "相册"
 	},
 	"footer": {
 		"admin_system": "后台管理"

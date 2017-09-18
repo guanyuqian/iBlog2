@@ -8,6 +8,7 @@
     <div id="timeline">
     </div>
 </div>
+
 <script type="text/javascript" src="/javascripts/util.js" charset="utf-8"></script>
 <script type="text/javascript" src="/libs/jquery/dist/jquery.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/libs/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
@@ -17,3 +18,17 @@
 <script type="text/javascript" src="/javascripts/map.js" charset="utf-8"></script>
 <script type="text/javascript" src="/javascripts/love.js"></script>
 <script src="/javascripts/timeline.js"></script>
+@this.renderPartial('./top')
+<script>
+    var logoPath = "@config.LogoPath";
+    var jiathis_config = {
+        data_track_clickback: true,
+        url: window.location.href,
+        summary: "",
+        title: "@(config.SiteName) - 相册"
+    };
+</script>
+
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=@config.JiaThisId" charset="utf-8"></script>
+<script type="text/javascript" src="/libs/jquery-qrcode/dist/jquery.qrcode.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/javascripts/top.js" charset="utf-8"></script>

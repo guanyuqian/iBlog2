@@ -155,7 +155,18 @@ blockquote {
     color: #01b7ee;
     border-color: #01b7ee;
 }
-
+.navbar-default .navbar-nav > .active:nth-child(4) a{
+    color: #619151;
+    border-color: #619151;
+}
+.navbar-default .navbar-nav > .active:nth-child(6) a{
+    color: #eee163;
+    border-color: #eee163;
+}
+.navbar-default .navbar-nav > .active:nth-child(5) a{
+    color: #445bee;
+    border-color: #445bee;
+}
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
     background: transparent;
 }
