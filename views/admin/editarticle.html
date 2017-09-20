@@ -21,8 +21,9 @@
                         <div class="row">
 
                             <div class="col-md-2">
-                                <label for="imageCropUpload">@__("admin.editarticle.cover")</label>
-                                <div id="imageCropUpload" class=""></div>
+                                <label>@__("admin.editarticle.cover")</label>
+                                <div id="imageCropUpload"></div>
+
                             </div>
                             <div class="col-md-8">
                                 <div class="form-group">
@@ -105,6 +106,7 @@
                                     <!-- Tab panes -->
                                     <div class="tab-content  col-md-9">
                                         <div class="tab-pane active" id="bTabs_navTabsMainPage">
+                                            @this.renderPartial('./scenicInf')
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -221,10 +223,10 @@
     var source = '@post.Source';
     var translateKey = '@config.TranslateKey';
 </script>
+<script src="/libs/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="/libs/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript" src="/libs/bTabs/b.tabs.js" charset="utf-8"></script>
 <script type="text/javascript"
         src="http://api.map.baidu.com/api?v=2.0&ak=A4749739227af1618f7b0d1b588c0e85"></script>
-<script type="text/javascript" src="/libs/baidu-map/lushu.js" charset="utf-8"></script>
-<script type="text/javascript" src="/javascripts/editarticle.js" charset="utf-8"></script>
-
 <script type="text/javascript" src="/javascripts/map.js" charset="utf-8"></script>
+<script type="text/javascript" src="/javascripts/editarticle.js" charset="utf-8"></script>
