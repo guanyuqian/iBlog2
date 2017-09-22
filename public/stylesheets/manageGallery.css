@@ -1,0 +1,26 @@
+.figcaption-input{
+    width: 50%!important;
+    float: left!important;
+}
+.figcaption-h2 {
+    margin-top: -1em;
+    vertical-align: middle;
+    text-align: center;
+    border:none;
+    color: #fff;
+    width: 100%;
+    background: none;
+}
+textarea.figcaption-textarea {
+    text-align: center;
+    border:none;
+    color: #fff;
+    width: 100%;
+    background: none;
+    letter-spacing: 1px;
+    font-size: 120%;
+}
+.wrapper-content{
+    background: white;
+    margin: 20px 10px 40px;
+}

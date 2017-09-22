@@ -1,0 +1,44 @@
+<!-- animate.css -->
+@{this.layout = './shared/layoutAdmin'}
+<link rel="stylesheet" href="/libs/gallery/assets/animate/animate.css"/>
+<link rel="stylesheet" href="/libs/gallery/assets/animate/set.css"/>
+<link rel="stylesheet" href="/libs/gallery/assets/gallery/blueimp-gallery.min.css">
+<link rel="stylesheet" href="/libs/gallery/assets/style.css">
+<link rel="stylesheet" href="/stylesheets/manageGallery.css">
+<link href="/libs/fuelux/dist/css/fuelux.min.css" rel="stylesheet"/>
+<link href="/libs/sweetalert/dist/sweetalert.css" rel="stylesheet"/>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>@__("admin.newarticle.new")</h2>
+    </div>
+</div>
+<div class="wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- works -->
+            <div id="works" class=" clearfix grid">
+                <div id="newArea">
+                </div>
+                <figure class="effect-oscar  wowload fadeInUp">
+                    <img src="/libs/gallery/images/portfolio/10.jpg" alt="img01"/>
+                    <figcaption>
+                        <h2><i class="fa  fa-plus-circle"></i>NEW</h2>
+                        <p>ADD NEW ALBUM CLICK BELOW BUTTON <br>
+                            <button class="figcaptionBtn" type="button" title="1" onclick="addGallery('new')"><i
+                                    class="fa   fa-plus-square-o"></i> NEW ALBUM
+                            </button>
+                        </p>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- works -->
+<script type="text/javascript" src="/javascripts/util.js" charset="utf-8"></script>
+
+<script type="text/javascript" src="/libs/jquery/dist/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/libs/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/libs/metisMenu/dist/metisMenu.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/javascripts/admin.js" charset="utf-8"></script>
+<script type="text/javascript" src="/javascripts/manageGallery.js" charset="utf-8"></script>

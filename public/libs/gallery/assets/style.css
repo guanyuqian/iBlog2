@@ -1,8 +1,7 @@
-body {	color:#666;background-color:#fff;-webkit-font-smoothing:antialiased;}
 
 a{color:#00a9c6; text-decoration:none;}
 a:hover{color:#666;}
-.btn,a,.btn:hover,a:hover {
+.figcaptionBtn,a,.figcaptionBtn:hover,a:hover {
 -webkit-transition: all 0.3s ease-in-out;
 -moz-transition: all 0.3s ease-in-out;
 -ms-transition: all 0.3s ease-in-out;
@@ -11,23 +10,19 @@ transition: all 0.3s ease-in-out;
 outline: none !important;
 }
 
-h1,h2,h3,h4{margin: 0;line-height: 1em;}
-h1{font:700 5em Roboto,Arial,Helvetica;margin:0.25em 0;text-transform: uppercase;}
-h2{font:300 2.5em Roboto,Arial,Helvetica;margin-bottom: 1.5em;}
-h3{font:300 2em Roboto,Arial,Helvetica;margin:2em 0 1em 0;}
-h4{font:300 1.5em Roboto,Arial,Helvetica;margin-bottom: 1em;}
-h4 i{margin-right: 0.5em;}
+figcaption>h1,figcaption>h2,figcaption>h3,figcaption>h4{margin: 0;line-height: 1em;}
+figcaption>h1{font:700 5em Roboto,Arial,Helvetica;margin:0.25em 0;text-transform: uppercase;}
+figcaption>h2{font:300 2.5em Roboto,Arial,Helvetica;margin-bottom: 1.5em;}
+figcaption>h3{font:300 2em Roboto,Arial,Helvetica;margin:2em 0 1em 0;}
+figcaption>h4{font:300 1.5em Roboto,Arial,Helvetica;margin-bottom: 1em;}
+figcaption>h4 i{margin-right: 0.5em;}
 
 p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 
 .spacer{padding: 6em 0;}
 
-.btn{border:none;border-radius: 0;padding: 1em 4em;background: rgba(0,0,0,0.5);text-transform: uppercase;}
-.btn:hover,.btn:active{color: #fff;}
-.btn-default{color: #ccc;border: 1px solid #aaa;}
-.btn-default:hover,.btn-default:active{background: rgba(0,0,0,0.8);}
-.btn-primary{color: #fff;background:#00a9c6;width: 100%;outline: none;}
-.btn-primary:hover,.btn-primary:active,.btn-primary:focus{background:#1BC0DC;box-shadow: none;}
+figcaption>.figcaptionBtn{border:none;border-radius: 0;padding: 1em 4em;background: rgba(0,0,0,0.5);text-transform: uppercase;}
+figcaption>.figcaptionBtn:hover,.figcaptionBtn:active{color: #fff;}
 
 .topbar {background:url(../images/lines.png);	height:5px;position: fixed;top: 0;width: 100%;z-index: 1000;}
 
@@ -38,80 +33,23 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 .caption-wrapper{display: table;height: 100%;width: 100%;}
 .caption-info{display: table-cell;vertical-align: middle;}
 .caption-info p{font-size: 1.25em;}
-.caption-info .btn i{margin-right:0.75em;}
+.caption-info .figcaptionBtn i{margin-right:0.75em;}
 .carousel-inner > .item > img, .carousel-inner > .item > a > img{width: 100%;}
 .carousel-control{z-index:1000;}
 
-/*about*/
-.about.spacer{padding-left: 4em; padding-right: 4em;}
-.process ul li{width: 10em;height: 10em;border: 1px solid #CEEBF0;padding: 0;border-radius: 50%;margin: 0 1.25em;line-height: 13.5em;color: #21ABCA;}
-.process ul li span{line-height: 2em;display: inline-block;font-weight: 300;}
-.process ul li span i{font-size: 3em;}
-.process ul li span b{display: block;font-size: 1em;font-weight: 300;}
 
-
-/*testimonials*/
-.partners img{float: left;margin:0 75px 30px 0;}
-.testimonails{min-height: 195px;}
-.testimonails img{margin-top: 5px;}
-.testimonails span{color: #888;}
-.testimonails span b{font-weight: 400;}
-.carousel-indicators li{border: 1px solid #2BB2E3;}
-.carousel-indicators{bottom: 0;}
 
 /*works*/
-#works{padding-top:70px;}
-#works figcaption a,#works figcaption button{border:1px solid #fff;margin-top: 1em;display: inline-block;color: #fff;padding: 0 2em;     background: 0 0;}
-#works figcaption a:hover,#works figcaption button:hover{text-decoration: none;padding: 0 3em;}
+
+figcaption a, figcaption button{border:1px solid #fff;margin-top: 1em;display: inline-block;color: #fff;padding: 0 2em;     background: 0 0;}
+figcaption a:hover, figcaption button:hover{text-decoration: none;padding: 0 3em;}
 /*works*/
-
-/*team*/
-.team figure{width: 100%;}
-.team img{width: 100%;}
-.team b{font-size: 1.2em;display: block;}
-.team a i.fa{color: #fff; font-size: 2em;}
-.team a i.fa:hover{color: #21abca;}
-
-.copyrights{
-	text-indent:-9999px;
-	height:0;
-	line-height:0;
-	font-size:0;
-	overflow:hidden;
-}
-.highlight-info{ background:url(../images/lab.jpg) center fixed; background-size: cover; color:#fff;}
-.highlight-info .overlay{background: rgba(33,171,202,0.5);}
-.highlight-info h4{color: #fff;margin:0.5em 0 0 0;}
-/*about us*/
-
-
-
-
-
-
-
-
-
-/*contact*/
-#contact{background-color: #f5f5f5;}
-.contactform textarea,.contactform input{width: 100%;padding:1em;border:1px solid #ccc;margin-bottom: 1em;border-radius: 0;outline: none;}
-/*contact*/
-
-
-.footer{background-color: #111; color: #fff; font-size: 1em;color: #aaa;}
-.footer a{color: #aaa;margin: 0 1em; }
-
-.up2gototop{position: fixed;bottom: 80px; right: 20px;background: rgba(0,0,0,0.5);padding: 10px 16.5px;color: #fff;}
-.up2gototop i{line-height: 0.5em;}
-
-.gototop{position: fixed;bottom: 20px; right: 20px;background: rgba(0,0,0,0.5);padding: 10px;color: #fff;}
-.gototop i{line-height: 0.5em;}
 
 
 @media (max-width: 1200px) {
 
 	.process ul li{margin:0 0.5em; }
-	
+
 	.grid figure h2{font: 700 1.5em Roboto,Arial,Helvetica;}
 	figure.effect-oscar figcaption{padding: 12%;}
 	figure.effect-oscar figcaption::before,figure.effect-chico figcaption::before{top: 20px;right: 20px;bottom: 20px;left: 20px;}
@@ -122,13 +60,13 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 @media (max-width: 900px) {
 	h1{font: 700 3.5em Roboto,Arial,Helvetica;}
 	h4 {font: 300 1.3em Roboto,Arial,Helvetica;}
-	.btn{padding: 1em 2em;}
+	.figcaptionBtn{padding: 1em 2em;}
 	.partners img{margin: 0 15px 25px 0;width: 157px;}
 	.process ul li{width: 9em;height: 9em;}
-	figure.effect-chico figcaption {padding: 2em;}	
+	figure.effect-chico figcaption {padding: 2em;}
 	figure.effect-oscar figcaption {padding: 20%;}
 	figure.effect-chico figcaption::before{top: 10px;right: 10px;bottom: 10px;left: 10px;}
-	.grid figure.effect-chico p{font-size: 0.6em;line-height: 1.5em;}	
+	.grid figure.effect-chico p{font-size: 0.6em;line-height: 1.5em;}
 }
 
 
@@ -139,7 +77,7 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 
 	h2.text-center{text-align: left;font-size: 1.7em;}
 	h4 {font: 300 1.2em Roboto,Arial,Helvetica;}
-	#partners h2{padding: 0 1em;} 
+	#partners h2{padding: 0 1em;}
 	#works {padding-top: 5em;}
 
 	.partners{display: block;float: left;}

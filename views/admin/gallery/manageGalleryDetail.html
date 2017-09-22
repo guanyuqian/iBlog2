@@ -1,0 +1,74 @@
+<!-- animate.css -->
+@{this.layout = './shared/layoutAdmin'}
+<link rel="stylesheet" href="/libs/gallery/assets/animate/animate.css"/>
+<link rel="stylesheet" href="/libs/gallery/assets/animate/set.css"/>
+<link rel="stylesheet" href="/libs/gallery/assets/gallery/blueimp-gallery.min.css">
+<link rel="stylesheet" href="/libs/gallery/assets/style.css">
+<link rel="stylesheet" href="/stylesheets/manageGallery.css">
+<link href="/libs/fuelux/dist/css/fuelux.min.css" rel="stylesheet"/>
+<link href="/libs/sweetalert/dist/sweetalert.css" rel="stylesheet"/>
+<form id="postForm" action="/admin/addGallery" method="post">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-8">
+            <h2>@__("admin.newarticle.new")</h2>
+        </div>
+    </div>
+    <div class="wrapper-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <label for="crop">封面</label>
+                <!-- works -->
+                <div id="crop" class=" clearfix grid">
+                    <figure class="effect-oscar  wowload fadeInUp">
+                        <img src="/libs/gallery/images/portfolio/9.jpg" alt="img01" id="imgCrop"/>
+                        <figcaption>
+                            <h2><input id="galleryName" name="galleryName" class="figcaption-h2" placeholder="封面标题"/></h2>
+                            <p>
+                                <input id="UniqueId" name="UniqueId"  hidden value=""/>
+                                <input id="galleryDes" name="galleryDes" class="figcaption-h2 figcaption-input" placeholder="相册描述"/>
+                                <input id="inputCrop" name="inputCrop" class="srcInput figcaption-h2 figcaption-input" placeholder="src"
+                                       value="/libs/gallery/images/portfolio/9.jpg"/>
+                                <button class="figcaptionBtn" type="submit" onclick="">
+                                    <i class="fa  fa-floppy-o"></i> SAVE
+                                </button>
+                            </p>
+                        </figcaption>
+                    </figure>
+
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-lg-12">
+                <label for="crop">相片</label>
+                <input id="photoList" name="photoList" hidden/>
+
+                <!-- works -->
+                <div id="work" class=" clearfix grid">
+                    <div id="newArea">
+                    </div>
+                    <figure class="effect-oscar  wowload fadeInUp">
+                        <img src="/libs/gallery/images/portfolio/7.jpg" alt="img01"/>
+                        <figcaption>
+                            <h2><i class="fa  fa-plus-circle"></i>NEW</h2>
+                            <p>
+                                <button class="figcaptionBtn" type="button" title="1" onclick="addGallerySingle()"><i
+                                        class="fa   fa-plus-square-o"></i> NEW PHOTO
+                                </button>
+                            </p>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- works -->
+<script type="text/javascript" src="/javascripts/util.js" charset="utf-8"></script>
+<script type="text/javascript" src="/libs/jquery/dist/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/libs/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/libs/metisMenu/dist/metisMenu.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/javascripts/admin.js" charset="utf-8"></script>
+<script type="text/javascript" src="/javascripts/manageGalleryDetail.js" charset="utf-8"></script>
+<script type="text/javascript" src="/libs/sweetalert/dist/sweetalert.min.js" charset="utf-8"></script>

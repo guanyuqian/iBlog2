@@ -173,6 +173,7 @@
             data.fv.disableSubmitButtons(false);
         })
         .on('success.form.fv', function (e) {
+            console.log(e);
             if (typeof e.preventDefault != undefined)
                 e.preventDefault();
             $("#Labels").val(JSON.stringify($("#myPillbox").pillbox("items")));
@@ -282,7 +283,7 @@
     //添加删除回调函数 tab
     deleteScenicCallback = deleteScenicList;
 
-    $("#bTabs_navTabsMainPage").load('scenicInf');
+   /* $("#bTabs_navTabsMainPage").load('scenicInf');*/
     $('#mainFrameTabs').bTabs();
 
     //添加tab事件
@@ -295,7 +296,6 @@
 //根据景点生成标题
     function buildContainFromScenic(e) {
         if (typeof e.preventDefault != undefined)
-
             e.preventDefault();
         var html = '';
         for (var i in scenicList) {
@@ -304,10 +304,7 @@
         editor.execCommand('inserthtml', html);
     }
 
-    //tab 切换事件
-    $(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
-        setActiveMark(e.target.href.toString().split('#').pop());
-    });
+
     //设置活跃点，选中
     function setActiveMark(uuid) {
         // e.target.href.split('#').last();
@@ -381,7 +378,6 @@
     //增加景点
     function addScenic(e) {
         if (typeof e.preventDefault != undefined)
-
             e.preventDefault();
         var title = $(".tab-pane.active>div>div>.addScenicsName").first().val();
         var url = 'scenicInf';
@@ -398,19 +394,25 @@
         var result = scenicListAddOrUpdate(newScenic);
         if (result == 'add') {
             $('#mainFrameTabs').bTabsAdd(menuId, title, url, refreshScenic);
-            console.log(scenicList);
+            $('a[data-toggle="tab"]').unbind();
+            $('a[data-toggle="tab"]').click(function(e){
+                setActiveMark(e.target.href.toString().split('#').pop());
+            });
         }
+
         // $('#myTab a:first').tab('show'); // 选择第一个标签
 
     }
 
-
+    //切换事件
+    $('a[data-toggle="tab"]').click(function(e){
+        setActiveMark(e.target.href.toString().split('#').pop());
+    });
     //保存编辑景点
     function updateScenic(e) {
         if (typeof e.preventDefault != undefined)
 
             e.preventDefault();
-        console.log(e.target);
         var title = $(".tab-pane.active>div>div>.addScenicsName").first().val();
         var playTime = $(".tab-pane.active>div>div>div>.addScenicsDate").first().val();
         var type = $(".tab-pane.active>div>div>.addScenicsType").first().val();
@@ -423,7 +425,6 @@
             mark: myMap.chooseMark
         });
         if (action == 'update') {
-            console.log(scenicList);
             $("[href$=" + menuId + "]").first().html(title + '<button type="button" class="navTabsCloseBtn" title="关闭" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>');
         }
     }
@@ -435,24 +436,10 @@
             //再判断是否是更新
             if (id == scenicList[i].uuid) {
                 myMap.deleteMark(scenicList[i].mark);
-                console.log(scenicList);
                 scenicList.splice(i, 1);
                 //  myMap.makeArrowLine(generatePointListByTime());
             }
         }
-    }
-
-    //根据时间生成scenic的mark.point排序
-
-    function generatePointListByTime() {
-        var pointList = [];
-        scenicList.sort(function (a, b) {
-            return a.playTime > b.playTime;
-        });
-        for (var i in scenicList) {
-            pointList.push(scenicList[i].mark.point);
-        }
-        return pointList;
     }
 
     //重新填充Scenic数据

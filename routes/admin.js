@@ -12,7 +12,7 @@ var moment = require('moment');
 var shortid = require('shortid');
 var redisClient = require('../utility/redisClient');
 var datapatch = require('../dataPatch');
-
+var gallery=require('../proxy/gallery');
 //上传配置
 upload.configure({
     uploadDir: path.join(__dirname, '../public/images/'),
@@ -188,11 +188,11 @@ function getArticlesOrTravels(req, res, next, CateName) {
 }
 //获取文章列表数据
 router.post('/getArticles', function (req, res, next) {
-    getArticlesOrTravels(req, res, next,'');
+    getArticlesOrTravels(req, res, next, '');
 });
 //获取旅游列表数据
 router.post('/getTravels', function (req, res, next) {
-    getArticlesOrTravels(req, res, next,'Travels');
+    getArticlesOrTravels(req, res, next, 'Travels');
 });
 
 
@@ -623,7 +623,6 @@ router.get('/travelsManage', function (req, res, next) {
 });
 
 
-
 /**
  * 裁剪上传图片dialog
  */
@@ -640,5 +639,63 @@ router.get('/imageCropUpload', function (req, res, next) {
     });
 });
 
+
+/**
+ * 相册管理
+ */
+router.get('/manageGallery', function (req, res, next) {
+    tool.getConfig(path.join(__dirname, '../config/settings.json'), function (err, settings) {
+        if (err) {
+            next(err);
+        } else {
+            res.render('admin/gallery/manageGallery', {
+                config: settings,
+                title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.manageGallery")
+            });
+        }
+    });
+});
+
+
+
+//添加
+router.get('/galleryDetail/:id', function (req, res, next) {
+    var id = req.params.id;
+    console.log(id);
+    tool.getConfig(path.join(__dirname, '../config/settings.json'), function (err, settings) {
+        if (err) {
+            next(err);
+        } else {
+            res.render('admin/gallery/manageGalleryDetail', {
+                config: settings,
+                title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.newGallery"),
+                gallery: id//a gallery instance
+            });
+        }
+    });
+});
+
+//添加相册
+router.post('/addGallery', function (req, res, next) {
+    var params = {
+        UniqueId: req.body.UniqueId==""?shortid.generate():req.body.UniqueId,
+        //标题
+        galleryName: req.body.galleryName,
+        //描述
+        galleryDes:  req.body.galleryDes,
+        //封面圖片
+        inputCrop:  req.body.inputCrop,
+        //照片集合
+        photoList:  req.body.photoList
+
+    };
+    gallery.save(params, function (err) {
+        if (err) {
+            next(err);
+        } else {
+            res.end();
+        }
+    })
+});
 module.exports = router;
 

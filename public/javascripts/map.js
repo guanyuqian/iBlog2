@@ -1,6 +1,7 @@
 /**
  * Created by the_s on 2017/8/27.
  */
+//MAP ICON 映射
 const BAIDU_ICON_HOUSE = new BMap.Icon("/images/system/house.png", new BMap.Size(50, 50),
     {anchor: new BMap.Size(25, 45)});
 const BAIDU_ICON_KITCHEN = new BMap.Icon("/images/system/kitchen.png", new BMap.Size(50, 50),
@@ -9,6 +10,14 @@ const BAIDU_ICON_PHTOO = new BMap.Icon("/images/system/photo.png", new BMap.Size
     {anchor: new BMap.Size(25, 45)});
 const BAIDU_ICON_PLAY = new BMap.Icon("/images/system/play.png", new BMap.Size(50, 50),
     {anchor: new BMap.Size(25, 45)});
+const ICONList =
+    {
+        '游玩': BAIDU_ICON_PLAY,
+        '吃喝': BAIDU_ICON_KITCHEN,
+        '下榻': BAIDU_ICON_HOUSE,
+        '出片': BAIDU_ICON_PHTOO
+    };
+
 const polyLineFocusColor = '#FCB941';
 const polyLineDefaultColor = '#2C82C9';
 const lushuDefaultColor = '#1abc9c';
@@ -29,14 +38,7 @@ const labelFocusStyle = {
     borderColor: '#7f8c8d',
     cursor: 'pointer'
 };
-//MAP ICON 映射
-const ICONList =
-    {
-        '游玩': BAIDU_ICON_PLAY,
-        '吃喝': BAIDU_ICON_KITCHEN,
-        '下榻': BAIDU_ICON_HOUSE,
-        '出片': BAIDU_ICON_PHTOO
-    };
+
 var myMap = {
     chooseMark: null,
     polyline: null,//所有覆盖线

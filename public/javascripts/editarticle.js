@@ -267,6 +267,14 @@ function articleSelectPreprocess() {
         $("#Categorylist").selectlist("selectByValue", defaultCateID);
         $("#Categorylist").selectlist("disable");
     }
+
+    //Scenic 初始化
+    $('#mainFrameTabs').bTabs();
+    $("#addScenicTabBtn").on('click', addScenic);
+    $("#updateScenicTabBtn").on('click', updateScenic);
+    $("#cancelScenicTabBtn").on('click', cancelScenic);
+    $("#buildContain").on('click', buildContainFromScenic);
+    loadScenicList2MapAndTab();
 }
 
 
@@ -286,6 +294,8 @@ $(".selectlist").on("changed.fu.selectlist", function (e, data) {
 });
 //添加删除回调函数 tab
 deleteScenicCallback = deleteScenicList;
+
+/*
 $.ajax({
     url: '/admin/scenicInf', //这里是静态页的地址
     type: "GET", //静态页用get方法，否则服务器会抛出405错误
@@ -295,14 +305,10 @@ $.ajax({
         $('#mainFrameTabs').bTabs();
 
         //添加tab事件
-        $("#addScenicTabBtn").on('click', addScenic);
-        $("#updateScenicTabBtn").on('click', updateScenic);
-        $("#cancelScenicTabBtn").on('click', cancelScenic);
-        $("#buildContain").on('click', buildContainFromScenic);
-        loadScenicList2MapAndTab();
+
 
     }
-});
+});*/
 //根据景点生成标题
 function buildContainFromScenic(e) {
     e.preventDefault();
@@ -319,11 +325,15 @@ function loadScenicList2MapAndTab() {
         var point = new BMap.Point(scenicList[i].lng, scenicList[i].lat);
         scenicList[i].mark = new BMap.Marker(point, {icon: ICONList[scenicList[i].type]});
         $('#mainFrameTabs').bTabsAdd(scenicList[i].uuid, scenicList[i].title, '/admin/scenicInf', refreshScenic);
+        $('a[data-toggle="tab"]').unbind();
+        $('a[data-toggle="tab"]').click(function(e){
+            setActiveMark(e.target.href.toString().split('#').pop());
+        });
     }
     myMap.loadScenicList(scenicList);
 }
 //tab 切换事件
-$(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+$('a[data-toggle="tab"]').click(function(e){
     setActiveMark(e.target.href.toString().split('#').pop());
 });
 //设置活跃点，选中
@@ -412,7 +422,11 @@ function addScenic(e) {
     var result = scenicListAddOrUpdate(newScenic);
     if (result == 'add') {
         $('#mainFrameTabs').bTabsAdd(menuId, title, url, refreshScenic);
-        //console.log(scenicList);
+        //新load页面增加事件
+        $('a[data-toggle="tab"]').unbind();
+        $('a[data-toggle="tab"]').click(function(e){
+            setActiveMark(e.target.href.toString().split('#').pop());
+        });
     }
     // $('#myTab a:first').tab('show'); // 选择第一个标签
 }
