@@ -1,7 +1,10 @@
 <div class="row footer">
     <div class="col-md-12">
         <footer>
-            <p>@(new Date().getFullYear()) © All Rights Reserved@(config.RecordNo ? ' | ' + config.RecordNo : '') <span class="hidden-xs"> | <a href="/admin" target="_blank">@__("footer.admin_system")</a></span></p>
+            <p><a id="gongxinLink" href="http://www.miitbeian.gov.cn">@(new Date().getFullYear()) © All Rights Reserved@(config.RecordNo ? ' | ' + config.RecordNo : '')  </a><span class="hidden-xs">| <a href="/admin" target="_blank">@__("footer.admin_system")</a></span></p>
         </footer>
     </div>
 </div>
+<script>
+    Document.getElementById("gongxinLink").href="http://www.miitbeian.gov.cn";
+</script>

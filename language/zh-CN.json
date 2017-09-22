@@ -28,7 +28,9 @@
 		"btn_logout": "退出登录",
 		"love_trace_management": "爱之印记",
 		"new_travels": "新的旅行",
-		"travels_manage": "旅行管理"
+		"travels_manage": "旅行管理",
+		"manageGallery": "相册管理",
+		"newGallery": "layoutAdmin.newGallery"
 	},
 	"auth": {
 		"title": "后台登录",
