@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="css/reveal.css">
     <link rel="stylesheet" href="css/theme/black.css" id="theme">
+    <link href="/stylesheets/site.css" rel="stylesheet">
     <!-- Theme used for syntax highlighting of code -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
     <!-- Printing and PDF exports -->
@@ -22,12 +23,6 @@
         link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
         console.log(window.location.href);
         document.getElementsByTagName('head')[0].appendChild(link);
-        document.onkeydown = function (e) {  //对整个页面文档监听
-            var keyNum = window.event ? e.keyCode : e.which;  //获取被按下的键值
-            if (keyNum == 32) {
-                setTimeout(function(){location.reload();},500);
-            }
-        }
     </script>
     <!--[if lt IE 9]>
     <script src="lib/js/html5shiv.js"></script>
@@ -41,178 +36,227 @@
     }
 </style>
 
-<!--https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png-->
-<!--"https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png"-->
-<img src="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" alt="img02"
-     style="width: 100%;height: 100%;position: fixed " hidden/>
-<div id="cyBarrage" role="cylabs" data-use="barrage" style="background: none ;" sid="ppt1"></div>
-<script type="text/javascript" charset="utf-8"
-        src="http://changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid=cytcsXdbQ"></script>
+
 <div class="reveal">
 
     <!-- Any section element inside of this container is displayed as a slide -->
     <div class="slides">
         <section>
-            <h1>Reveal.js</h1>
-            <h3>The HTML Presentation Framework</h3>
+            <h1>文本编辑器/IDE 推荐</h1>
+            <h3><a href="http://www.guanyuqian.com/blog/IT/the-10-most-famous-code-(text)-editor">Blog link</a></h3>
             <p>
-                <small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a>
+                <small>Created by <a href="http://www.guanyuqian.com/about">Sam Guan</a>
                 </small>
             </p>
         </section>
 
-        <section>
-            <div id="SOHUCS" sid="ppt1"></div>
-            <script>
-                (function () {
-                    var appid = 'cytcsXdbQ';
-                    var conf = 'e97cc4b27ae539a52c73bd716b184ad5';
-
-                    if (window.innerWidth || document.documentElement.clientWidth < 960) {
-                        window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
-                    } else {
-                        var loadJs = function (d, a) {
-                            var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
-                            var b = document.createElement("script");
-                            b.setAttribute("type", "text/javascript");
-                            b.setAttribute("charset", "UTF-8");
-                            b.setAttribute("src", d);
-                            if (typeof a === "function") {
-                                if (window.attachEvent) {
-                                    b.onreadystatechange = function () {
-                                        var e = b.readyState;
-                                        if (e === "loaded" || e === "complete") {
-                                            b.onreadystatechange = null;
-                                            a()
-                                        }
-                                    }
-                                } else {
-                                    b.onload = a
-                                }
-                            }
-                            c.appendChild(b)
-                        };
-                        loadJs("http://changyan.sohu.com/upload/changyan.js", function () {
-                            window.changyan.api.config({
-                                appid: appid, conf: conf
-                            })
-                        });
-                    }
-                })();
-            </script>
-        </section>
 
         <!-- Example of nested vertical slides -->
         <section>
             <section>
-                <h2>Vertical Slides</h2>
-                <p>Slides can be nested inside of each other.</p>
-                <p>Use the <em>Space</em> key to navigate through all slides.</p>
-                <br>
-                <a href="#" class="navigate-down">
-                    <img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png"
-                         alt="Down arrow">
-                </a>
-            </section>
-            <section>
-                <h2>Basement Level 1</h2>
-                <p>Nested slides are useful for adding additional detail underneath a high level horizontal slide.</p>
-            </section>
-            <section>
-                <h2>Basement Level 2</h2>
-                <p>That's it, time to go back up.</p>
-                <br>
-                <a href="#/2">
-                    <img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png"
-                         alt="Up arrow" style="transform: rotate(180deg); -webkit-transform: rotate(180deg);">
-                </a>
-            </section>
-        </section>
-
-        <section>
-            <h2>Slides</h2>
-            <p>
-                Not a coder? Not a problem. There's a fully-featured visual editor for authoring these, try it out at <a
-                    href="http://slides.com" target="_blank">http://slides.com</a>.
-            </p>
-        </section>
-
-        <section>
-            <h2>Point of View</h2>
-            <p>
-                Press <strong>ESC</strong> to enter the slide overview.
-            </p>
-            <p>
-                Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>.
-                Alt + click anywhere to zoom back out.
-            </p>
-        </section>
-
-        <section>
-            <h2>Touch Optimized</h2>
-            <p>
-                Presentations look great on touch devices, like mobile phones and tablets. Simply swipe through your
-                slides.
-            </p>
-        </section>
-
-        <section data-markdown>
-            <script type="text/template">
-                ## Markdown support
-
-                Write content using inline or external Markdown.
-                Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
-
-                ```
-                <section data-markdown>
-                    ## Markdown support
-
-                    Write content using inline or external Markdown.
-                    Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
-                </section>
-                ```
-            </script>
-        </section>
-
-        <section>
-            <section id="fragments">
-                <h2>Fragments</h2>
-                <p>Hit the next arrow...</p>
-                <p class="fragment">... to step through ...</p>
-                <p><span class="fragment">... a</span> <span class="fragment">fragmented</span> <span class="fragment">slide.</span>
-                </p>
-
-                <aside class="notes">
-                    This slide has fragments which are also stepped through in the notes window.
-                </aside>
-            </section>
-            <section>
-                <h2>Fragment Styles</h2>
-                <p>There's different types of fragments, like:</p>
-                <p class="fragment grow">grow</p>
-                <p class="fragment shrink">shrink</p>
-                <p class="fragment fade-out">fade-out</p>
-                <p class="fragment fade-up">fade-up (also down, left and right!)</p>
-                <p class="fragment current-visible">current-visible</p>
-                <p>Highlight <span class="fragment highlight-red">red</span> <span
-                        class="fragment highlight-blue">blue</span> <span class="fragment highlight-green">green</span>
+                <h2>爱折腾的文本编辑器
+                </h2>
+                <p>
+                    “世界上只有三种程序员：使用Vim的程序员，使用Emacs的程序员和使用其他编辑器的程序员”
                 </p>
             </section>
+
+            <section>
+                <h2>1. VIM
+                    <span class="post-label"
+                          title="code"
+                          style="color: #0e9aef;font-size: large;padding: 2px ">Linux</span>
+                    <span class="post-label" title="code"
+                          style="color: #0e9aef;font-size: large ;padding: 2px">mac</span>
+                    <span class="post-label" title="code"
+                          style="color: #0e9aef;font-size: large ;padding: 2px">WIN(GVim)</span>
+                </h2>
+                <p>
+                    <small>Vim是从 vi 发展出来的一个文本编辑器。代码补完、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。
+                        简单的来说， vi 是老式的字处理器，不过功能已经很齐全了，但是还是有可以进步的地方,有很多强大的插件等你探索，让你放弃鼠标的视使用。 vim 则可以说是程序开发者的一项很好用的工具。
+                    </small>
+                </p>
+                <img width="48%" height="50%" style="float: left"
+                     data-src="http://blog.jetbrains.com/pycharm/files/2013/06/vim3.gif"/>
+                <img width="48%" height="50%"
+                     style="float: left;margin-left: 1%"
+                     data-src="http://www.runoob.com/wp-content/uploads/2015/10/vi-vim-cheat-sheet-sch.gif"/>
+            </section>
+            <section>
+                <h2>2. GNU Emacs
+                    <span class="post-label"
+                          title="code"
+                          style="color: #0e9aef;font-size: large;padding: 2px ">Linux</span>
+                    <span class="post-label" title="code"
+                          style="color: #0e9aef;font-size: large ;padding: 2px">mac</span>
+                    <span class="post-label" title="code"
+                          style="color: #0e9aef;font-size: large ;padding: 2px">WIN</span>
+                </h2>
+                <p>
+                    <small>Emacs 是一个可移植、可扩展、免费的文本编辑器。 Emacs 提供了一些命令来管理语句和段落，高亮的语法使得源代码更易于阅读，以及“键盘宏”的方式来执行用户定义的编辑命令。
+                        Emacs 可以在若干个操作系统上运行，无论你使用的是哪一种机器类型。这让程序员非常受用。如果你使用的是通用的编程语言，Emacs 还会为你提供模式以及相应的排版和布局，更加方便你编辑代码。
+                        Emacs 或许不是最简单的工具，但它绝对是最强大的编辑器之一。 相比 vim，Emacs 的启动时间更长，所需要的内存也更多。但是，它是高度可定制的，并且包括了大量的功能。
+                    </small>
+                </p>
+                <img width="48%" height="50%"
+                     data-src="https://camo.githubusercontent.com/fa00a6d78ccd80a92220c271a5bff2f24b1caa1f/687474703a2f2f7777772e686f7761726469736d2e6f72672f546563686e6963616c2f456d6163732f6e65772d77696e646f772d6d616e616765722d312e706e67"/>
+
+            </section>
         </section>
+        <section>
+            <section>
+                <h2>易于使用的文本编辑器
+                </h2>
+                <p>
+                    以下按照轻量级排序
+                </p>
+            </section>
+            <section>
+                <h2>1. NOTEPAD++
+                    <span class="post-label" title="code"
+                          style="color: #0e9aef;font-size: large ;padding: 2px">WIN</span>
+                    <span class="post-label"
+                          title="code"
+                          style="color: #0e9aef;font-size: large;padding: 2px ">Linux(Notepadqq)</span>
+                </h2>
+                <p>
+                    <small>NOTEPAD++是一款免费又优秀的文本编辑器，支持在 MS Windows 环境下运行的多种编程语言。NOTEPAD++支持超过 50
+                        种编程、脚本和标记语言的语法高亮显示和代码折叠，能让用户迅速减小或扩大代码段以便查阅整个文档。用户也可以手动设置当前语言，覆盖默认语言。该程序还支持自动完成某些编程语言的 API 子集。
+                    </small>
+                </p>
+                <img width="50%" height="50%"
+                     data-src="https://notepad-plus-plus.org/assets/images/scsh/scsh_gui_verticalDocList.png"/>
+            </section>
+            <section>
+                <h2>2. SUBLIME TEXT
+                    <span class="post-label"
+                          title="code"
+                          style="color: #0e9aef;font-size: large;padding: 2px ">Linux</span>
+                    <span class="post-label" title="code"
+                          style="color: #0e9aef;font-size: large ;padding: 2px">mac</span>
+                    <span class="post-label" title="code"
+                          style="color: #0e9aef;font-size: large ;padding: 2px">WIN</span>
+                </h2>
+                <p>
+                    <small> SUBLIME TEXT 是一个超棒的免费软件/商业性质的文本编辑器。漂亮的用户界面、卓越的功能和令人惊叹的性能一定会让你爱不释手。它可用于 Windows、Mac OS X 和
+                        Linux 系统，并且是免费试用的，而且这个免费时间没有限制。当然你也可以花费 70
+                        美元买个完整的许可证。一份许可证就能允许你在自己拥有的多台计算机上使用，不管每一台计算机使用的是什么操作系统。
+                    </small>
+                </p>
+                <img width="60%" height="50%"
+                     data-src="https://ogmcsrgk5.qnssl.com/python/articlepic/sublime02.png"/>
+
+            </section>
+            <section>
+                <h2>3. Visual Studio Code
+                    <span class="post-label"
+                          title="code"
+                          style="color: #0e9aef;font-size: large;padding: 2px ">Linux</span>
+                    <span class="post-label" title="code"
+                          style="color: #0e9aef;font-size: large ;padding: 2px">mac</span>
+                    <span class="post-label" title="code"
+                          style="color: #0e9aef;font-size: large ;padding: 2px">WIN</span>
+                </h2>
+                <p>
+                    <small> Visual Studio Code（VS Code）是一个由微软开发的，同时支持Windows、Linux和OS X操作系统的开源文本编辑器。[4]它支持调试，内置了Git
+                        版本控制功能，同时也具有开发环境功能，例如代码补全（类似于
+                        IntelliSense）、代码片段、代码重构等。该编辑器支持用户自定义配置，例如改变主题颜色、键盘快捷方式、编辑器属性和其他参数，还支持扩展程序并在编辑器中内置了扩展程序管理的功能。
+                    </small>
+                </p>
+                <img width="70%" height="50%"
+                     data-src="https://code.visualstudio.com/images/extension-gallery_extensions-popular.png"/>
+            </section>
+            <section>
+                <h2>4. Atom
+                    <span class="post-label"
+                          title="code"
+                          style="color: #0e9aef;font-size: large;padding: 2px ">Linux</span>
+                    <span class="post-label" title="code"
+                          style="color: #0e9aef;font-size: large ;padding: 2px">mac</span>
+                    <span class="post-label" title="code"
+                          style="color: #0e9aef;font-size: large ;padding: 2px">WIN</span>
+                </h2>
+                <p>
+                    <small> Atom 是一款由 GitHub 开发的，支持用 Node.js 编写插件和嵌入 Git Contral，面向 Mac OS X、GNU/ Linux 和 Windows
+                        的免费的开源文本和源代码编辑器。没人愿意将时间浪费在配置自己的编辑器上面，于是 ATOM 横空出世。它预装了所有你期望一个现代化的文本编辑器所应该具备的一切功能。而且，ATOM
+                        还配备了标签式界面、多窗格布局、简单的文件浏览器、易于学习的曲线图表，以便于你可以快速上手。
+                    </small>
+                </p>
+                <img width="70%" height="50%"
+                     data-src="http://www.techug.com/wordpress/wp-content/uploads/2015/01/242257219065933.jpg"/>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>IDE</h2>
+                <p>
+                   重量级，项目开放的时候使用
+                </p>
+            </section>
+            <section>
+                <h2>1. visual studio
+                    <span class="post-label" title="code"
+                          style="color: #0e9aef;font-size: large ;padding: 2px">WIN</span>
+                </h2>
+                <p>
+                    <small>
+                        Microsoft Visual
+                        Studio（简称VS）是微软公司的开发工具包系列产品。VS是一个基本完整的开发工具集，它包括了整个软件生命周期中所需要的大部分工具，如UML工具、代码管控工具、集成开发环境（IDE）等等。所写的目标代码适用于微软支持的所有平台，包括Microsoft
+                        Windows、Windows Phone、Windows CE、.NET Framework、.NET Compact Framework和Microsoft Silverlight。
+                    </small>
+                </p>
+                <img width="70%" height="50%"
+                     data-src="https://laod.cn/wp-content/uploads/2017/03/VS2017.png"/>
+            </section>
+            <section>
+                <h2>2. NETBEANS clion
+                    <span class="post-label"
+                          title="code"
+                          style="color: #0e9aef;font-size: large;padding: 2px ">Linux</span>
+                    <span class="post-label" title="code"
+                          style="color: #0e9aef;font-size: large ;padding: 2px">mac</span>
+                    <span class="post-label" title="code"
+                          style="color: #0e9aef;font-size: large ;padding: 2px">WIN</span>
+                </h2>
+                <p>
+                    跨平台兼容性、
+                    快捷键功能强大、
+                    学生免费
+                </p>
+                <img width="70%" height="50%"
+                     data-src="https://i.ytimg.com/vi/8TuQX7nWxEA/maxresdefault.jpg"/>
+            </section>
+            <section>
+                <h2>3. eclipse/myeclipse
+                    <span class="post-label"
+                          title="code"
+                          style="color: #0e9aef;font-size: large;padding: 2px ">Linux</span>
+                    <span class="post-label" title="code"
+                          style="color: #0e9aef;font-size: large ;padding: 2px">mac</span>
+                    <span class="post-label" title="code"
+                          style="color: #0e9aef;font-size: large ;padding: 2px">WIN</span>
+                </h2>
+                <p>
+                    <small>
+                        Eclipse 是一个开放源代码的、基于Java的可扩展开发平台。就其本身而言，它只是一个框架和一组服务，用于通过插件组件构建开发环境。幸运的是，Eclipse
+                        附带了一个标准的插件集，包括Java开发工具（Java Development Kit，JDK）。
+                        也可配置c++开放
+                    </small>
+                </p>
+                <img width="60%" height="50%"
+                     data-src="https://resources.cloud.genuitec.com/wp-content/uploads/2014/08/workbench1.png"/>
+            </section>
+        </section>
+
+
 
         <section id="transitions">
-            <h2>Transition Styles</h2>
+            <h2>总结</h2>
             <p>
-                You can select from different transitions, like: <br>
-                <a href="?transition=none#/transitions">None</a> -
-                <a href="?transition=fade#/transitions">Fade</a> -
-                <a href="?transition=slide#/transitions">Slide</a> -
-                <a href="?transition=convex#/transitions">Convex</a> -
-                <a href="?transition=concave#/transitions">Concave</a> -
-                <a href="?transition=zoom#/transitions">Zoom</a>
+                真正了解一款ide或者文本编辑器都是需要特地去学习的，建议都操作一下，选择一款合心的工具去使用、学习，掌握了之后自己的生产力会大幅度提升。
             </p>
         </section>
-
         <section id="themes">
             <h2>Themes</h2>
             <p>
