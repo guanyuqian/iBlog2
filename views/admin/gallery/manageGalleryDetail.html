@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/stylesheets/manageGallery.css">
 <link href="/libs/fuelux/dist/css/fuelux.min.css" rel="stylesheet"/>
 <link href="/libs/sweetalert/dist/sweetalert.css" rel="stylesheet"/>
-<form id="postForm" action="/admin/addGallery" method="post">
+<form id="postForm" action="/admin/addOrUpdateGallery" method="post">
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-8">
             <h2>@__("admin.newarticle.new")</h2>
@@ -20,14 +20,17 @@
                 <!-- works -->
                 <div id="crop" class=" clearfix grid">
                     <figure class="effect-oscar  wowload fadeInUp">
-                        <img src="/libs/gallery/images/portfolio/9.jpg" alt="img01" id="imgCrop"/>
+                        <img src="http://images53.fotki.com/v1657/photos/0/3847210/14450160/galleryDefault-vi.jpg" alt="img01" id="imgCrop"/>
                         <figcaption>
-                            <h2><input id="galleryName" name="galleryName" class="figcaption-h2" placeholder="封面标题"/></h2>
+                            <h2><input value="@gallery.galleryName" id="galleryName" name="galleryName"
+                                       class="figcaption-h2" placeholder="封面标题"/></h2>
                             <p>
-                                <input id="UniqueId" name="UniqueId"  hidden value=""/>
-                                <input id="galleryDes" name="galleryDes" class="figcaption-h2 figcaption-input" placeholder="相册描述"/>
-                                <input id="inputCrop" name="inputCrop" class="srcInput figcaption-h2 figcaption-input" placeholder="src"
-                                       value="/libs/gallery/images/portfolio/9.jpg"/>
+                                <input id="UniqueId" name="UniqueId" hidden value="@gallery._id"/>
+                                <input value="@gallery.galleryDes" id="galleryDes" name="galleryDes"
+                                       class="figcaption-h2 figcaption-input" placeholder="相册描述"/>
+                                <input id="inputCrop" name="inputCrop" class="srcInput figcaption-h2 figcaption-input"
+                                       placeholder="src"
+                                       value="@gallery.inputCrop"/>
                                 <button class="figcaptionBtn" type="submit" onclick="">
                                     <i class="fa  fa-floppy-o"></i> SAVE
                                 </button>
@@ -49,7 +52,7 @@
                     <div id="newArea">
                     </div>
                     <figure class="effect-oscar  wowload fadeInUp">
-                        <img src="/libs/gallery/images/portfolio/7.jpg" alt="img01"/>
+                        <img src="http://images53.fotki.com/v1657/photos/0/3847210/14450160/galleryDefault-vi.jpg" alt="img01"/>
                         <figcaption>
                             <h2><i class="fa  fa-plus-circle"></i>NEW</h2>
                             <p>
@@ -72,3 +75,47 @@
 <script type="text/javascript" src="/javascripts/admin.js" charset="utf-8"></script>
 <script type="text/javascript" src="/javascripts/manageGalleryDetail.js" charset="utf-8"></script>
 <script type="text/javascript" src="/libs/sweetalert/dist/sweetalert.min.js" charset="utf-8"></script>
+
+<script>
+
+    var HtmlUtil = {
+        /*1.用浏览器内部转换器实现html转码*/
+        htmlEncode: function (html) {
+            //1.首先动态创建一个容器标签元素，如DIV
+            var temp = document.createElement("div");
+            //2.然后将要转换的字符串设置为这个元素的innerText(ie支持)或者textContent(火狐，google支持)
+            (temp.textContent != undefined ) ? (temp.textContent = html) : (temp.innerText = html);
+            //3.最后返回这个元素的innerHTML，即得到经过HTML编码转换的字符串了
+            var output = temp.innerHTML;
+            temp = null;
+            return output;
+        },
+        /*2.用浏览器内部转换器实现html解码*/
+        htmlDecode: function (text) {
+            //1.首先动态创建一个容器标签元素，如DIV
+            var temp = document.createElement("div");
+            //2.然后将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
+            temp.innerHTML = text;
+            //3.最后返回这个元素的innerText(ie支持)或者textContent(火狐，google支持)，即得到经过HTML解码的字符串了。
+            var output = temp.innerText || temp.textContent;
+            temp = null;
+            return output;
+        }
+    };
+    $('#inputCrop').val($('#imgCrop').attr('src'));
+    if('@gallery.inputCrop'!='') {
+        var inputCrop = '@gallery.inputCrop';
+        $('#inputCrop').val(inputCrop);
+        $('#imgCrop').attr('src', inputCrop);
+    }
+    if("@gallery.photoList" != '')
+    {
+        var photoList = JSON.parse(HtmlUtil.htmlDecode("@gallery.photoList"));
+        photoList.forEach(function (gallery, index, arr) {
+            console.log(gallery);
+            addGallerySingle(gallery);
+        });
+    }
+
+
+</script>

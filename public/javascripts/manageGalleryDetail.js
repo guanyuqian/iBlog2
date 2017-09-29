@@ -5,51 +5,56 @@ $(function () {
     $('#inputCrop').change(function (e) {
         $('#imgCrop').attr('src', e.target.value);
     });
-    $('#imgCrop').error(function(){
-        $('#imgCrop').attr('src','/images/system/error.png');
+    $('#imgCrop').error(function () {
+        $('#imgCrop').attr('src', '/images/system/error.png');
     });
 });
-function addGallerySingle() {
+function addGallerySingle(gallery) {
+    if (gallery == null) gallery = {
+        photoDes: "",
+        photoSrc: "",
+        PhotoName: ""
+    };
     var uuid = generateUUID();
-    var newHtml=['<figure class="effect-oscar  wowload fadeInUp " id="figure'+uuid+'">',
-        '                        <img src="/images/system/error.png" name='+uuid+' class="photo" alt="img01" id="img'+uuid+'"/>',
+    var newHtml = ['<figure class="effect-oscar  wowload fadeInUp " id="figure' + uuid + '">',
+        '                        <img src="' + gallery.photoSrc + '"  name=' + uuid + ' class="photo" alt="img01" id="img' + uuid + '"/>',
         '                        <figcaption >',
-        '                            <h2><input class="figcaption-h2 photoName" placeholder="相片标题"/></h2>',
+        '                            <h2><input class="figcaption-h2 photoName" placeholder="相片标题" value="' + gallery.PhotoName + '"/></h2>',
         '                            <p>',
-        '                                <input class="figcaption-h2 figcaption-input photoDes" placeholder="相片描述" value=""/>',
-        '                                <input class="figcaption-h2 srcInput figcaption-input photoSrc" placeholder="src" value="" id="'+uuid+'"/>',
-        '                                <button class="figcaptionBtn" type="button" id="remove'+uuid+'"><i class="fa  fa-trash-o"></i>',
+        '                                <input class="figcaption-h2 figcaption-input photoDes" placeholder="相片描述" value="' + gallery.photoDes + '"/>',
+        '                                <input class="figcaption-h2 srcInput figcaption-input photoSrc" placeholder="src"  value="' + gallery.photoSrc + '" id="' + uuid + '"/>',
+        '                                <button class="figcaptionBtn" type="button" id="remove' + uuid + '"><i class="fa  fa-trash-o"></i>',
         '                                    delete',
         '                                </button>',
         '                            </p>',
         '                        </figcaption>',
         '                    </figure>'].join("");
     $('#newArea').append(newHtml);
-    $('#'+uuid).change(function (e) {
-        $('#img'+e.target.id).attr('src', e.target.value);
+    $('#' + uuid).change(function (e) {
+        $('#img' + e.target.id).attr('src', e.target.value);
     });
-    $('#img'+uuid).error(function(){
-        $('#img'+uuid).attr('src','/images/system/error.png');
+    $('#img' + uuid).error(function () {
+        $('#img' + uuid).attr('src', '/images/system/error.png');
     });
-    $('#remove'+uuid).click(function(){
+    $('#remove' + uuid).click(function () {
         console.log('123');
 
-        $('#figure'+uuid).remove();
+        $('#figure' + uuid).remove();
     });
 }
 
-$("form").submit(function(e){
-    var listPhoto=[];
+$("form").submit(function (e) {
+    var listPhoto = [];
     e.preventDefault();
-    var photoSrc=$('.photoSrc');
-    var photoDes=$('.photoDes');
-    var photoName=$('.photoName');
-    $.each(photoSrc, function( index ) {
+    var photoSrc = $('.photoSrc');
+    var photoDes = $('.photoDes');
+    var photoName = $('.photoName');
+    $.each(photoSrc, function (index) {
         console.log();
         listPhoto.push({
-            photoDes:photoDes[index].value,
-            photoSrc:photoSrc[index].value,
-            PhotoName:photoName[index].value
+            photoDes: photoDes[index].value,
+            photoSrc: photoSrc[index].value,
+            PhotoName: photoName[index].value
         });
     });
     $('#photoList').val(JSON.stringify(listPhoto));
@@ -80,7 +85,7 @@ $("form").submit(function(e){
                         showConfirmButton: false,
                         timer: 2000
                     }, function () {
-                            window.location.href = "/admin/manageGallery";
+                        window.location.href = "/admin/manageGallery";
                     });
                 },
                 error: function () {

@@ -12,7 +12,7 @@ var moment = require('moment');
 var shortid = require('shortid');
 var redisClient = require('../utility/redisClient');
 var datapatch = require('../dataPatch');
-var gallery=require('../proxy/gallery');
+var gallery = require('../proxy/gallery');
 //上传配置
 upload.configure({
     uploadDir: path.join(__dirname, '../public/images/'),
@@ -657,36 +657,42 @@ router.get('/manageGallery', function (req, res, next) {
 });
 
 
-
 //添加
-router.get('/galleryDetail/:id', function (req, res, next) {
+router.get('/addOrEditGalleryDetail/:id', function (req, res, next) {
     var id = req.params.id;
     console.log(id);
-    tool.getConfig(path.join(__dirname, '../config/settings.json'), function (err, settings) {
+    gallery.getById(id, function (err, gallery) {
         if (err) {
-            next(err);
-        } else {
-            res.render('admin/gallery/manageGalleryDetail', {
-                config: settings,
-                title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.newGallery"),
-                gallery: id//a gallery instance
-            });
+            cb(err);
         }
+        tool.getConfig(path.join(__dirname, '../config/settings.json'), function (err, settings) {
+            if (err) {
+                next(err);
+            } else {
+                console.log(gallery);
+                if(gallery==null)gallery={};
+                res.render('admin/gallery/manageGalleryDetail', {
+                    config: settings,
+                    title: settings['SiteName'] + ' - ' + res.__("layoutAdmin.newGallery"),
+                    gallery: gallery//a gallery instance
+                });
+            }
+        });
     });
 });
 
 //添加相册
-router.post('/addGallery', function (req, res, next) {
+router.post('/addOrUpdateGallery', function (req, res, next) {
     var params = {
-        UniqueId: req.body.UniqueId==""?shortid.generate():req.body.UniqueId,
+        UniqueId: req.body.UniqueId == "" ? shortid.generate() : req.body.UniqueId,
         //标题
         galleryName: req.body.galleryName,
         //描述
-        galleryDes:  req.body.galleryDes,
+        galleryDes: req.body.galleryDes,
         //封面圖片
-        inputCrop:  req.body.inputCrop,
+        inputCrop: req.body.inputCrop,
         //照片集合
-        photoList:  req.body.photoList
+        photoList: req.body.photoList
 
     };
     gallery.save(params, function (err) {
@@ -696,6 +702,17 @@ router.post('/addGallery', function (req, res, next) {
             res.end();
         }
     })
+});
+
+//删除相册
+router.post('/deleteGallery', function (req, res, next) {
+    gallery.delete(req.body.id, function (err) {
+        if (err) {
+            next(err);
+        } else {
+            res.end();
+        }
+    });
 });
 module.exports = router;
 

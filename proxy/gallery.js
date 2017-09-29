@@ -65,3 +65,33 @@ exports.getAll = function (params, callback) {
         return callback(null, gallerys);
     });
 };
+
+/**
+ * 根据id获取相册
+ * @param id 相册id
+ * @param callback 回调函数
+ */
+exports.getById = function (id, callback) {
+    GalleryModel.findById(id, function (err, gallery) {
+        if (err) {
+            return callback(err);
+        }
+        return callback(null, gallery);
+    });
+};
+
+
+/**
+ * 删除相册
+ * @param ids 相册id，多个id以逗号分隔
+ * @param callback 回调函数
+ */
+exports.delete = function (id, callback) {
+    GalleryModel.findOneAndRemove({'_id': id}, {}, function (err) {
+            if (err) {
+                return callback(err);
+            }
+                return callback(null);
+        });
+};
+
