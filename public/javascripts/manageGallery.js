@@ -9,7 +9,6 @@ function refreshGallery() {
         url: "/getGallery",
         type: "get",
         success: function (data) {
-            console.log(data);
             data.forEach(function (item) {
                 addGallerySingle(item);
             });

@@ -4,125 +4,22 @@
 <!-- gallery -->
 <link rel="stylesheet" href="/libs/gallery/assets/gallery/blueimp-gallery.min.css">
 <link rel="stylesheet" href="/libs/gallery/assets/style.css">
+<div class="container-fluid render-body">
+    <div class="row data-block">
+        <div class=" blog-list">
+            <form id="showDetail" action="/gallery/detail"  method="post">
 
-<form id="showDetail" action="/gallery/detail" method="post">
+                <!-- works -->
+                <div id="" class=" clearfix grid">
+                    <div id="newArea">
+                    </div>
+                </div>
+                <!-- works -->
 
-    <!-- works -->
-    <div id="works" class=" clearfix grid">
-        <figure class="effect-oscar  wowload fadeIn">
-            <img src="http://images59.fotki.com/v1653/photos/0/3847210/14437029/DSC_4976-vi.jpg" alt="img01"/>
-            <figcaption>
-                <h2>杭州行</h2>
-                <p>2016/10/30~2016/11/3，杭州三日游<br>
-                    <button class="btn" type="submit" title="1">View more</button>
-                </p>
-            </figcaption>
-        </figure>
-        <figure class="effect-oscar  wowload fadeInUp">
-            <img src="http://images59.fotki.com/v1653/photos/0/3847210/14437029/DSC_4976-vi.jpg" alt="img01"/>
-            <figcaption>
-                <h2>Events</h2>
-                <p>Lily likes to play with crayons and pencils<br>
-                    <button class="btn" type="submit" title="1">View more</button>
-                </p>
-            </figcaption>
-        </figure>
-        <figure class="effect-oscar  wowload fadeInUp">
-            <img src="http://images59.fotki.com/v1653/photos/0/3847210/14437029/DSC_4976-vi.jpg" alt="img01"/>
-            <figcaption>
-                <h2>music</h2>
-                <p>Lily likes to play with crayons and pencils<br>
-                    <button class="btn" type="submit" title="1">View more</button>
-                </p>
-            </figcaption>
-        </figure>
-        <figure class="effect-oscar  wowload fadeInUp">
-            <img src="http://images59.fotki.com/v1653/photos/0/3847210/14437030/DSC_5244-vi.jpg" alt="img01"/>
-            <figcaption>
-                <h2>Vintage</h2>
-                <p>Lily likes to play with crayons and pencils<br>
-                    <button class="btn" type="submit" title="1">View more</button>
-                </p>
-            </figcaption>
-        </figure>
-        <figure class="effect-oscar  wowload fadeInUp">
-            <img src="http://images59.fotki.com/v1653/photos/0/3847210/14437030/DSC_5244-vi.jpg" alt="img01"/>
-            <figcaption>
-                <h2>Typers</h2>
-                <p>Lily likes to play with crayons and pencils<br>
-                    <button class="btn" type="submit" title="1">View more</button>
-                </p>
-            </figcaption>
-        </figure>
-
-        <figure class="effect-oscar  wowload fadeInUp">
-            <img src="http://images59.fotki.com/v1653/photos/0/3847210/14437030/DSC_5244-vi.jpg" alt="img01"/>
-            <figcaption>
-                <h2>hotel</h2>
-                <p>Lily likes to play with crayons and pencils<br>
-                    <button class="btn" type="submit" title="1">View more</button>
-                </p>
-            </figcaption>
-        </figure>
-        <figure class="effect-oscar  wowload fadeInUp">
-            <img src="/libs/gallery/images/portfolio/7.jpg" alt="img01"/>
-            <figcaption>
-                <h2>Chinese</h2>
-                <p>Lily likes to play with crayons and pencils<br>
-                    <button class="btn" type="submit" title="1">View more</button>
-                </p>
-            </figcaption>
-        </figure>
-        <figure class="effect-oscar  wowload fadeInUp">
-            <img src="/libs/gallery/images/portfolio/8.jpg" alt="img01"/>
-            <figcaption>
-                <h2>Dicrap</h2>
-                <p>Lily likes to play with crayons and pencils<br>
-                    <button class="btn" type="submit" title="1">View more</button>
-                </p>
-            </figcaption>
-        </figure>
-        <figure class="effect-oscar  wowload fadeInUp">
-            <img src="/libs/gallery/images/portfolio/9.jpg" alt="img01"/>
-            <figcaption>
-                <h2>Coffee</h2>
-                <p>Lily likes to play with crayons and pencils<br>
-                    <button class="btn" type="submit" title="1">View more</button>
-                </p>
-            </figcaption>
-        </figure>
-        <figure class="effect-oscar  wowload fadeInUp">
-            <img src="http://images53.fotki.com/v1657/photos/0/3847210/14450160/galleryDefault-vi.jpg" alt="img01"/>
-            <figcaption>
-                <h2>cameras</h2>
-                <p>Lily likes to play with crayons and pencils<br>
-                    <button class="btn" type="submit" title="1">View more</button>
-                </p>
-            </figcaption>
-        </figure>
-        <figure class="effect-oscar  wowload fadeInUp">
-            <img src="/libs/gallery/images/portfolio/11.jpg" alt="img01"/>
-            <figcaption>
-                <h2>design</h2>
-                <p>Lily likes to play with crayons and pencils<br>
-                    <button class="btn" type="submit" title="1">View more</button>
-                </p>
-            </figcaption>
-        </figure>
-        <figure class="effect-oscar  wowload fadeInUp">
-            <img src="/libs/gallery/images/portfolio/12.jpg" alt="img01"/>
-            <figcaption>
-                <h2>studio</h2>
-                <p>Lily likes to play with crayons and pencils<br>
-                    <button class="btn" type="submit" title="1">View more</button>
-                </p>
-            </figcaption>
-        </figure>
-
+            </form>
+        </div>
     </div>
-    <!-- works -->
-
-</form>
+</div>
 @this.renderPartial('./top')
 <script type="text/javascript" src="/libs/jquery/dist/jquery.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/libs/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
@@ -139,3 +36,4 @@
 <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=@config.JiaThisId" charset="utf-8"></script>
 <script type="text/javascript" src="/libs/jquery-qrcode/dist/jquery.qrcode.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/javascripts/top.js" charset="utf-8"></script>
+<script type="text/javascript" src="/javascripts/gallery.js" charset="utf-8"></script>

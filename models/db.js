@@ -4,7 +4,10 @@ var mongoose = require('mongoose');
 var extend = require('mongoose-schema-extend');
 var i18n = require('./i18n');
 // use custom mongodb url or localhost
+//mongoose.connect(dbPath || "mongodb://localhost/blogrift");
+console.log(dbPath);
 mongoose.connect(dbPath || "mongodb://localhost/blogrift");
+
 var db = mongoose.connection;
 db.on('error', function (err) {
     console.error(i18n.__('error.db_1') + err);

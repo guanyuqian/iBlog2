@@ -2,6 +2,7 @@
  * Created by the_s on 2017/9/20.
  */
 $(function () {
+    $("#side-menu>li:eq(4)").addClass("active")
     $('#inputCrop').change(function (e) {
         $('#imgCrop').attr('src', e.target.value);
     });
@@ -37,7 +38,6 @@ function addGallerySingle(gallery) {
         $('#img' + uuid).attr('src', '/images/system/error.png');
     });
     $('#remove' + uuid).click(function () {
-        console.log('123');
 
         $('#figure' + uuid).remove();
     });
@@ -50,7 +50,6 @@ $("form").submit(function (e) {
     var photoDes = $('.photoDes');
     var photoName = $('.photoName');
     $.each(photoSrc, function (index) {
-        console.log();
         listPhoto.push({
             photoDes: photoDes[index].value,
             photoSrc: photoSrc[index].value,
