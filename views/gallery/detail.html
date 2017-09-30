@@ -5,7 +5,6 @@
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
 <!-- bootstrap -->
-<link rel="stylesheet" href="/libs/gallery/assets/bootstrap/css/bootstrap.min.css"/>
 
 <!-- animate.css -->
 <link rel="stylesheet" href="/libs/gallery/assets/animate/animate.css"/>
@@ -28,24 +27,6 @@
     </div>
 </div>
 
-<!-- works -->
-<a href="/gallery" class="up2gototop "><i class="fa fa-angle-left  fa-3x"></i></a>
-
-<a href="#works" class="gototop "><i class="fa fa-angle-up  fa-3x"></i></a>
-
-<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
-<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
-    <!-- The container for the modal slides -->
-    <div class="slides"></div>
-    <!-- Controls for the borderless lightbox -->
-    <h3 class="title">Title</h3>
-    <a class="prev">‹</a>
-    <a class="next">›</a>
-    <a class="close">×</a>
-    <!-- The modal dialog, which will be used to wrap the lightbox content -->
-</div>
-
-
 
 <!-- jquery -->
 <script src="/libs/gallery/assets/jquery.js"></script>
@@ -53,7 +34,6 @@
 <script type="text/javascript" src="/javascripts/galleryDetail.js" charset="utf-8"></script>
 
 <script>
-
     var HtmlUtil = {
         /*1.用浏览器内部转换器实现html转码*/
         htmlEncode: function (html) {
@@ -82,7 +62,6 @@
     {
         var photoList = JSON.parse(HtmlUtil.htmlDecode("@gallery.photoList"));
         photoList.forEach(function (gallery, index, arr) {
-            console.log(gallery);
             addGallerySingle(gallery);
         });
     }
@@ -95,6 +74,7 @@
 
 <!-- boostrap -->
 <script src="/libs/gallery/assets/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+<script type="text/javascript" src="/javascripts/top.js" charset="utf-8"></script>
 
 <!-- jquery mobile -->
 <script src="/libs/gallery/assets/mobile/touchSwipe.min.js"></script>
@@ -105,4 +85,18 @@
 
 <!-- custom script -->
 <script src="/libs/gallery/assets/script.js"></script>
+@this.renderPartial('./top')
+<script>
+    $(".my-nav-pills li:eq(2)").addClass("active").siblings().removeClass("active");
 
+    var logoPath = "@config.LogoPath";
+    var jiathis_config = {
+        data_track_clickback: true,
+        url: window.location.href,
+        summary: "",
+        title: "@(config.SiteName) - 相册"
+    };
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=@config.JiaThisId" charset="utf-8"></script>
+<script type="text/javascript" src="/libs/jquery-qrcode/dist/jquery.qrcode.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/javascripts/top.js" charset="utf-8"></script>
