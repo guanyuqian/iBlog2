@@ -1,5 +1,7 @@
 node_modules/
 *.log
 public/libs
+public/images
 .idea/
+nohup.out
 .gitignore

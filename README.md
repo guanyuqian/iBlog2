@@ -55,6 +55,8 @@ $ npm install
 * 客户端依赖  
 ```Shell
 $ bower install
+//if error
+$ bower install --allow-root 
 ```
 
 #### 参数配置
