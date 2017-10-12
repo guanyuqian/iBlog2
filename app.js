@@ -61,7 +61,18 @@ app.use('/blog', blog);
 app.use('/admin', require('connect-ensure-login').ensureLoggedIn('/login'), admin);
 app.use('/ue/controller', ue);
 
+app.use(function(req,res, next){
+    if(req.url!=="/favicon.ico"){
+        //超时直接回调
+        res.setTimeout(1000,function(req1, res1, next){
+            console.log("响应超时.");
+            var err = new Error();
+            err.status = 500;
+            next(err);
+        });
 
+    }
+});
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error();

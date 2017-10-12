@@ -63,42 +63,12 @@
                 @if(config.ShowComments === 'true') {
                 <hr class="hr-article">
                 <div id="SOHUCS" sid="@post.UniqueId"></div>
-                <script>
-                    (function () {
-                        var appid = '@config.ChangyanId';
-                        var conf = '@config.ChangyanConf';
-
-                        if (window.innerWidth || document.documentElement.clientWidth < 960) {
-                            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
-                        } else {
-                            var loadJs = function (d, a) {
-                                var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
-                                var b = document.createElement("script");
-                                b.setAttribute("type", "text/javascript");
-                                b.setAttribute("charset", "UTF-8");
-                                b.setAttribute("src", d);
-                                if (typeof a === "function") {
-                                    if (window.attachEvent) {
-                                        b.onreadystatechange = function () {
-                                            var e = b.readyState;
-                                            if (e === "loaded" || e === "complete") {
-                                                b.onreadystatechange = null;
-                                                a()
-                                            }
-                                        }
-                                    } else {
-                                        b.onload = a
-                                    }
-                                }
-                                c.appendChild(b)
-                            };
-                            loadJs("http://changyan.sohu.com/upload/changyan.js", function () {
-                                window.changyan.api.config({
-                                    appid: appid, conf: conf
-                                })
-                            });
-                        }
-                    })();
+                <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+                <script type="text/javascript">
+                    window.changyan.api.config({
+                        appid: 'cyqARl5Jo',
+                        conf: 'prod_07871915a8107172b3b5dc15a6574ad3'
+                    });
                 </script>
                 }
             </article>
@@ -133,6 +103,36 @@
         summary: "@post.Summary",
         title: "@post.Title"
     };
+
+    $(function () {
+        /**
+         * map加載
+         */
+        myMap.noChooseMark();
+        myMap.enableClickAddChooseMark = false;//不可点选新点
+        myMap.enableClickSetMarkListAnimation = true;
+        GetTravels();
+        function GetTravels() {
+            var  scenicList=JSON.parse( $('#scenicList').val());
+            var Alias=$('#Alias').val();
+            travelList=[{scenicList:scenicList,Alias: Alias}];
+            if(typeof  travelList.scenicList != 'undefined' &&travelList.scenicList.length!=0) {
+                console.log(travelList);
+                PretreatmentTravels(travelList);
+            }else{
+                $('#map-container').hide();
+            }
+        }
+        //预处理游记
+        function PretreatmentTravels(travels) {
+            for (var i in travels) {
+                if (typeof travels[i].scenicList == "undefined" || travels[i].scenicList.length == 0) {
+                } else {
+                    loadScenicList2Map(travels[i]);
+                }
+            }
+        }
+    })
 </script>
 <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=@config.JiaThisId" charset="utf-8"></script>
 <script type="text/javascript" src="/libs/jquery-qrcode/dist/jquery.qrcode.min.js" charset="utf-8"></script>
