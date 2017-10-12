@@ -13,7 +13,7 @@
                     <i class="fa fa-align-justify"></i>
                 </button>
                 <div class="font-controller hidden-sm hidden-xs">
-                    <div title="缩小字体" class="btn-font btn-font-minus">  A-</div>
+                    <div title="缩小字体" class="btn-font btn-font-minus"> A-</div>
                     <div title="增大字体" class="btn-font btn-font-plus">A+</div>
                 </div>
                 <div class="hidden-sm hidden-xs">
@@ -63,13 +63,14 @@
                 @if(config.ShowComments === 'true') {
                 <hr class="hr-article">
                 <div id="SOHUCS" sid="@post.UniqueId"></div>
-                <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
                 <script type="text/javascript">
-                    window.changyan.api.config({
-                        appid: 'cytcsXdbQ',
-                        conf: 'prod_b98b1e5559a0b89f019b5b042da1f6a7'
-                    });
-                </script>
+                    (function(){
+                        var appid = 'cytcsXdbQ';
+                        var conf = 'prod_b98b1e5559a0b89f019b5b042da1f6a7';
+                        var width = window.innerWidth || document.documentElement.clientWidth;
+                        if (width < 960) {
+                            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+
                 }
             </article>
 
@@ -113,16 +114,17 @@
         myMap.enableClickSetMarkListAnimation = true;
         GetTravels();
         function GetTravels() {
-            var  scenicList=JSON.parse( $('#scenicList').val());
-            var Alias=$('#Alias').val();
-            travelList=[{scenicList:scenicList,Alias: Alias}];
-            if(typeof  travelList.scenicList != 'undefined' &&travelList.scenicList.length!=0) {
+            var scenicList = JSON.parse($('#scenicList').val());
+            var Alias = $('#Alias').val();
+            travelList = [{scenicList: scenicList, Alias: Alias}];
+            if (typeof  travelList.scenicList != 'undefined' && travelList.scenicList.length != 0) {
                 console.log(travelList);
                 PretreatmentTravels(travelList);
-            }else{
+            } else {
                 $('#map-container').hide();
             }
         }
+
         //预处理游记
         function PretreatmentTravels(travels) {
             for (var i in travels) {
