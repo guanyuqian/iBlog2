@@ -95,6 +95,8 @@ $ npm start
 _守护进程能够发挥多核CPU性能，并在出现异常退出后延迟30秒自动重启工作进程。_
 ```Shell
 $ node daemon.js
+#如果用户登出则无效，创建后台守护即可
+$ nohup node daemon.js &
 ```
 打开浏览器，访问 [http://localhost:3000/](http://localhost:3000)
 #### Enjoy it! :smile:
