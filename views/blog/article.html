@@ -118,8 +118,7 @@
             var scenicList = JSON.parse($('#scenicList').val());
             var Alias = $('#Alias').val();
             travelList = [{scenicList: scenicList, Alias: Alias}];
-            if (typeof  travelList.scenicList != 'undefined' && travelList.scenicList.length != 0) {
-                console.log(travelList);
+            if (typeof  scenicList != 'undefined' && scenicList.length != 0) {
                 PretreatmentTravels(travelList);
             } else {
                 $('#map-container').hide();
