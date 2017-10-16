@@ -7,7 +7,7 @@
   ],
   "dependencies": {
     "jquery": ">=1.8.3",
-    "bootstrap": ">=2.2.2 <3.0"
+    "bootstrap": ">=2.2.2"
   },
   "homepage": "https://github.com/tarruda/bootstrap-datetimepicker",
   "_release": "0.0.11",
