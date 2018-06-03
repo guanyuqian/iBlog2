@@ -28,8 +28,9 @@
 		"btn_logout": "Logout",
 		"love_trace_management": "Love Space",
 		"new_travels": "New Travels",
-		"travels_manage":"Trafels Manage",
-		"manageGallery":"Manage Gallery"
+		"travels_manage": "Trafels Manage",
+		"manageGallery": "Manage Gallery",
+		"newGallery": "layoutAdmin.newGallery"
 	},
 	"auth": {
 		"title": "Admin Login",
@@ -43,14 +44,14 @@
 		"msg": "Message",
 		"about": "About",
 		"love": "Travels",
-		"gallery":"gallery"
+		"gallery": "gallery"
 	},
 	"layout": {
 		"blog": "Blog",
 		"message": "Message",
 		"about": "About",
 		"love": "Love",
-		"gallery":"gallery"
+		"gallery": "gallery"
 	},
 	"footer": {
 		"admin_system": "Admin System"
